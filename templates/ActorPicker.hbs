@@ -1,0 +1,12 @@
+{{ log 'Actor Picker' this }}
+<form>
+    {{#each actors as |actor|}}
+    <div data-actor-id="{{actor._id}}" style="display: flex; align-items: flex-start; justify-content: flex-start;">
+        <div><img src="{{actor.img}}" style="width: 50px; height: 50px;"></div>
+        <label for="{{actor._id}}checkbox">{{actor.name}}</label>
+        <input type="checkbox" id="{{actor._id}}checkbox" name="{{actor._id}}">
+    </div>
+    {{/each}}
+
+    <button class="create-actor" data-action="create-actor">{{localize "Group.Sheet.ActorPicker.Title.Submit"}}</button>
+</form>

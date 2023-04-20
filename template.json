@@ -1,0 +1,29 @@
+{
+    "Actor": {
+        "types": ["pc", "npc", "group"],
+        "templates": {
+
+        },
+        "pc": {
+            "templates": []
+        },
+        "npc": {
+            "templates": []
+        },
+        "group": {
+            "linkedIds": []
+        }
+    },
+    "Item": {
+        "types": ["power", "perk"],
+        "templates": {
+
+        },
+        "power": {
+            "templates": []
+        },
+        "perk": {
+            "templates": []
+        }
+    }
+}

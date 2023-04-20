@@ -1,0 +1,54 @@
+// game rules
+import { Rules } from "./config.js";
+
+// actor sheets
+import { GroupActorSheet } from "../actor-sheets/group-sheet.js";
+
+Hooks.on("init", function() {
+    UnT.initialize()
+});
+
+export class UnT {
+    static initialize() {
+        CONFIG.UnT = Rules;
+
+        Actors.registerSheet(`${this.ID}`, GroupActorSheet, { types: ["group"], makeDefault: true })
+
+        // this needs to move to the GroupActor class once its made
+        Hooks.on("deleteActor", (actor, options, userId) => {
+            UnT.log(false, `Actor with ID '${actor._id}' has been deleted by user '${userId}'.`)
+
+            const groupActors = game.actors.filter((actor) => actor.type === 'group')
+
+            for (const actor of groupActors) {
+                const linkedIds = actor.system.linkedIds
+
+                const newLinkedIds = []
+                for (const actorId of linkedIds) {
+                    if (game.actors.get(actorId)) {
+                        newLinkedIds.push(actorId)
+                    }
+                }
+
+                actor.update({"system.linkedIds": newLinkedIds})
+            }
+        });
+    }
+
+    static ID = 'untitled-ttrpg';
+
+    static SETTINGS = {}
+
+    static TEMPLATES = {
+        GroupActorSheet: `systems/${this.ID}/templates/GroupActorSheet.hbs`,
+        ActorPicker: `systems/${this.ID}/templates/ActorPicker.hbs`
+    }
+
+    static log(force, ...args) {
+        const shouldLog = force || game.modules.get('_dev-mode')?.active;
+
+        if (shouldLog) {
+            console.log(this.ID, '|', ...args);
+        }
+    }
+}

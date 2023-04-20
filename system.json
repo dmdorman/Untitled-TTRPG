@@ -1,0 +1,40 @@
+{
+    "id": "untitled-ttrpg",
+    "title": "Untitled TTRPG",
+    "description": "A personal project.",
+    "version": "0.0.1",
+    "compatibility": {
+        "minimum": "10",
+        "verified": "10",
+        "maximum": "10"
+    },
+    "authors": [
+        {
+            "name": "BoDiddleyBeat",
+            "discord": "bodiddley#4450"
+        }
+    ],
+    "esmodules": [
+        "scripts/untitled-ttrpg.js"
+    ],
+    "styles": [
+        "styles/untitled-ttrpg.css"
+    ],
+    "packs": [],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "socket": true,
+    "initiative": "1d20",
+    "gridDistance": 10,
+    "gridUnits": "ft",
+    "primaryTokenAttribute": "resources.health",
+    "secondaryTokenAttribute": "resources.power",
+    "url": "https://github.com/dmdorman/Untitled-TTRPG",
+    "manifest": "",
+    "download": ""
+}
