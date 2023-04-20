@@ -1,1 +1,25 @@
-{}
+{
+    "Group": {
+        "Sheet": {
+            "AddActor": "Add Existing Character",
+            "CreateActor": "Create New Character"
+        }
+    },
+    "PC": {
+        "Sheet": {
+            "Placeholder": {
+                "Name": "Name",
+                "HP": "HP",
+                "AP": "AP",
+                "Stat3": "Stat3",
+                "Stat4": "Stat4"
+            }
+        }
+    },
+    "Item": {
+        "Placeholder": {
+            "Name": "Item Name",
+            "Description": "Item Description"
+        }
+    }
+}

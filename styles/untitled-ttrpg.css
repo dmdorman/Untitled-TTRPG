@@ -1,0 +1,93 @@
+.flex-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.square-input {
+    width: 60px !important;
+    height: 60px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    border: 1px solid #ccc !important;
+}
+
+.name-input {
+    flex-grow: 1;
+    height: 60px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+    text-align: center !important;
+    border: 1px solid #ccc !important;
+}
+
+.pc-profile-img {
+    width: 100px;
+    height: 100px;
+}
+
+/* item cards for pc sheet */
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 140px;
+    aspect-ratio: 1.4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+}
+
+.card-image {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.card-name {
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+.card-textarea {
+    flex-grow: 1;
+    resize: none;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.large-card {
+    width: 300px;
+    height: 420px;
+}
+
+.small-card {
+    width: 100px;
+    height: 140px;
+}

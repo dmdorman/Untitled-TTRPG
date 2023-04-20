@@ -1,0 +1,18 @@
+{{ log 'PC Actor Sheet' this }}
+<form>
+    <div class="flex-row">
+        <img src="{{data.actor.img}}" class="pc-profile-img">
+        <input type="text" placeholder="{{localize "PC.Sheet.Placeholder.Name"}}" class="name-input" style="margin-left: 10px;">
+    </div>
+    <div class="flex-row" style="justify-content: space-around; margin-top: 10px;">
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" class="square-input">
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" class="square-input">
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat3"}}" class="square-input">
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat4"}}" class="square-input">
+    </div>
+    <div class="card-container">
+        {{#each data.items as |item|}}
+        {{> systems/untitled-ttrpg/templates/partials/ItemCard.hbs customClass="small-card" item=item }}
+        {{/each}}
+    </div>
+</form>

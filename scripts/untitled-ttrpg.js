@@ -3,6 +3,10 @@ import { Rules } from "./config.js";
 
 // actor sheets
 import { GroupActorSheet } from "../actor-sheets/group-sheet.js";
+import { PCActorSheet } from "../actor-sheets/pc-sheet.js";
+
+// handlebars helpers
+import { initializeHandlebarsHelpers } from "./handlebars-helpers.js"
 
 Hooks.on("init", function() {
     UnT.initialize()
@@ -12,7 +16,14 @@ export class UnT {
     static initialize() {
         CONFIG.UnT = Rules;
 
+        loadTemplates([
+            `systems/${this.ID}/templates/partials/ItemCard.hbs`
+        ]);
+
         Actors.registerSheet(`${this.ID}`, GroupActorSheet, { types: ["group"], makeDefault: true })
+        Actors.registerSheet(`${this.ID}`, PCActorSheet, { types: ["pc"], makeDefault: true })
+
+        initializeHandlebarsHelpers()
 
         // this needs to move to the GroupActor class once its made
         Hooks.on("deleteActor", (actor, options, userId) => {
@@ -41,6 +52,7 @@ export class UnT {
 
     static TEMPLATES = {
         GroupActorSheet: `systems/${this.ID}/templates/GroupActorSheet.hbs`,
+        PCActorSheet: `systems/${this.ID}/templates/PCActorSheet.hbs`,
         ActorPicker: `systems/${this.ID}/templates/ActorPicker.hbs`
     }
 
