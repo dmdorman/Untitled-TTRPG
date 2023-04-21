@@ -1,4 +1,4 @@
-import { UnT } from "../scripts/untitled-ttrpg.js"
+import { UnT } from "../untitled-ttrpg.js"
 
 export class GroupActorSheet extends ActorSheet {
     static get defaultOptions() {

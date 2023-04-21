@@ -91,3 +91,21 @@
     width: 100px;
     height: 140px;
 }
+
+/* scene control icons */
+.scene-control-icon,
+.scene-control-icon-types {
+    font-family: Arial, sans-serif;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.45;
+}
+
+.scene-control-icon::before {
+    content: 'UnT';
+}
+
+.scene-control-icon-types::before {
+    content: 'Types';
+}

@@ -2,7 +2,11 @@
     "Group": {
         "Sheet": {
             "AddActor": "Add Existing Character",
-            "CreateActor": "Create New Character"
+            "CreateActor": "Create New Character",
+            "ActorPicker": {
+                "Title": "Character Picker",
+                "Submit": "Submit"
+            }
         }
     },
     "PC": {

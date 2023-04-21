@@ -2,8 +2,8 @@
 import { Rules } from "./config.js";
 
 // actor sheets
-import { GroupActorSheet } from "../actor-sheets/group-sheet.js";
-import { PCActorSheet } from "../actor-sheets/pc-sheet.js";
+import { GroupActorSheet } from "./actor-sheets/group-sheet.js";
+import { PCActorSheet } from "./actor-sheets/pc-sheet.js";
 
 // handlebars helpers
 import { initializeHandlebarsHelpers } from "./handlebars-helpers.js"
@@ -53,7 +53,8 @@ export class UnT {
     static TEMPLATES = {
         GroupActorSheet: `systems/${this.ID}/templates/GroupActorSheet.hbs`,
         PCActorSheet: `systems/${this.ID}/templates/PCActorSheet.hbs`,
-        ActorPicker: `systems/${this.ID}/templates/ActorPicker.hbs`
+        ActorPicker: `systems/${this.ID}/templates/ActorPicker.hbs`,
+        TypesForm: `systems/${this.ID}/templates/TypesForm.hbs`
     }
 
     static log(force, ...args) {

@@ -15,7 +15,9 @@
         }
     ],
     "esmodules": [
-        "scripts/untitled-ttrpg.js"
+        "scripts/untitled-ttrpg.js",
+        "scripts/scene-control.js",
+        "scripts/settings-helper.js"
     ],
     "styles": [
         "styles/untitled-ttrpg.css"
