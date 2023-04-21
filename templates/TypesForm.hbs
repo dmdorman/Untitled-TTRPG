@@ -1,24 +1,32 @@
 {{ log 'Types Form' this }}
 <form>
+    <button type="button" data-action="add-type">{{localize "Types.Add"}}</button>
+
     <table>
         <thread>
             <tr>
                 <th></th>
-                {{#each @root.typing as |column|}}
-                <th>{{column.name}}</th>
+                {{#each @root.typing as |type typeIdx|}}
+                <th>
+                    <div class="typing-tags" 
+                        style="background-color: {{type.color}};" 
+                        data-action="edit-tag"
+                        data-type="{{typeIdx}}"
+                    >{{type.name}}</div>
+                </th>
                 {{/each}}
             </tr>
         </thread>
         <tbody>
             {{#each @root.typing as |row rowIdx|}}
             <tr>
-                <td>{{row.name}}</td>
+                <td><div class="typing-tags">{{row.name}}</div></td>
 
                 {{#each @root.typing as |column colIdx|}}
                 <td>
                     <input type="Number" 
                         placeholder="1" 
-                        name="interactions-{{column.name}}-{{row.name}}"
+                        name="interactions-{{colIdx}}-{{rowIdx}}"
                         value="{{lookup (lookup (lookup @root.typing colIdx) 'interactions') rowIdx}}"
                         class="square-input"
                     >

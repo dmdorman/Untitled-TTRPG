@@ -35,7 +35,7 @@ export class TypingForm extends FormApplication {
             
         const typing = JSON.parse(game.settings.get(UnT.ID, 'typing'))
 
-        UnT.log(false, typing)
+        UnT.log(false, formData)
 
         for (const [field, value]  of Object.entries(expandedData)) {
             if (field.includes('interactions')) {
@@ -59,6 +59,39 @@ export class TypingForm extends FormApplication {
         const action = clickedElement.data().action;
 
         switch(action) {
+            case ('add-type'): {
+                UnT.log(false, 'add new type!')
+
+                const typing = JSON.parse(game.settings.get(UnT.ID, 'typing'))
+
+                const placeholderName = game.i18n.localize("Types.DefaultName")
+
+                typing[foundry.utils.randomID()] = {
+                    name: placeholderName,
+                    interactions: {},
+                }
+
+                await game.settings.set(UnT.ID, 'typing', JSON.stringify(typing))
+
+                this.render()
+
+                break;
+            }
+
+            case ('edit-tag'): {
+                UnT.log(false, 'Edit tag!')
+
+                const typeId = clickedElement.data().type
+
+                UnT.log(false, typeId)
+
+                const typeEditor = new TypeEditor()
+
+                typeEditor.render(true)
+
+                break;
+            }
+
             default:
                 UnT.log(false, 'Invalid action detected', action)
                 break;
@@ -83,5 +116,42 @@ export class TypingForm extends FormApplication {
             typing[type1]['interactions'][type2] = value
             typing[type2]['interactions'][type1] = value
         }
+    }
+}
+
+export class TypeEditor extends FormApplication {
+    static get defaultOptions() {
+        const defaults = super.defaultOptions;
+
+        const overrides = {
+            height: 'auto',
+            width: 'auto',
+            id: foundry.utils.randomID(),
+            template: UnT.TEMPLATES.TypeEditor,
+            title: "SceneControl.Types.TypeEditor.Title",
+            userId: game.userId,
+            closeOnSubmit: true, // do not close when submitted
+            submitOnChange: false, // submit when any input changes
+            resizable: true,
+        }
+
+        const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
+
+        return mergedOptions
+    }
+
+    getData(options) {
+        const data = super.getData()
+
+        return { 
+            data,
+            typing: JSON.parse(game.settings.get(UnT.ID, 'typing'))
+        }
+    }
+
+    async _updateObject(event, formData) {
+        const expandedData = foundry.utils.expandObject(formData);
+
+        this.render();
     }
 }

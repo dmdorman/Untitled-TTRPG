@@ -25,5 +25,8 @@
             "Name": "Item Name",
             "Description": "Item Description"
         }
+    },
+    "Types": {
+        "DefaultName": "unamed"
     }
 }

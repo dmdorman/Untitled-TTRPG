@@ -54,7 +54,8 @@ export class UnT {
         GroupActorSheet: `systems/${this.ID}/templates/GroupActorSheet.hbs`,
         PCActorSheet: `systems/${this.ID}/templates/PCActorSheet.hbs`,
         ActorPicker: `systems/${this.ID}/templates/ActorPicker.hbs`,
-        TypesForm: `systems/${this.ID}/templates/TypesForm.hbs`
+        TypesForm: `systems/${this.ID}/templates/TypesForm.hbs`,
+        TypeEditor: `systems/${this.ID}/templates/TypeEditor.hbs`
     }
 
     static log(force, ...args) {
