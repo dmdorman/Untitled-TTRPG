@@ -1,14 +1,19 @@
 {{ log 'Type Editor' this }}
 <form>
     <div class="flex-row">
-        <div>{{localize "Group.Sheet.ActorPicker.Name"}}:</div>
-        <div></div>
+        <label class="input-label" for="name">{{localize "Types.TypeEditor.Name"}}:</label>
+        <input class="input-field" type="String" id="name" name="name" value="{{typeData.name}}"></input>
     </div>
 
     <div class="flex-row">
-        <div>{{localize "Group.Sheet.ActorPicker.Color"}}:</div>
-        <div></div>
+        <label class="input-label" for="color">{{localize "Types.TypeEditor.Color"}}:</label>
+        <input class="input-field" type="String" id="color" name="color" value="{{typeData.color}}"></input>
     </div>
 
-    <button>{{localize "Group.Sheet.ActorPicker.Submit"}}</button>
+    <div class="split-75-25">
+        <button>{{localize "Types.TypeEditor.Submit"}}</button>
+        <div data-action="delete" style="display: flex; justify-content: center; align-items: center;">
+            <i class="trash-icon fas fa-trash-alt"></i>
+        </div>
+    </div>
 </form>

@@ -27,6 +27,18 @@
         }
     },
     "Types": {
-        "DefaultName": "unamed"
+        "Title": "Types",
+        "Add": "Add New Type",
+        "DefaultName": "unamed",
+        "TypeEditor": {
+            "Title": "Type Editor",
+            "Name": "Type Name",
+            "Color": "Type Color",
+            "Submit": "Submit",
+            "Confirm": {
+                "Title": "Delete Confirmation",
+                "Delete": "Delete typing? This cannot be undone."
+            }
+        }
     }
 }

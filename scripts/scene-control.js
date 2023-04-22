@@ -16,17 +16,19 @@ Hooks.on('getSceneControlButtons', (buttons) => {
         visible: true
     }
 
+    UnTTool.tools.push({
+        name: "types",
+        icon: "scene-control-icon-types",
+        title: game.i18n.localize("UnT.SceneControl.Types"),
+        button: true,
+        onClick: () => {
+            const typeForm = new TypingForm()
+            typeForm.render(true)
+        },
+    })
+
     if(game.user.isGM) {
-        UnTTool.tools.push({
-            name: "types",
-            icon: "scene-control-icon-types",
-            title: game.i18n.localize("UnT.SceneControl.Types"),
-            button: true,
-            onClick: () => {
-                const typeForm = new TypingForm()
-                typeForm.render(true)
-            },
-        })
+       // GM only controls
     }
 
     buttons.push(UnTTool)

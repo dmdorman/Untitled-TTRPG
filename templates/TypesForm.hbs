@@ -1,7 +1,5 @@
 {{ log 'Types Form' this }}
 <form>
-    <button type="button" data-action="add-type">{{localize "Types.Add"}}</button>
-
     <table>
         <thread>
             <tr>
@@ -9,7 +7,7 @@
                 {{#each @root.typing as |type typeIdx|}}
                 <th>
                     <div class="typing-tags" 
-                        style="background-color: {{type.color}};" 
+                        style="background-color: {{type.color}}; color: {{type.textColor}}" 
                         data-action="edit-tag"
                         data-type="{{typeIdx}}"
                     >{{type.name}}</div>
@@ -20,15 +18,22 @@
         <tbody>
             {{#each @root.typing as |row rowIdx|}}
             <tr>
-                <td><div class="typing-tags">{{row.name}}</div></td>
+                <td>
+                    <div class="typing-tags"
+                        style="background-color: {{row.color}}; color: {{row.textColor}};"
+                        data-action="edit-tag"
+                        data-type="{{typeIdx}}"
+                    >{{row.name}}</div>
+                </td>
 
                 {{#each @root.typing as |column colIdx|}}
-                <td>
-                    <input type="Number" 
+                <td style="align-items: center;">
+                    <input type="number" 
                         placeholder="1" 
                         name="interactions-{{colIdx}}-{{rowIdx}}"
                         value="{{lookup (lookup (lookup @root.typing colIdx) 'interactions') rowIdx}}"
-                        class="square-input"
+                        class="square-input size-40-40"
+                        {{#unless @root.isGM}}disabled{{/unless}}
                     >
                 </td>
                 {{/each}}
@@ -36,4 +41,8 @@
             {{/each}}
         </tbody>
     </table>
+
+    {{#if isGM}}
+    <button type="button" data-action="add-type">{{localize "Types.Add"}}</button>
+    {{/if}}
 </form>

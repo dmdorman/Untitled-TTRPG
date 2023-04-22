@@ -48,6 +48,8 @@ export class UnT {
 
     static ID = 'untitled-ttrpg';
 
+    static SOCKET = 'system.' + this.ID
+
     static SETTINGS = {}
 
     static TEMPLATES = {
