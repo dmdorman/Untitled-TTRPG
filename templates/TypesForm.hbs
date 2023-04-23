@@ -3,7 +3,10 @@
     <table>
         <thread>
             <tr>
-                <th></th>
+                <th>
+                    <div>{{localize "General.Defense"}}<i class="fas fa-arrow-right"></i></div>
+                    <div>{{localize "General.Attack"}}<i class="fas fa-arrow-down"></i></div>
+                </th>
                 {{#each @root.typing as |type typeIdx|}}
                 <th>
                     <div class="typing-tags" 

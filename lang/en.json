@@ -1,4 +1,8 @@
 {
+    "General": {
+        "Attack": "Attack",
+        "Defense": "Defense"
+    },
     "Group": {
         "Sheet": {
             "AddActor": "Add Existing Character",

@@ -21,15 +21,30 @@ export class PCActorSheet extends ActorSheet {
         return mergedOptions
     }
 
+    async _updateObject(event, formData) {
+        await super._updateObject(event, formData)    
+
+        const expandedData = foundry.utils.expandObject(formData);
+
+        const newTypeKey = 'new-type'
+
+        if (!(expandedData[newTypeKey] === 'null') && !(this.actor.system.types.includes(expandedData[newTypeKey]))) {
+            const types = this.actor.system.types;
+            types.push(expandedData[newTypeKey])
+
+            await this.actor.update({'system.types': types})
+        }
+
+        this.render();
+    }
+
     async getData() {
         const data = super.getData()
 
-        // const actors = GroupActorData.getActorsByIds(this.actor.system.linkedIds)
-
         return {
             data,
-            ID: UnT.ID
-            // actors
+            ID: UnT.ID,
+            typing: JSON.parse(game.settings.get(UnT.ID, 'typing'))
         };
     }
 
@@ -44,6 +59,14 @@ export class PCActorSheet extends ActorSheet {
         const action = clickedElement.data().action;
 
         switch(action) {
+            case ('set-editable'): {
+                const inEditMode = this.actor.system.inEditMode;
+
+                this.actor.update({'system.inEditMode': !inEditMode})
+
+                break;
+            }
+
             default:
                 UnT.log(false, 'Invalid action detected', action)
                 break;

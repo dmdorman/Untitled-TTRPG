@@ -1,18 +1,31 @@
 {{ log 'PC Actor Sheet' this }}
 <form>
     <div class="flex-row">
+        {{#if (eq (isEditable @root.data.actor) "enabled")}}
+        <img src="{{data.actor.img}}" data-edit="img" class="pc-profile-img">
+        {{else}}
         <img src="{{data.actor.img}}" class="pc-profile-img">
+        {{/if}}
+
         <input type="text" placeholder="{{localize "PC.Sheet.Placeholder.Name"}}" class="name-input" style="margin-left: 10px;">
     </div>
     <div class="flex-row" style="justify-content: space-around; margin-top: 10px;">
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" class="square-input">
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" class="square-input">
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat3"}}" class="square-input">
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat4"}}" class="square-input">
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" name="system.hp" class="square-input" {{isEditable @root.data.actor}}>
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" name="system.ap" class="square-input" {{isEditable @root.data.actor}}>
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat3"}}" name="hello.there" class="square-input" {{isEditable @root.data.actor}}>
+        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat4"}}" name="select.type" class="square-input" {{isEditable @root.data.actor}}>
     </div>
+
+    {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs inEditMode=@root.data.actor.system.inEditMode typing=@root.typing }}
+
+
+    {{ log 'data items' data.items }}
+
     <div class="card-container">
         {{#each data.items as |item|}}
         {{> systems/untitled-ttrpg/templates/partials/ItemCard.hbs customClass="small-card" item=item }}
         {{/each}}
     </div>
+
+    <div style="text-align: right; margin-left: 10px;"><i class="fas fa-cog" data-action="set-editable"></i></div>
 </form>

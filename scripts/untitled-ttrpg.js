@@ -17,7 +17,8 @@ export class UnT {
         CONFIG.UnT = Rules;
 
         loadTemplates([
-            `systems/${this.ID}/templates/partials/ItemCard.hbs`
+            `systems/${this.ID}/templates/partials/ItemCard.hbs`,
+            `systems/${this.ID}/templates/partials/TypeRow.hbs`
         ]);
 
         Actors.registerSheet(`${this.ID}`, GroupActorSheet, { types: ["group"], makeDefault: true })

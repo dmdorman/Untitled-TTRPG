@@ -141,9 +141,12 @@ export class ActorPicker extends FormApplication {
 
         const actors = GroupActorData.getActorsByIds(filteredActorIds)
 
+        const isGM = game.user.isGM
+
         return { 
             data,
-            actors
+            actors,
+            isGM
         }
     }
 

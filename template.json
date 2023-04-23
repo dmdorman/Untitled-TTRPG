@@ -2,25 +2,33 @@
     "Actor": {
         "types": ["pc", "npc", "group"],
         "templates": {
-
+            "typed": {
+                "types": []
+            },
+            "editable": {
+                "inEditMode": false
+            }
         },
         "pc": {
-            "templates": []
+            "templates": [ "typed", "editable" ]
         },
         "npc": {
-            "templates": []
+            "templates": [ "typed", "editable" ]
         },
         "group": {
+            "templates": [ "editable" ],
             "linkedIds": []
         }
     },
     "Item": {
-        "types": ["power", "perk"],
+        "types": ["ability", "perk"],
         "templates": {
-
+            "typed": {
+                "types": []
+            }
         },
-        "power": {
-            "templates": []
+        "ability": {
+            "templates": [ "typed" ]
         },
         "perk": {
             "templates": []

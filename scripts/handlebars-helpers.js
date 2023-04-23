@@ -14,4 +14,8 @@ export function initializeHandlebarsHelpers() {
         // Render the compiled partial with provided context
         return new Handlebars.SafeString(compiledTemplate(options.hash));
     });
+
+    Handlebars.registerHelper('isEditable', function(actor, options) {
+        return actor.system.inEditMode ? 'enabled' : 'disabled';
+    });
 }
