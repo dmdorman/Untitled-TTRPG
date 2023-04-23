@@ -5,6 +5,9 @@ import { Rules } from "./config.js";
 import { GroupActorSheet } from "./actor-sheets/group-sheet.js";
 import { PCActorSheet } from "./actor-sheets/pc-sheet.js";
 
+// item sheets
+import { UnTItemSheet } from "./item-sheets/item-sheet.js";
+
 // handlebars helpers
 import { initializeHandlebarsHelpers } from "./handlebars-helpers.js"
 
@@ -23,6 +26,14 @@ export class UnT {
 
         Actors.registerSheet(`${this.ID}`, GroupActorSheet, { types: ["group"], makeDefault: true })
         Actors.registerSheet(`${this.ID}`, PCActorSheet, { types: ["pc"], makeDefault: true })
+
+        // // Register sheet application classes
+        // Actors.unregisterSheet("core", ActorSheet);
+        // Actors.registerSheet("herosystem6e", HeroSystem6eActorSheet, { makeDefault: true });
+        // Items.unregisterSheet("core", ItemSheet);
+        // Items.registerSheet("herosystem6e", HeroSystem6eItemSheet, { makeDefault: true });
+
+        Items.registerSheet(`${this.ID}`, UnTItemSheet, { makeDefault: true })
 
         initializeHandlebarsHelpers()
 

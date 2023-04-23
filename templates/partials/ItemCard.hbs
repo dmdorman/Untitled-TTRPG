@@ -1,5 +1,6 @@
+{{ log 'item card partial' this }}
 <div class="card {{customClass}}">
-    <div class="card-header">
+    <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
         <img src="{{item.img}}" class="card-image">
         <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
     </div>

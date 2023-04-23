@@ -16,8 +16,7 @@
         <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat4"}}" name="select.type" class="square-input" {{isEditable @root.data.actor}}>
     </div>
 
-    {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs inEditMode=@root.data.actor.system.inEditMode typing=@root.typing }}
-
+    {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.actor}}
 
     {{ log 'data items' data.items }}
 

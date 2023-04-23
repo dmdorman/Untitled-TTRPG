@@ -1,0 +1,8 @@
+{{ log 'ability sheet' this }}
+<form>
+    {{> systems/untitled-ttrpg/templates/partials/ItemCard.hbs customClass="large-card" item=@root.data.item }}
+
+    {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.item}}
+
+    <div style="text-align: right; margin-left: 10px; margin-bottom: 20px"><i class="fas fa-cog" data-action="set-editable"></i></div>
+</form>

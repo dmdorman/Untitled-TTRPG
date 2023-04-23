@@ -25,10 +25,13 @@
         "templates": {
             "typed": {
                 "types": []
+            },
+            "editable": {
+                "inEditMode": false
             }
         },
         "ability": {
-            "templates": [ "typed" ]
+            "templates": [ "typed", "editable" ]
         },
         "perk": {
             "templates": []

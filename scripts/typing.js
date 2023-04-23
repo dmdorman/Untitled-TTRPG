@@ -36,7 +36,7 @@ export class TypingForm extends FormApplication {
     async _updateObject(event, formData) {
         const expandedData = foundry.utils.expandObject(formData);
             
-        const typing = JSON.parse(game.settings.get(UnT.ID, 'typing'))
+        const typing = getTyping()
 
         for (const [field, value]  of Object.entries(expandedData)) {
             if (field.includes('interactions')) {
@@ -79,7 +79,7 @@ export class TypingForm extends FormApplication {
 
         switch(action) {
             case ('add-type'): {
-                const typing = JSON.parse(game.settings.get(UnT.ID, 'typing'))
+                const typing = getTyping()
 
                 const placeholderName = game.i18n.localize("Types.DefaultName")
 
@@ -150,7 +150,7 @@ export class TypeEditor extends FormApplication {
     getData(options) {
         const data = super.getData()
 
-        const typing = JSON.parse(game.settings.get(UnT.ID, 'typing'))
+        const typing = getTyping()
 
         return { 
             data,
@@ -161,7 +161,7 @@ export class TypeEditor extends FormApplication {
     async _updateObject(event, formData) {
         const expandedData = foundry.utils.expandObject(formData);
 
-        const typing = JSON.parse(game.settings.get(UnT.ID, 'typing'))
+        const typing = getTyping()
 
         for (const [field, value]  of Object.entries(expandedData)) {
             if (!typing[this.object.typeId][field]) {
@@ -201,7 +201,7 @@ export class TypeEditor extends FormApplication {
                 });
 
                 if (confirmed) {
-                    const typing = JSON.parse(game.settings.get(UnT.ID, 'typing'))
+                    const typing = getTyping()
 
                     delete typing[this.object.typeId]
 
@@ -236,6 +236,27 @@ export class TypeEditor extends FormApplication {
 
         return "#fff" // white
     }
+}
+
+export function getTyping() {
+    return JSON.parse(game.settings.get(UnT.ID, 'typing'))
+}
+
+export async function addType(object, typeKey) {
+    if (!(typeKey === 'null') && !(object.system.types.includes(typeKey))) {
+        const types = object.system.types;
+        types.push(typeKey)
+
+        await object.update({'system.types': types})
+    }
+}
+
+export async function removeType(object, typeKey) {
+    const types = object.system.types
+
+    const filteredTypes = types.filter((e) => e !== typeKey)
+
+    await object.update({'system.types': filteredTypes})
 }
 
 export function isBrightColor(color) {
@@ -290,6 +311,8 @@ export function toRGBColor(color) {
 
     return hexToRGB(color);
 }
+
+export const defaultColor = "#a8a878"
 
 export const cssColors = {
     "aliceblue": "#F0F8FF",

@@ -1,4 +1,5 @@
 import { UnT } from "../untitled-ttrpg.js"
+import { addType, removeType } from "../typing.js";
 
 export class PCActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -26,14 +27,7 @@ export class PCActorSheet extends ActorSheet {
 
         const expandedData = foundry.utils.expandObject(formData);
 
-        const newTypeKey = 'new-type'
-
-        if (!(expandedData[newTypeKey] === 'null') && !(this.actor.system.types.includes(expandedData[newTypeKey]))) {
-            const types = this.actor.system.types;
-            types.push(expandedData[newTypeKey])
-
-            await this.actor.update({'system.types': types})
-        }
+        await addType(this.actor, expandedData['new-type'])
 
         this.render();
     }
@@ -63,6 +57,14 @@ export class PCActorSheet extends ActorSheet {
                 const inEditMode = this.actor.system.inEditMode;
 
                 this.actor.update({'system.inEditMode': !inEditMode})
+
+                break;
+            }
+
+            case ('delete-type'): {
+                await removeType(this.actor, clickedElement.data().typeId)
+
+                this.render()
 
                 break;
             }

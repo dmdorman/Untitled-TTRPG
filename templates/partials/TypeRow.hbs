@@ -1,6 +1,10 @@
 {{ log 'Type Row Partial' this }}
 <div class="flex-row" style="margin-top: 10px; margin-bottom: 10px; justify-content: center;">
-    {{#each @root.data.actor.system.types as |typeIdx|}}
+    {{#each object.system.types as |typeIdx|}}
+        {{#if ../object.system.inEditMode}}
+            <i class="trash-icon fas fa-trash-alt" data-action="delete-type" data-type-id="{{typeIdx}}"></i>
+        {{/if}}
+
         {{#with (lookup @root.typing typeIdx) as |type|}}
         <div class="typing-tags" 
             style="background-color: {{type.color}}; color: {{type.textColor}}" 
@@ -10,7 +14,7 @@
         {{/with}}
     {{/each}}
 
-    {{#if inEditMode}}
+    {{#if object.system.inEditMode}}
     <select name="new-type" data-dtype="text">
         <option value="null">{{localize "Types.Add"}}</option>
         {{#each typing as |type typeIdx|}}
