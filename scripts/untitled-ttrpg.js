@@ -24,14 +24,12 @@ export class UnT {
             `systems/${this.ID}/templates/partials/TypeRow.hbs`
         ]);
 
+        Actors.unregisterSheet("core", ActorSheet);
+
         Actors.registerSheet(`${this.ID}`, GroupActorSheet, { types: ["group"], makeDefault: true })
         Actors.registerSheet(`${this.ID}`, PCActorSheet, { types: ["pc"], makeDefault: true })
 
-        // // Register sheet application classes
-        // Actors.unregisterSheet("core", ActorSheet);
-        // Actors.registerSheet("herosystem6e", HeroSystem6eActorSheet, { makeDefault: true });
-        // Items.unregisterSheet("core", ItemSheet);
-        // Items.registerSheet("herosystem6e", HeroSystem6eItemSheet, { makeDefault: true });
+        Items.unregisterSheet("core", ItemSheet);
 
         Items.registerSheet(`${this.ID}`, UnTItemSheet, { makeDefault: true })
 
@@ -69,7 +67,8 @@ export class UnT {
         PCActorSheet: `systems/${this.ID}/templates/PCActorSheet.hbs`,
         ActorPicker: `systems/${this.ID}/templates/ActorPicker.hbs`,
         TypesForm: `systems/${this.ID}/templates/TypesForm.hbs`,
-        TypeEditor: `systems/${this.ID}/templates/TypeEditor.hbs`
+        TypeEditor: `systems/${this.ID}/templates/TypeEditor.hbs`,
+        ComponentPicker: `systems/${this.ID}/templates/ComponentPicker.hbs`
     }
 
     static log(force, ...args) {

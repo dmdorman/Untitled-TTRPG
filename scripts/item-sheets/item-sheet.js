@@ -1,6 +1,7 @@
 import { UnT } from "../untitled-ttrpg.js";
 
 import { removeType } from "../typing.js";
+import { ComponentPicker } from "../component-picker.js";
 
 export class UnTItemSheet extends ItemSheet {
     static get defaultOptions() {
@@ -60,6 +61,14 @@ export class UnTItemSheet extends ItemSheet {
                 await removeType(this.item, clickedElement.data().typeId)
 
                 this.render()
+
+                break;
+            }
+
+            case ('add-component'): {
+                const componentPicker = new ComponentPicker({item: this.object.item})
+
+                componentPicker.render(true);
 
                 break;
             }

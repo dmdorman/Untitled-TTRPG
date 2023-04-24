@@ -31,7 +31,8 @@
             }
         },
         "ability": {
-            "templates": [ "typed", "editable" ]
+            "templates": [ "typed", "editable" ],
+            "components": []
         },
         "perk": {
             "templates": []

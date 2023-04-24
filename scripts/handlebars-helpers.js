@@ -49,4 +49,12 @@ export function initializeHandlebarsHelpers() {
             return "#fff"
         }
     });
+
+    Handlebars.registerHelper('localizeVariableKey', function (leadingString, key, tailingString, options) {
+        const localizationKey = (typeof tailingString === 'string')? `${leadingString}.${key}.${tailingString}`: `${leadingString}.${key}`;
+
+        const localizedValue = game.i18n.localize(localizationKey) || localizationKey;
+
+        return new Handlebars.SafeString(localizedValue);
+    });
 }

@@ -28,6 +28,29 @@
         "Placeholder": {
             "Name": "Item Name",
             "Description": "Item Description"
+        },
+        "Ability": {
+            "Component": {
+                "ComponentPicker": "Component Picker",
+                "Add": "Add Component",
+                "attacks": "Attacks",
+                "defenses": "Defenses",
+                "movement": "Movement",
+                "control": "Control",
+                "utility": "Utility",
+                "advantages": "Advantages",
+                "disadvantages": "Disadvantages",
+                "dice": {
+                    "Name": "Dice"
+                },
+                "Options": {
+                    "1d4": "1d4",
+                    "1d6": "1d6",
+                    "1d8": "1d8",
+                    "1d10": "1d10",
+                    "1d12": "1d12"
+                }
+            }
         }
     },
     "Types": {

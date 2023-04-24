@@ -4,5 +4,9 @@
 
     {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.item}}
 
+    {{#if data.item.system.inEditMode}}
+        <div data-action="add-component"><i class="fas fa-plus"></i> {{localize 'Item.Ability.Component.Add'}}</div>
+    {{/if}}
+
     <div style="text-align: right; margin-left: 10px; margin-bottom: 20px"><i class="fas fa-cog" data-action="set-editable"></i></div>
 </form>
