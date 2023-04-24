@@ -49,9 +49,6 @@ export class UnTItemSheet extends ItemSheet {
 
         switch(action) {
             case ('set-editable'): {
-
-                UnT.log(false, this)
-
                 const inEditMode = this.item.system.inEditMode;
 
                 this.item.update({'system.inEditMode': !inEditMode})
