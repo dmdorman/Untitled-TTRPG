@@ -45,6 +45,12 @@ export class PCActorSheet extends ActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
+        const handler = ev => this._onDragStart(ev)
+        html.find('.card-header').each((i, li) => {
+            li.setAttribute('draggable', true)
+            li.addEventListener('dragstart', handler, false)
+        });
+
         html.on('click', "[data-action]", this._handleButtonClick.bind(this));
     }
 
