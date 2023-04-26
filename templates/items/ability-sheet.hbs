@@ -1,4 +1,4 @@
-{{ log 'ability sheet' this }}
+{{!-- {{ log 'Ability Sheet' this }} --}}
 <form>
     {{> systems/untitled-ttrpg/templates/partials/ItemCard.hbs customClass="large-card" item=@root.data.item }}
 
@@ -9,4 +9,6 @@
     {{/if}}
 
     <div style="text-align: right; margin-left: 10px; margin-bottom: 20px"><i class="fas fa-cog" data-action="set-editable"></i></div>
+
+    {{ log 'item' @root.data.item.system.components }}
 </form>

@@ -254,7 +254,9 @@ export async function addType(object, typeKey) {
 export async function removeType(object, typeKey) {
     const types = object.system.types
 
-    const filteredTypes = types.filter((e) => e !== typeKey)
+    const filteredTypes = types.filter((e) => e !== typeKey).filter((e) => e !== null)
+
+    UnT.log(false, filteredTypes)
 
     await object.update({'system.types': filteredTypes})
 }

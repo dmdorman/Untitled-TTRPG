@@ -1,4 +1,4 @@
-{{ log 'PC Actor Sheet' this }}
+{{!-- {{ log 'PC Actor Sheet' this }} --}}
 <form>
     <div class="flex-row">
         {{#if (eq (isEditable @root.data.actor) "enabled")}}
@@ -17,8 +17,6 @@
     </div>
 
     {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.actor}}
-
-    {{ log 'data items' data.items }}
 
     <div class="card-container">
         {{#each data.items as |item|}}

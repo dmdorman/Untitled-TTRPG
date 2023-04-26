@@ -19,11 +19,13 @@ export class UnTItemSheet extends ItemSheet {
     async getData() {
         const data = await super.getData();
 
-        return {
+        const output = {
             data,
             ID: UnT.ID,
             typing: JSON.parse(game.settings.get(UnT.ID, 'typing'))
         };
+
+        return output
     }
 
     activateListeners(html) {
@@ -33,13 +35,17 @@ export class UnTItemSheet extends ItemSheet {
     }
 
     async _updateObject(event, formData) {
-        await super._updateObject(event, formData)    
-
         const expandedData = foundry.utils.expandObject(formData);
 
-        if (expandedData['new-type'] !== 'null') {
-            await this.item.update({'system.types': [expandedData['new-type']]})
+        const newTypeKey = 'new-type'
+
+        if (expandedData[newTypeKey] === "null" || expandedData[newTypeKey] === undefined) {
+            expandedData[newTypeKey] = this.item.system.types
+        } else {
+            expandedData["system.types"] = [expandedData[newTypeKey]]
         }
+
+        await this.item.update(expandedData)
 
         this.render();
     }

@@ -63,24 +63,6 @@ export class ComponentPicker extends FormApplication {
 }
 
 export function getAbilityCost(item) {
-    function findActiveComponents(obj, path = []) {
-        const activeComponents = [];
-
-        for (const key in obj) {
-            const value = obj[key];
-
-            const currentPath = [...path, key];
-
-            if (value === true) {
-                activeComponents.push(currentPath);
-            } else if (typeof value === 'object' && value !== null) {
-                activeComponents.push(...findActiveComponents(value, currentPath));
-            }
-        }
-
-        return activeComponents;
-    }
-
     const activeComponentKeys = findActiveComponents(item.system.components)
 
     let cost = 0
@@ -95,5 +77,27 @@ export function getAbilityCost(item) {
         cost += component['cost']        
     }
 
+    const apCost = Math.ceil(cost / 5)
+
+    item.update({"system.pointBuyCost": cost, "system.apCost": apCost})
+
     return cost
+}
+
+export function findActiveComponents(components, path = []) {
+    const activeComponents = [];
+
+    for (const key in components) {
+        const value = components[key];
+
+        const currentPath = [...path, key];
+
+        if (value === true) {
+            activeComponents.push(currentPath);
+        } else if (typeof value === 'object' && value !== null) {
+            activeComponents.push(...findActiveComponents(value, currentPath));
+        }
+    }
+
+    return activeComponents;
 }

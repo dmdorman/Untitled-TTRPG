@@ -1,8 +1,29 @@
-{{ log 'item card partial' this }}
+{{!-- {{ log 'Item Card Partial' this }} --}}
 <div class="card {{customClass}}">
     <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
         <img src="{{item.img}}" class="card-image">
         <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
     </div>
-    <textarea class="card-textarea" placeholder="{{localize 'Item.Placeholder.Description'}}"></textarea>
+
+    <textarea class="card-textarea" placeholder="{{localize 'Item.Ability.Placeholder'}}" 
+        name="system.flavor" value="{{item.system.flavor}}"
+        {{#if (eq customClass "small-card")}}disabled{{/if}}
+    ></textarea>
+
+    {{#unless (eq customClass "small-card")}}
+        {{#each item.system.components as |typeData typeId|}}
+            {{#each typeData as |componentData componentId|}}
+                {{#each componentData as |optionData optionId|}}
+                    {{#if (hasComponent ../../../item typeId componentId optionId)}}
+                        <div>
+                            {{localizeVariableKey "Item.Ability.Component" componentId "Name" emptyOptions=true}}
+                            ({{localizeVariableKey "Item.Ability.Component.Options" optionId emptyOptions=true}})
+                        </div>
+                    {{/if}}
+                {{/each}}
+            {{/each}}
+        {{/each}}
+    {{/unless}}
+
+    <div class="circle-outline">{{item.system.apCost}}</div>
 </div>

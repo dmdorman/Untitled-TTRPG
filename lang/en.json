@@ -30,6 +30,7 @@
             "Description": "Item Description"
         },
         "Ability": {
+            "Placeholder": "Ability Flavor",
             "Component": {
                 "ComponentPicker": "Component Picker",
                 "Add": "Add Component",

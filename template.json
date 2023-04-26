@@ -32,7 +32,10 @@
         },
         "ability": {
             "templates": [ "typed", "editable" ],
-            "components": []
+            "components": [],
+            "pointBuyCost": 0,
+            "apCost": 0,
+            "flavor": ""
         },
         "perk": {
             "templates": []
