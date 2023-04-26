@@ -12,7 +12,7 @@ export class ComponentPicker extends FormApplication {
             title: "Item.Ability.Component.ComponentPicker.Title",
             userId: game.userId,
             closeOnSubmit: false, // do not close when submitted
-            submitOnChange: false, // submit when any input changes
+            submitOnChange: true, // submit when any input changes
             resizable: true,
         }
 
@@ -26,16 +26,20 @@ export class ComponentPicker extends FormApplication {
 
         const components = CONFIG.UnT.abilities.components
 
+        const cost = getAbilityCost(this.object.item)
+
         return { 
             data,
-            components
+            item: this.object.item,
+            components,
+            cost
         }
     }
 
     async _updateObject(event, formData) {
         const expandedData = foundry.utils.expandObject(formData);
 
-        UnT.log(false, expandedData)
+        await this.object.item.update(expandedData)
 
         this.render();
     }
@@ -56,4 +60,40 @@ export class ComponentPicker extends FormApplication {
                 break;
         }
     }
+}
+
+export function getAbilityCost(item) {
+    function findActiveComponents(obj, path = []) {
+        const activeComponents = [];
+
+        for (const key in obj) {
+            const value = obj[key];
+
+            const currentPath = [...path, key];
+
+            if (value === true) {
+                activeComponents.push(currentPath);
+            } else if (typeof value === 'object' && value !== null) {
+                activeComponents.push(...findActiveComponents(value, currentPath));
+            }
+        }
+
+        return activeComponents;
+    }
+
+    const activeComponentKeys = findActiveComponents(item.system.components)
+
+    let cost = 0
+
+    for (const key of activeComponentKeys) {
+        let component = CONFIG.UnT.abilities.components
+
+        for (const partialKey of key) {
+            component = component[partialKey]
+        }
+
+        cost += component['cost']        
+    }
+
+    return cost
 }

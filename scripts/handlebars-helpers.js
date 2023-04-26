@@ -57,4 +57,16 @@ export function initializeHandlebarsHelpers() {
 
         return new Handlebars.SafeString(localizedValue);
     });
+
+    Handlebars.registerHelper('hasComponent', function(item, typeId, componentId, optionId, options) {
+        if (item.system.components === undefined) { return false; }
+
+        if (item.system.components[typeId] === undefined) { return false; }
+
+        if (item.system.components[typeId][componentId] === undefined) { return false; }
+
+        const value = item.system.components[typeId][componentId][optionId]
+
+        return value
+    });
 }

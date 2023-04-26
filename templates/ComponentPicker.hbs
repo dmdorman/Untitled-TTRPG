@@ -1,5 +1,7 @@
 {{ log 'Component Picker' this }}
 <form>
+    <div>{{localize "Item.Ability.Component.Cost"}}: {{@root.cost}}</div>
+
     {{#each components as |typeData typeId|}}
         <div>{{localizeVariableKey "Item.Ability.Component" typeId emptyOptions=true}}</div>
 
@@ -7,7 +9,9 @@
             <div class="UnT-tab">{{localizeVariableKey "Item.Ability.Component" componentId "Name" emptyOptions=true}}</div>
             {{#each componentData as |optionData optionId|}}
                 <div class="flex-row UnT-tab2">
-                    <input type="checkbox" name="{{typeId}}.{{componentId}}.{{optionId}}">
+                    <input type="checkbox" name="system.components.{{typeId}}.{{componentId}}.{{optionId}}"
+                        {{#if (hasComponent @root.item typeId componentId optionId)}}checked{{/if}}
+                    >
                     <div>
                         {{localizeVariableKey "Item.Ability.Component.Options" optionId emptyOptions=true}} ({{optionData.cost}})
                     </div>
@@ -15,6 +19,4 @@
             {{/each}}
         {{/each}}
     {{/each}}
-
-    <button class="create-actor">{{localize "Group.Sheet.ActorPicker.Submit"}}</button>
 </form>

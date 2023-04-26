@@ -66,7 +66,7 @@ export class UnTItemSheet extends ItemSheet {
             }
 
             case ('add-component'): {
-                const componentPicker = new ComponentPicker({item: this.object.item})
+                const componentPicker = new ComponentPicker({item: this.item})
 
                 componentPicker.render(true);
 

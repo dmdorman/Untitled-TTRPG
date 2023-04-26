@@ -33,6 +33,7 @@
             "Component": {
                 "ComponentPicker": "Component Picker",
                 "Add": "Add Component",
+                "Cost": "Cost",
                 "attacks": "Attacks",
                 "defenses": "Defenses",
                 "movement": "Movement",

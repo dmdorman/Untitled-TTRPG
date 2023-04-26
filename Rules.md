@@ -129,3 +129,5 @@ Disadvantes
         Major (-3): 1d4+1 HP of damage
         Massive (-4): 1d6+2 HP of damage
         Extreme (-5): causes character death
+
+    Requires Extremeties (-1) - Use of this ability requires extremeties to be free
