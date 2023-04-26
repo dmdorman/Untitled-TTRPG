@@ -84,4 +84,10 @@ export class UnTItemSheet extends ItemSheet {
                 break;
         }
     }
+
+    async close(options = {}) {
+        this.item.update({'system.inEditMode': false})
+
+        return super.close(options);
+    }
 }

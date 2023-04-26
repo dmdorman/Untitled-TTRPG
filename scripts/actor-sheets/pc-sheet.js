@@ -80,4 +80,10 @@ export class PCActorSheet extends ActorSheet {
                 break;
         }
     }
+
+    async close(options = {}) {
+        this.actor.update({'system.inEditMode': false})
+
+        return super.close(options);
+    }
 }
