@@ -44,12 +44,71 @@
                 "dice": {
                     "Name": "Dice"
                 },
+                "updefenseself": {
+                    "Name": "Up Defense - Self"
+                },
+                "updefenseothers": {
+                    "Name": "Up Defense - Others"
+                },
+                "staticdefense": {
+                    "Name": "Static Defense"
+                },
+                "dash": {
+                    "Name": "Dash"
+                },
+                "teleport": {
+                    "Name": "Teleport"
+                },
+                "pull": {
+                    "Name": "Pull"
+                },
+                "push": {
+                    "Name": "Push"
+                },
+                "manipulate": {
+                    "Name": "Manipulate"
+                },
+                "sizechange": {
+                    "Name": "Size Change"
+                },
+                "ranged": {
+                    "Name": "Ranged"
+                },
+                "areaofeffectcircle": {
+                    "Name": "Area of Effect - Circle"
+                },
+                "areaofeffectcone": {
+                    "Name": "Area of Effect - Cone"
+                },
+                "areaofeffectline": {
+                    "Name": "Area of Effect - Line"
+                },
+                "areaofeffectadvantages": {
+                    "Name": "Area of Effect Advantages"
+                },
+                "other": {
+                    "Name": "Other"
+                },
+                "hurtstouse": {
+                    "Name": "Hurts to Use"
+                },
                 "Options": {
                     "1d4": "1d4",
                     "1d6": "1d6",
                     "1d8": "1d8",
                     "1d10": "1d10",
-                    "1d12": "1d12"
+                    "1d12": "1d12",
+                    "minor": "Minor",
+                    "major": "Major",
+                    "massive": "Massive",
+                    "extreme": "Extreme",
+                    "short": "Short",
+                    "medium": "Medium",
+                    "far": "Far",
+                    "fullcontrol": "Full Control",
+                    "smarttargeting": "Smart Targeting",
+                    "doesntrequireextremities": "Doesn't Require Extremities",
+                    "physicalitem": "Physical Item"
                 }
             }
         }

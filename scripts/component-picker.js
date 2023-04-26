@@ -5,7 +5,7 @@ export class ComponentPicker extends FormApplication {
         const defaults = super.defaultOptions;
 
         const overrides = {
-            height: 'auto',
+            height: 600,
             width: 600,
             id: foundry.utils.randomID(),
             template: UnT.TEMPLATES.ComponentPicker,
