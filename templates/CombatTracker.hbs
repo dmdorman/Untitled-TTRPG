@@ -1,4 +1,4 @@
-{{ log 'Combat Tracker' this }}
+{{!-- {{ log 'Combat Tracker' this }} --}}
 <section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}">
     <header class="combat-tracker-header">
         {{#if user.isGM}}
@@ -91,20 +91,12 @@
                             </div>
                         </div>
 
-                        {{#if this.hasResource}}
-                        <div class="token-resource">
-                            <span class="resource">{{this.resource.hp.value}}</span>
-                            <span class="resource">{{this.resource.ap.value}}</span>
+                        {{#if this.owner}}
+                        <div class="flex-row" style="justify-content: space-between;">
+                            <span class="resource UnT-combat-tracker-resource" style="color: red;">{{this.resource.hp.value}}</span>
+                            <span class="resource UnT-combat-tracker-resource" style="color: green;">{{this.resource.ap.value}}</span>
                         </div>
                         {{/if}}
-
-                        {{!-- <div class="token-initiative">
-                            {{#if this.hasRolled}}
-                            <span class="initiative">{{this.initiative}}</span>
-                            {{else if this.owner}}
-                            <a class="combatant-control roll" data-tooltip="COMBAT.InitiativeRoll" data-control="rollInitiative"></a>
-                            {{/if}}
-                        </div> --}}
                     </li>
                     
                 {{/each}}
@@ -117,7 +109,7 @@
         {{#if user.isGM}}
             {{#if round}}
             <a class="combat-control" data-tooltip="COMBAT.RoundPrev" data-control="previousRound"><i class="fas fa-step-backward"></i></a>
-            <a class="combat-control" data-tooltip="COMBAT.TurnPrev" data-control="previousTurn"><i class="fas fa-arrow-left"></i></a>
+            <a class="combat-control" data-tooltip="COMBAT.TurnPrev" data-action="previousTurn"><i class="fas fa-arrow-left"></i></a>
             <a class="combat-control center" data-control="endCombat">{{localize 'COMBAT.End'}}</a>
             <a class="combat-control" data-tooltip="COMBAT.TurnNext" data-action="nextTurn"><i class="fas fa-arrow-right"></i></a>
             <a class="combat-control" data-tooltip="COMBAT.RoundNext" data-control="nextRound"><i class="fas fa-step-forward"></i></a>
@@ -125,7 +117,7 @@
             <a class="combat-control center" data-control="startCombat">{{localize 'COMBAT.Begin'}}</a>
             {{/if}}
         {{else if control}}
-        <a class="combat-control" data-tooltip="COMBAT.TurnPrev" data-control="previousTurn"><i class="fas fa-arrow-left"></i></a>
+        <a class="combat-control" data-tooltip="COMBAT.TurnPrev" data-action="previousTurn"><i class="fas fa-arrow-left"></i></a>
         <a class="combat-control center" data-control="nextTurn">{{localize 'COMBAT.TurnEnd'}}</a>
         <a class="combat-control" data-tooltip="COMBAT.TurnNext" data-action="nextTurn"><i class="fas fa-arrow-right"></i></a>
         {{/if}}

@@ -1,7 +1,9 @@
 {
     "General": {
         "Attack": "Attack",
-        "Defense": "Defense"
+        "Defense": "Defense",
+        "HP": "HP",
+        "AP": "AP"
     },
     "Group": {
         "Sheet": {

@@ -58,6 +58,12 @@ export class UnTCombatTracker extends CombatTracker {
 
         // override default Foundry controls
         html.on('click', "[data-action]", this._handleButtonClick.bind(this));
+
+        Hooks.on('updateToken', (token, data, diff, id) => {
+            if (token.combatant) {
+                this.render()
+            }
+        })
     }
 
     async _handleButtonClick(event) {
@@ -69,6 +75,12 @@ export class UnTCombatTracker extends CombatTracker {
         switch(action) {
             case ('nextTurn'): {
                 activeCombat.nextTurn()
+
+                break;
+            }
+
+            case ('previousTurn'): {
+                activeCombat.previousTurn()
 
                 break;
             }

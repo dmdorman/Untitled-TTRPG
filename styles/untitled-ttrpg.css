@@ -181,8 +181,13 @@
 
 .inactive {
     opacity: 0.3; 
-    cursor: not-allowed;
-    pointer-events: none;
+    /* cursor: not-allowed; */
+    /* pointer-events: none; */
+}
+
+.UnT-combat-tracker-resource {
+    font-weight: bold;
+    font-size: 20px;
 }
 
 /* debugging */
