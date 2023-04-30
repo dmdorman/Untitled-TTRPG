@@ -28,7 +28,7 @@ export class PCActorSheet extends ActorSheet {
         const expandedData = foundry.utils.expandObject(formData);
 
         const newTypeKey = 'new-type'
-        if (expandedData[newTypeKey] === "null" || expandedData[newTypeKey] === undefined) {
+        if (expandedData[newTypeKey] !== "null" && expandedData[newTypeKey] !== undefined) {
             await addType(this.actor, expandedData[newTypeKey])
         }
 
@@ -74,6 +74,18 @@ export class PCActorSheet extends ActorSheet {
                 await removeType(this.actor, clickedElement.data().typeId)
 
                 this.render()
+
+                break;
+            }
+
+            case ('item-edit'): {
+                UnT.log(false, 'item edit!')
+
+                const itemId = clickedElement.closest("[data-item-id]").data().itemId
+
+                const relevantItem = this.actor.items.get(itemId)
+
+                relevantItem.sheet.render(true)
 
                 break;
             }
