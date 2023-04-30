@@ -24,6 +24,8 @@ Profiles - UnT makes very few assumptions about the bodies of the characters in 
 
 Defense - In addition to Health characters also have defenses. This is is how much is subtracted from each incoming damage roll. Each time defense successfully subtracts damage it decreases in amount by 1.
 
+Temporary Defense - Defense that will fade at 1 point per minute until 0.
+
 Building Your Roster
 
 The first thing to decide in UnT character creation is how many characters you will control. The GM may impose some minimum or maximum number of characters. 
@@ -129,3 +131,9 @@ Disadvantes
         Major (-3): 1d4+1 HP of damage
         Massive (-4): 1d6+2 HP of damage
         Extreme (-5): causes character death
+
+Next decide your charters' perks. 
+    Hard to Hit (1): attacking characters have a -1 to their attack roll
+    Accurate (1): character has +1 to hit on their attack roll
+    Berserker (2): each time you end a turn next to an enemy +2 temporary defense per adjacent enemy (up to 6)
+    

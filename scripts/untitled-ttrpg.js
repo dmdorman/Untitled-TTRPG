@@ -8,6 +8,9 @@ import { PCActorSheet } from "./actor-sheets/pc-sheet.js";
 // item sheets
 import { UnTItemSheet } from "./item-sheets/item-sheet.js";
 
+// combat tracker
+import { UnTCombatTracker } from "./combat-tracker.js"
+
 // handlebars helpers
 import { initializeHandlebarsHelpers } from "./handlebars-helpers.js"
 
@@ -27,11 +30,13 @@ export class UnT {
         Actors.unregisterSheet("core", ActorSheet);
 
         Actors.registerSheet(`${this.ID}`, GroupActorSheet, { types: ["group"], makeDefault: true })
-        Actors.registerSheet(`${this.ID}`, PCActorSheet, { types: ["pc"], makeDefault: true })
+        Actors.registerSheet(`${this.ID}`, PCActorSheet, { types: ["pc", "npc"], makeDefault: true })
 
         Items.unregisterSheet("core", ItemSheet);
 
         Items.registerSheet(`${this.ID}`, UnTItemSheet, { makeDefault: true })
+
+        CONFIG.ui.combat = UnTCombatTracker
 
         initializeHandlebarsHelpers()
 
@@ -68,7 +73,8 @@ export class UnT {
         ActorPicker: `systems/${this.ID}/templates/ActorPicker.hbs`,
         TypesForm: `systems/${this.ID}/templates/TypesForm.hbs`,
         TypeEditor: `systems/${this.ID}/templates/TypeEditor.hbs`,
-        ComponentPicker: `systems/${this.ID}/templates/ComponentPicker.hbs`
+        ComponentPicker: `systems/${this.ID}/templates/ComponentPicker.hbs`,
+        CombatTracker: `systems/${this.ID}/templates/CombatTracker.hbs`
     }
 
     static log(force, ...args) {
