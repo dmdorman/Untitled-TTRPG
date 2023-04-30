@@ -1,14 +1,18 @@
 {{!-- {{ log 'Item Card Partial' this }} --}}
 <div class="card {{customClass}}">
     <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
+        {{#if item.system.inEditMode}}
+        <img src="{{item.img}}" class="card-image" data-edit="img">
+        {{else}}
         <img src="{{item.img}}" class="card-image">
+        {{/if}}
+
         <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
     </div>
 
     <textarea class="card-textarea" placeholder="{{localize 'Item.Ability.Placeholder'}}" 
-        name="system.flavor" value="{{item.system.flavor}}"
-        {{#if (eq customClass "small-card")}}disabled{{/if}}
-    ></textarea>
+        name="system.flavor" {{#if (eq customClass "small-card")}}disabled{{/if}}
+    >{{item.system.flavor}}</textarea>
 
     {{#unless (eq customClass "small-card")}}
         {{#each item.system.components as |typeData typeId|}}
