@@ -7,13 +7,23 @@
             },
             "editable": {
                 "inEditMode": false
+            },
+            "combat": {
+                "hp": {
+                    "value": 0,
+                    "max": 0
+                },
+                "ap": {
+                    "value": 0,
+                    "max": 0
+                }
             }
         },
         "pc": {
-            "templates": [ "typed", "editable" ]
+            "templates": [ "typed", "editable", "combat" ]
         },
         "npc": {
-            "templates": [ "typed", "editable" ]
+            "templates": [ "typed", "editable", "combat" ]
         },
         "group": {
             "templates": [ "editable" ],

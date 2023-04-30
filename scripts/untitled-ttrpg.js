@@ -11,6 +11,9 @@ import { UnTItemSheet } from "./item-sheets/item-sheet.js";
 // combat tracker
 import { UnTCombatTracker } from "./combat-tracker.js"
 
+// combat
+import { UnTCombat } from "./combat.js"
+
 // handlebars helpers
 import { initializeHandlebarsHelpers } from "./handlebars-helpers.js"
 
@@ -37,6 +40,7 @@ export class UnT {
         Items.registerSheet(`${this.ID}`, UnTItemSheet, { makeDefault: true })
 
         CONFIG.ui.combat = UnTCombatTracker
+        CONFIG.Combat.documentClass = UnTCombat
 
         initializeHandlebarsHelpers()
 

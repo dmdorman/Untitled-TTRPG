@@ -177,3 +177,15 @@
     line-height: 25px;
     font-size: 12px;
   }
+
+
+.inactive {
+    opacity: 0.3; 
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* debugging */
+.red-outline {
+    border: 2px solid red;
+}

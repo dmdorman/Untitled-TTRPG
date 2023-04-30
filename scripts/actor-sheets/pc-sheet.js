@@ -27,7 +27,10 @@ export class PCActorSheet extends ActorSheet {
 
         const expandedData = foundry.utils.expandObject(formData);
 
-        await addType(this.actor, expandedData['new-type'])
+        const newTypeKey = 'new-type'
+        if (expandedData[newTypeKey] === "null" || expandedData[newTypeKey] === undefined) {
+            await addType(this.actor, expandedData[newTypeKey])
+        }
 
         this.render();
     }
