@@ -1,8 +1,12 @@
 {{!-- {{ log 'Item Card Partial' this }} --}}
 <div class="card {{customClass}}">
     <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
-        {{#if item.system.inEditMode}}
-        <img src="{{item.img}}" class="card-image" data-edit="img">
+        {{#if (ne customClass "small-card")}}
+            {{#if item.system.inEditMode}}
+            <img src="{{item.img}}" class="card-image" data-edit="img">
+            {{else}}
+            <img src="{{item.img}}" class="card-image">
+            {{/if}}
         {{else}}
         <img src="{{item.img}}" class="card-image">
         {{/if}}

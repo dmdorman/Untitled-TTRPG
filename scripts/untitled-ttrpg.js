@@ -17,6 +17,9 @@ import { UnTCombat } from "./combat.js"
 // handlebars helpers
 import { initializeHandlebarsHelpers } from "./handlebars-helpers.js"
 
+// chat message
+import { UnTChatMessage } from "./chat-message.js";
+
 Hooks.on("init", function() {
     UnT.initialize()
 });
@@ -41,6 +44,9 @@ export class UnT {
 
         CONFIG.ui.combat = UnTCombatTracker
         CONFIG.Combat.documentClass = UnTCombat
+
+        CONFIG.ChatMessage.entityClass = UnTChatMessage;
+        CONFIG.ChatMessage.documentClass = UnTChatMessage;
 
         initializeHandlebarsHelpers()
 
@@ -78,7 +84,8 @@ export class UnT {
         TypesForm: `systems/${this.ID}/templates/TypesForm.hbs`,
         TypeEditor: `systems/${this.ID}/templates/TypeEditor.hbs`,
         ComponentPicker: `systems/${this.ID}/templates/ComponentPicker.hbs`,
-        CombatTracker: `systems/${this.ID}/templates/CombatTracker.hbs`
+        CombatTracker: `systems/${this.ID}/templates/CombatTracker.hbs`,
+        AttackRoll: `systems/${this.ID}/templates/chat/AttackRoll.hbs`
     }
 
     static log(force, ...args) {

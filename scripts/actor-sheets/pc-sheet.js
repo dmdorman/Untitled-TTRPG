@@ -1,5 +1,6 @@
 import { UnT } from "../untitled-ttrpg.js"
 import { addType, removeType } from "../typing.js";
+import { attackRoll } from "../combat/attack-roll.js";
 
 export class PCActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -79,13 +80,19 @@ export class PCActorSheet extends ActorSheet {
             }
 
             case ('item-edit'): {
-                UnT.log(false, 'item edit!')
-
                 const itemId = clickedElement.closest("[data-item-id]").data().itemId
-
                 const relevantItem = this.actor.items.get(itemId)
 
                 relevantItem.sheet.render(true)
+
+                break;
+            }
+
+            case ('item-roll'): {
+                const itemId = clickedElement.closest("[data-item-id]").data().itemId
+                const relevantItem = this.actor.items.get(itemId)
+
+                await attackRoll(relevantItem)
 
                 break;
             }

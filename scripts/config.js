@@ -1,5 +1,14 @@
 export const Rules = {};
 
+Rules.dice = {
+    "attackDie": {
+        "dice": "1d10",
+        "explodesOn": "10"
+    }
+}
+
+Rules.hitsOn = 7
+
 Rules.sizes = {
     "tiny": [],
     "small": [],
