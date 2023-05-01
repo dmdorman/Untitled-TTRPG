@@ -22,7 +22,14 @@
     "styles": [
         "styles/untitled-ttrpg.css"
     ],
-    "packs": [],
+    "packs": [
+        {
+            "name": "unt-perks",
+            "label": "UnT Perks",
+            "path": "packs/perks.db",
+            "entity": "Item"
+        }
+    ],
     "languages": [
         {
             "lang": "en",

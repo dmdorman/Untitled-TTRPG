@@ -35,13 +35,15 @@
 
     <div class="card-container">
         {{#each data.items as |item|}}
-        <div
-            {{#if (eq (isEditable @root.data.actor) "enabled")}}data-action="item-edit"{{/if}}
-            {{#unless (eq (isEditable @root.data.actor) "enabled")}}data-action="item-roll"{{/unless}}
-            data-item-id="{{item._id}}"
-        >
-            {{> systems/untitled-ttrpg/templates/partials/ItemCard.hbs customClass="small-card" item=item }}
-        </div>
+            {{#if (eq item.type 'ability')}}
+            <div
+                {{#if (eq (isEditable @root.data.actor) "enabled")}}data-action="item-edit"{{/if}}
+                {{#unless (eq (isEditable @root.data.actor) "enabled")}}data-action="item-roll"{{/unless}}
+                data-item-id="{{item._id}}"
+            >
+                {{> systems/untitled-ttrpg/templates/partials/ItemCard.hbs customClass="small-card" item=item }}
+            </div>
+            {{/if}}
         {{/each}}
     </div>
 
