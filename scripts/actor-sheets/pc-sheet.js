@@ -1,6 +1,6 @@
 import { UnT } from "../untitled-ttrpg.js"
 import { addType, removeType } from "../typing.js";
-import { attackRoll } from "../combat/attack-roll.js";
+import { abilityChat } from "../chat/ability-chat.js";
 
 export class PCActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -92,7 +92,7 @@ export class PCActorSheet extends ActorSheet {
                 const itemId = clickedElement.closest("[data-item-id]").data().itemId
                 const relevantItem = this.actor.items.get(itemId)
 
-                await attackRoll(relevantItem)
+                await abilityChat(relevantItem)
 
                 break;
             }

@@ -130,5 +130,11 @@
                 "Delete": "Delete typing? This cannot be undone."
             }
         }
+    },
+    "Chat": {
+        "Ability": {
+            "Attack": "Attack",
+            "RollDamage": "Roll Damage"
+        }
     }
 }

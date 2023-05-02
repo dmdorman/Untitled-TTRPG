@@ -45,7 +45,9 @@ export class UnTCombatTracker extends CombatTracker {
             factionData[combatantFaction].push(combatantTurnData)
         }
 
-        await activeCombat.updateFactions(factions, factionData)
+        if (game.user.isGM) {
+            await activeCombat.updateFactions(factions, factionData)
+        }
 
         return foundry.utils.mergeObject(data, {
             factionData,

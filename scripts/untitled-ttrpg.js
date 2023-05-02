@@ -19,10 +19,27 @@ import { initializeHandlebarsHelpers } from "./handlebars-helpers.js"
 
 // chat message
 import { UnTChatMessage } from "./chat-message.js";
+import { abilityChatListeners } from "./chat/ability-chat.js";
 
 Hooks.on("init", function() {
     UnT.initialize()
 });
+
+
+Hooks.on("renderChatMessage", (message, html, data) => {
+    const buttonElements = html.find("[data-action]");
+  
+    const showButton = ((message._source.user === game.user.id) || (game.user.isGM))? true : false
+
+    if (showButton) {
+      buttonElements.show();
+    } else {
+      buttonElements.hide();
+    }
+
+    abilityChatListeners(html)
+});
+
 
 export class UnT {
     static initialize() {
@@ -85,7 +102,7 @@ export class UnT {
         TypeEditor: `systems/${this.ID}/templates/TypeEditor.hbs`,
         ComponentPicker: `systems/${this.ID}/templates/ComponentPicker.hbs`,
         CombatTracker: `systems/${this.ID}/templates/CombatTracker.hbs`,
-        AttackRoll: `systems/${this.ID}/templates/chat/AttackRoll.hbs`
+        AbilityChat: `systems/${this.ID}/templates/chat/AbilityChat.hbs`
     }
 
     static log(force, ...args) {
