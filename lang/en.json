@@ -137,5 +137,11 @@
             "RollDamage": "Roll Damage",
             "Damage": "Damage"
         }
+    },
+    "Confirm": {
+        "Delete": {
+            "Title": "Delete?",
+            "Content": "Delete? Are you sure?"
+        }
     }
 }

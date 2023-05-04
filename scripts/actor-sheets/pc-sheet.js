@@ -88,6 +88,22 @@ export class PCActorSheet extends ActorSheet {
                 break;
             }
 
+            case ('item-delete'): {
+                const itemId = clickedElement.closest("[data-item-id]").data().itemId
+
+                const confirmed = await Dialog.confirm({
+                    title: game.i18n.localize("Confirm.Delete.Title"),
+                    content: game.i18n.localize("Confirm.Delete.Content")
+                });
+
+                if (confirmed) {
+                    this.actor.items.get(itemId).delete()
+                    this.render();
+                }
+
+                break;
+            }
+
             case ('item-roll'): {
                 const itemId = clickedElement.closest("[data-item-id]").data().itemId
                 const relevantItem = this.actor.items.get(itemId)
