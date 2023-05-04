@@ -1,6 +1,6 @@
 {{ log 'Perk Sheet' this }}
 <form>
-    <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
+    {{!-- <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};"> --}}
         {{#with @root.data.item as |item|}}
             {{#if item.system.inEditMode}}
             <img src="{{item.img}}" class="card-image" data-edit="img">
@@ -10,11 +10,11 @@
 
             <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
         {{/with}}
-    </div>
+    {{!-- </div> --}}
 
-    {{#each @root.data.item.system as |value key|}}
+    {{!-- {{#each @root.data.item.system as |value key|}}
         <div>{{key}}</div>
-    {{/each}}
+    {{/each}} --}}
 
     <div style="text-align: right; margin-left: 10px; margin-bottom: 20px"><i class="fas fa-cog" data-action="set-editable"></i></div>
 </form>

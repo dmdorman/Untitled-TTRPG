@@ -134,8 +134,11 @@
     "Chat": {
         "Ability": {
             "Attack": "Attack",
-            "RollDamage": "Roll Damage",
-            "Damage": "Damage"
+            "RollDamage": "Roll Damage"
+        },
+        "Damage": {
+            "Damage": "Damage",
+            "ApplyTarget": "Apply to Target"
         }
     },
     "Confirm": {

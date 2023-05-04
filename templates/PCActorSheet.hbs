@@ -35,6 +35,14 @@
 
     <div class="card-container">
         {{#each data.items as |item|}}
+            {{#if (eq item.type 'perk')}}
+            <div>{{item.name}}</div>
+            {{/if}}
+        {{/each}}
+    </div>
+
+    <div class="card-container">
+        {{#each data.items as |item|}}
             {{#if (eq item.type 'ability')}}            
             <div data-item-id="{{item._id}}">
                 {{#if (eq (isEditable @root.data.actor) "enabled")}}

@@ -10,7 +10,11 @@
     {{/if}}
     
     <div class="flavor-box">
-        <div>{{localize "Chat.Ability.Damage"}}</div>
+        <div>{{localize "Chat.Damage.Damage"}}</div>
         <div>{{{renderedRoll}}}</div>
     </div>
+
+    {{!-- {{#if @root.buttonVisible}} --}}
+    <button data-action="apply-target" style="margin-top: 5px;">{{localize "Chat.Damage.ApplyTarget"}}</button>
+    {{!-- {{/if}} --}}
 </div>

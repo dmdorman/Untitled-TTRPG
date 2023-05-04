@@ -5,13 +5,13 @@ export function findItem(itemId) {
 
     if (gameItem) { return gameItem; }
 
-    const actorItem = game.actors.find(actor => actor.items.get(itemId)).items.get(itemId)
+    const actor = game.actors.find(actor => actor.items.get(itemId))
 
-    if (actorItem) { return actorItem; }
+    if (actor) { return actor.items.get(itemId); }
 
-    const tokenItem = game.scenes.tokens.find(toekn => toekn.items.get(itemId)).items.get(itemId)
+    const token = game.scenes.active.tokens.find(token => token.actor.items.get(itemId))
 
-    if (tokenItem) { return tokenItem; }
+    if (token) { return token.actor.items.get(itemId); }
 
     UnT.log(false, 'Cannot find item [' + itemId + ']')
 }
