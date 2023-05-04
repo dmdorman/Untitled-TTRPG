@@ -102,7 +102,8 @@ export class UnT {
         TypeEditor: `systems/${this.ID}/templates/TypeEditor.hbs`,
         ComponentPicker: `systems/${this.ID}/templates/ComponentPicker.hbs`,
         CombatTracker: `systems/${this.ID}/templates/CombatTracker.hbs`,
-        AbilityChat: `systems/${this.ID}/templates/chat/AbilityChat.hbs`
+        AbilityChat: `systems/${this.ID}/templates/chat/AbilityChat.hbs`,
+        DamageChat: `systems/${this.ID}/templates/chat/DamageChat.hbs`
     }
 
     static log(force, ...args) {

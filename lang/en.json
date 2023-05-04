@@ -134,7 +134,8 @@
     "Chat": {
         "Ability": {
             "Attack": "Attack",
-            "RollDamage": "Roll Damage"
+            "RollDamage": "Roll Damage",
+            "Damage": "Damage"
         }
     }
 }
