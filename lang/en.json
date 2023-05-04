@@ -3,7 +3,8 @@
         "Attack": "Attack",
         "Defense": "Defense",
         "HP": "HP",
-        "AP": "AP"
+        "AP": "AP",
+        "VS": "VS"
     },
     "Group": {
         "Sheet": {

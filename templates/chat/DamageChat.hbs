@@ -1,13 +1,9 @@
-{{ log 'Ability Chat' this }}
+{{!-- {{ log 'Damage Chat' this }} --}}
 <div class="" data-message-id="{{message._id}}" {{#if borderColor}}style="border-color:{{borderColor}}"{{/if}} data-item-id="{{item._id}}">        
     <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
         <img src="{{item.img}}" class="card-image">
         <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
     </div>
-
-    {{#if item.system.flavor}}
-    <div class="flavor-box">{{item.system.flavor}}</div>
-    {{/if}}
     
     <div class="flavor-box">
         <div>{{localize "Chat.Damage.Damage"}}</div>
@@ -15,6 +11,6 @@
     </div>
 
     {{!-- {{#if @root.buttonVisible}} --}}
-    <button data-action="apply-target" style="margin-top: 5px;">{{localize "Chat.Damage.ApplyTarget"}}</button>
+    <button data-action="apply-damage" style="margin-top: 5px;" data-roll-total="{{rollTotal}}">{{localize "Chat.Damage.ApplyTarget"}}</button>
     {{!-- {{/if}} --}}
 </div>

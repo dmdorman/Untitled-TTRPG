@@ -2,7 +2,7 @@ import { UnT } from "../untitled-ttrpg.js"
 import { UnTChatMessage } from "../chat-message.js"
 import { getTyping } from "../typing.js"
 import { findItem } from "../find-item.js";
-import { damageChat } from "./damage-chat.js";
+import { appliedDamageChat, damageChat } from "./damage-chat.js";
 
 export function abilityChatListeners(html) {
     html.on('click', "[data-action]", _handleButtonClick.bind(this));
@@ -15,10 +15,25 @@ async function _handleButtonClick(event) {
     switch(action) {
         case ('roll-damage'): {
             const itemId = clickedElement.closest("[data-item-id]").data().itemId
-
             const relevantItem = findItem(itemId)
 
             await damageChat(relevantItem)
+
+            break;
+        }
+
+        case ('apply-damage'): {
+            const itemId = clickedElement.closest("[data-item-id]").data().itemId
+            const relevantItem = findItem(itemId)
+
+            const rollTotal = clickedElement.closest("[data-roll-total]").data().rollTotal
+            
+            const targets = getTargets()
+
+            for (const token of targets) {
+                UnT.log(false, token.actor)
+                await appliedDamageChat(relevantItem, token.actor, rollTotal)
+            }
 
             break;
         }
@@ -29,7 +44,7 @@ async function _handleButtonClick(event) {
     }
 }
 
-export async function abilityChat (item) {
+export async function abilityChat(item) {
     // determine Attack Roll
     const formula = [ CONFIG.UnT.dice.attackDie.dice + "x" + CONFIG.UnT.dice.attackDie.explodesOn ]
 
@@ -61,8 +76,7 @@ export async function abilityChat (item) {
 
     // create ChatMessage
     const speaker = ChatMessage.getSpeaker()
-    // // speaker["alias"] = actor.name;
-    // speaker["alias"] = "alias";
+    speaker["alias"] = item.actor.name;
 
     const chatData = {
         user:  game.user._id,
@@ -74,6 +88,11 @@ export async function abilityChat (item) {
 
     return UnTChatMessage.create(chatData)
 }
+
+export function getTargets() {
+    return canvas.tokens.controlled.filter(token => !!token.actor);;
+}
+
 
 function hasComponentType(item, type) {
     const typeComponents = item.system.components[type]

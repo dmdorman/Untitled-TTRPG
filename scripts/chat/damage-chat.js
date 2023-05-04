@@ -2,7 +2,7 @@ import { UnT } from "../untitled-ttrpg.js"
 import { UnTChatMessage } from "../chat-message.js"
 import { getTyping } from "../typing.js"
 
-export async function damageChat (item) {
+export async function damageChat(item) {
     // determine Damage Roll
     let damageFormula = ""
     for (const dice in item.system.components.attacks.dice) {
@@ -24,18 +24,78 @@ export async function damageChat (item) {
 
     // const buttonVisible = game.user.isGM
 
+    const rollTotal = roll.total
+
     // render DamageChat template
     const templateData = {
         item,
-        renderedRoll
+        renderedRoll,
+        rollTotal
     };
 
     const cardContent = await renderTemplate(UnT.TEMPLATES.DamageChat, templateData);
 
     // create ChatMessage
     const speaker = ChatMessage.getSpeaker()
-    // // speaker["alias"] = actor.name;
-    // speaker["alias"] = "alias";
+    speaker["alias"] = item.actor.name;
+
+    const chatData = {
+        user:  game.user._id,
+        content: cardContent,
+        speaker: speaker,
+        borderColor: borderColor,
+        itemId: item._id
+    }
+
+    return UnTChatMessage.create(chatData)
+}
+
+export async function appliedDamageChat(item, targetActor, rollTotal) {
+    const typing = getTyping()
+    const itemType = item.system.types[0]
+    const borderColor = typing[itemType].color
+
+    const damageMultipliers = []
+    for (const itemType of item.system.types) {
+        for (const targetActorType of targetActor.system.types) {
+            const multiplierContribution = typing[itemType].interactions[targetActorType]
+
+            if (multiplierContribution && multiplierContribution !== 1) {
+                damageMultipliers.push(multiplierContribution)
+            }
+        }
+    }
+
+    let appliedDamageFormula = rollTotal.toString()
+    let appliedDamageResult = rollTotal
+
+    for (const multiplier of damageMultipliers) {
+        UnT.log(false, multiplier.toString())
+        appliedDamageFormula += " x " + multiplier.toString()
+
+        appliedDamageResult *= multiplier
+    }
+
+    if (targetActor.hasPlayerOwner) {
+        appliedDamageResult = Math.floor(appliedDamageResult)
+    } else {
+        appliedDamageResult = Math.ceil(appliedDamageResult)
+    }
+
+    // render DamageChat template
+    const templateData = {
+        item,
+        targetActor,
+        typing,
+        appliedDamageFormula,
+        appliedDamageResult
+    };
+
+    const cardContent = await renderTemplate(UnT.TEMPLATES.AppliedDamageChat, templateData);
+
+    // create ChatMessage
+    const speaker = ChatMessage.getSpeaker()
+    speaker["alias"] = item.actor.name;
 
     const chatData = {
         user:  game.user._id,

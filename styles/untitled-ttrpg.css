@@ -204,3 +204,9 @@
     border-radius: 10px; 
     padding: 10px;
 }
+
+.flexbox-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
