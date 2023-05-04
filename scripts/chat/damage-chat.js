@@ -55,32 +55,8 @@ export async function appliedDamageChat(item, targetActor, rollTotal) {
     const itemType = item.system.types[0]
     const borderColor = typing[itemType].color
 
-    const damageMultipliers = []
-    for (const itemType of item.system.types) {
-        for (const targetActorType of targetActor.system.types) {
-            const multiplierContribution = typing[itemType].interactions[targetActorType]
-
-            if (multiplierContribution && multiplierContribution !== 1) {
-                damageMultipliers.push(multiplierContribution)
-            }
-        }
-    }
-
-    let appliedDamageFormula = rollTotal.toString()
-    let appliedDamageResult = rollTotal
-
-    for (const multiplier of damageMultipliers) {
-        UnT.log(false, multiplier.toString())
-        appliedDamageFormula += " x " + multiplier.toString()
-
-        appliedDamageResult *= multiplier
-    }
-
-    if (targetActor.hasPlayerOwner) {
-        appliedDamageResult = Math.floor(appliedDamageResult)
-    } else {
-        appliedDamageResult = Math.ceil(appliedDamageResult)
-    }
+    const [appliedDamageResult, appliedDamageFormula] = 
+        calculateTypeInteractions(rollTotal, item.system.types, targetActor)
 
     // render DamageChat template
     const templateData = {
@@ -106,6 +82,37 @@ export async function appliedDamageChat(item, targetActor, rollTotal) {
     }
 
     return UnTChatMessage.create(chatData)
+}
+
+export function calculateTypeInteractions(damageInput, attackTypes, defendingActor) {
+    const typing = getTyping()
+
+    const damageMultipliers = []
+    for (const attackType of attackTypes) {
+        for (const defendingType of defendingActor.system.types) {
+            const multiplierContribution = typing[attackType].interactions[defendingType]
+
+            if (multiplierContribution && multiplierContribution !== 1) {
+                damageMultipliers.push(multiplierContribution)
+            }
+        }
+    }
+
+    let appliedDamageFormula = damageInput.toString()
+    let appliedDamageResult = damageInput
+
+    for (const multiplier of damageMultipliers) {
+        appliedDamageFormula += " x " + multiplier.toString()
+        appliedDamageResult *= multiplier
+    }
+
+    if (defendingActor.hasPlayerOwner) {
+        appliedDamageResult = Math.floor(appliedDamageResult)
+    } else {
+        appliedDamageResult = Math.ceil(appliedDamageResult)
+    }
+
+    return [appliedDamageResult, appliedDamageFormula]
 }
 
 function getExplodingDice(dice) {
