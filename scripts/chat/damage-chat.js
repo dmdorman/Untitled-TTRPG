@@ -187,6 +187,8 @@ function calculateHits(hitRollTotal, modifiers) {
 function calculateDamageFormula(item) {
     let damageFormula = ""
     for (const dice in item.system.components.attacks.dice) {
+        if (!item.system.components.attacks.dice[dice]) { continue; }
+
         if (damageFormula === "") {
             damageFormula = getExplodingDice(dice)
         } else {
