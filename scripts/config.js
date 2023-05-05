@@ -9,14 +9,16 @@ Rules.dice = {
 
 Rules.hitsOn = 7
 
-Rules.sizes = {
-    "tiny": [],
-    "small": [],
-    "medium": [],
-    "large": [],
-    "huge": [],
-    "gigantic": []
-}
+Rules.bonusAttackHaveTypeInteractions = false
+
+Rules.sizes = [
+    "tiny",
+    "small",
+    "medium",
+    "large",
+    "huge",
+    "gigantic"
+]
 
 Rules.abilities = {}
 Rules.abilities.components = {

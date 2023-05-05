@@ -42,7 +42,8 @@ export class PCActorSheet extends ActorSheet {
         return {
             data,
             ID: UnT.ID,
-            typing: JSON.parse(game.settings.get(UnT.ID, 'typing'))
+            typing: JSON.parse(game.settings.get(UnT.ID, 'typing')),
+            CONFIG
         };
     }
 

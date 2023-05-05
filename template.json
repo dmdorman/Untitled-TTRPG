@@ -20,7 +20,8 @@
             }
         },
         "pc": {
-            "templates": [ "typed", "editable", "combat" ]
+            "templates": [ "typed", "editable", "combat" ],
+            "size": "medium"
         },
         "npc": {
             "templates": [ "typed", "editable", "combat" ]

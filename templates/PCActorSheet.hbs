@@ -10,26 +10,46 @@
         <input type="text" placeholder="{{localize "PC.Sheet.Placeholder.Name"}}" class="name-input" style="margin-left: 10px;">
     </div>
     <div class="flex-row" style="justify-content: space-around; margin-top: 10px;">
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" 
-            value="{{@root.data.actor.system.hp.value}}" name="system.hp.value" class="square-input" 
-        >
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" 
-            value="{{@root.data.actor.system.hp.max}}" name="system.hp.max" class="square-input" 
-            {{isEditable @root.data.actor}}
-        >
+        <div class="flavor-box">
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" 
+                value="{{@root.data.actor.system.hp.value}}" name="system.hp.value" class="square-input" 
+            >
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" 
+                value="{{@root.data.actor.system.hp.max}}" name="system.hp.max" class="square-input" 
+                {{isEditable @root.data.actor}}
+            >
+        </div>
 
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" 
-            value="{{@root.data.actor.system.ap.value}}" name="system.ap.value" class="square-input"     
-        >
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" 
-            value="{{@root.data.actor.system.ap.max}}" name="system.ap.max" class="square-input"     
-            {{isEditable @root.data.actor}}
-        >
+        <div class="flavor-box">
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" 
+                value="{{@root.data.actor.system.ap.value}}" name="system.ap.value" class="square-input"     
+            >
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" 
+                value="{{@root.data.actor.system.ap.max}}" name="system.ap.max" class="square-input"     
+                {{isEditable @root.data.actor}}
+            >
+        </div>
 
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat3"}}" name="system.stat3" class="square-input" {{isEditable @root.data.actor}}>
+        <div class="flavor-box">
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat3"}}" name="system.stat3" class="square-input" {{isEditable @root.data.actor}}>
+        </div>
 
-        <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat4"}}" name="system.stat4" class="square-input" {{isEditable @root.data.actor}}>
+        <div class="flavor-box">
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.Stat4"}}" name="system.stat4" class="square-input" {{isEditable @root.data.actor}}>
+        </div>
     </div>
+
+    {{#if (eq (isEditable @root.data.actor) "enabled")}}
+    <div class="flexbox-centered">
+        <select name="system.size">
+            {{#each CONFIG.UnT.sizes as |size|}}
+            <option {{#if (eq size @root.data.actor.system.size)}}selected{{/if}}>{{size}}</option>
+            {{/each}}
+        </select>
+    </div>
+    {{else}}
+    <div class="flexbox-centered">{{@root.data.actor.system.size}}</div>
+    {{/if}}
 
     {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.actor}}
 
