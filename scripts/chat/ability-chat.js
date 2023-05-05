@@ -17,7 +17,9 @@ async function _handleButtonClick(event) {
             const itemId = clickedElement.closest("[data-item-id]").data().itemId
             const relevantItem = findItem(itemId)
 
-            await damageChat(relevantItem)
+            const hitRollTotal = clickedElement.closest("[data-hit-total]").data().hitTotal
+
+            await damageChat(relevantItem, hitRollTotal)
 
             break;
         }
@@ -28,11 +30,16 @@ async function _handleButtonClick(event) {
 
             const rollTotal = clickedElement.closest("[data-roll-total]").data().rollTotal
             
+            const hitRollTotal = clickedElement.closest("[data-hit-total]").data().hitTotal
+
             const targets = getTargets()
 
+            if (targets.length === 0) {
+                ui.notifications.warn("Notifications.SelectToken", { localize: true });
+            }
+
             for (const token of targets) {
-                UnT.log(false, token.actor)
-                await appliedDamageChat(relevantItem, token.actor, rollTotal)
+                await appliedDamageChat(relevantItem, token.actor, hitRollTotal, rollTotal)
             }
 
             break;
@@ -69,6 +76,7 @@ export async function abilityChat(item) {
     };
 
     if (hasAttack) {
+        templateData['hitRollTotal'] = roll.total
         templateData['renderedRoll'] = renderedRoll
     }
 

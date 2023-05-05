@@ -1,4 +1,4 @@
-{{ log 'Ability Chat' this }}
+{{!-- {{ log 'Ability Chat' this }} --}}
 <div class="" data-message-id="{{message._id}}" {{#if borderColor}}style="border-color:{{borderColor}}"{{/if}} data-item-id="{{item._id}}">        
     <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
         <img src="{{item.img}}" class="card-image">
@@ -14,7 +14,7 @@
         <div>{{localize "Chat.Ability.Attack"}}</div>
         <div>{{{renderedRoll}}}</div>
         {{#if @root.buttonVisible}}
-        <button data-action="roll-damage" style="margin-top: 5px;">{{localize "Chat.Ability.RollDamage"}}</button>
+        <button data-action="roll-damage" data-hit-total={{@root.hitRollTotal}} style="margin-top: 5px;">{{localize "Chat.Ability.RollDamage"}}</button>
         {{/if}}
     </div>
     {{/if}}

@@ -39,8 +39,20 @@
         </div>
     </div>
 
-    <div class="flavor-box" style="margin-top: 5px;">
-        <div class="flexbox-centered">{{appliedDamageFormula}}</div>
-        <div class="flexbox-centered" style="font-size: 24px;">{{appliedDamageResult}}</div>
-    </div>
+    {{#if (eq @root.totalHits 0)}}
+    <div class="flavor-box flexbox-centered" style="margin-top: 5px;">{{localize 'General.Miss'}}</div>
+    {{else}}
+        {{#if @root.extraHits}}
+            <div class="flavor-box" style="margin-top: 5px;">
+                {{#each @root.extraHits as |hit|}}
+                <div>{{{hit.renderedRoll}}}</div>
+                {{/each}}
+            </div>
+        {{/if}}
+
+        <div class="flavor-box" style="margin-top: 5px;">
+            <div class="flexbox-centered">{{appliedDamageFormula}}</div>
+            <div class="flexbox-centered" style="font-size: 24px;">{{appliedDamageResult}}</div>
+        </div>
+    {{/if}}
 </div>

@@ -4,7 +4,8 @@
         "Defense": "Defense",
         "HP": "HP",
         "AP": "AP",
-        "VS": "VS"
+        "VS": "VS",
+        "Miss": "Miss!"
     },
     "Group": {
         "Sheet": {
@@ -147,5 +148,8 @@
             "Title": "Delete?",
             "Content": "Delete? Are you sure?"
         }
+    },
+    "Notifications": {
+        "SelectToken": "Select a token!"
     }
 }

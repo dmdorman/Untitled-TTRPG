@@ -9,6 +9,7 @@ Rules.dice = {
 
 Rules.hitsOn = 7
 
+Rules.bonusHitsOn = 7
 Rules.bonusAttackHaveTypeInteractions = false
 
 Rules.sizes = [

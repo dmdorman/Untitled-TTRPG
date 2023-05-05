@@ -11,6 +11,6 @@
     </div>
 
     {{!-- {{#if @root.buttonVisible}} --}}
-    <button data-action="apply-damage" style="margin-top: 5px;" data-roll-total="{{rollTotal}}">{{localize "Chat.Damage.ApplyTarget"}}</button>
+    <button data-action="apply-damage" style="margin-top: 5px;" data-roll-total="{{rollTotal}}" data-hit-total="{{@root.hitRollTotal}}">{{localize "Chat.Damage.ApplyTarget"}}</button>
     {{!-- {{/if}} --}}
 </div>
