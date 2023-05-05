@@ -6,8 +6,6 @@ import { getSizeAttackInteractions } from "../size.js"
 export async function damageChat(item, hitRollTotal) {
     const damageFormula = calculateDamageFormula(item)
 
-    UnT.log(false, damageFormula)
-
     const roll = new Roll(damageFormula)
     await roll.evaluate({async: true})
 
@@ -51,10 +49,19 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
     const itemType = item.system.types[0]
     const borderColor = typing[itemType].color
 
-    const [appliedDamageResult, appliedDamageFormula] = 
-        calculateTypeInteractions(rollTotal, item.system.types, targetActor)
+    // determine hit zone
+    const hitZoneRoll = new Roll("1d10")
+    await hitZoneRoll.evaluate({async: true})
 
-    const [sizeAccuracyModifier, sizeDamageModifier] = getSizeAttackInteractions(item.actor, targetActor)
+    const renderedHitZoneRoll = await hitZoneRoll.render()
+
+    const hitZone = CONFIG.UnT.hitZones.roll[hitZoneRoll.total.toString()]
+
+    // determine effective damage
+    const appliedDamageFormula = callculateEffectiveDamage(rollTotal, item, targetActor, hitZone)
+    const appliedDamageResult = eval(appliedDamageFormula)
+
+    const [sizeAccuracyModifier, _] = getSizeAttackInteractions(item.actor, targetActor)
 
     const totalHits = calculateHits(hitRollTotal, [sizeAccuracyModifier])
 
@@ -63,11 +70,16 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
         item,
         targetActor,
         typing,
+
         appliedDamageFormula,
         appliedDamageResult,
-        totalHits
+        totalHits,
+
+        renderedHitZoneRoll,
+        hitZone
     };
 
+    // roll extra damage rolls if necessary
     if (totalHits > 1) {
         const damageFormula = calculateDamageFormula(item)
 
@@ -82,17 +94,22 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
         
             const renderedRoll = await roll.render()
 
-            extraHits.push({total: roll.total, renderedRoll})
+            const effectiveDamageFormula = callculateEffectiveDamage(roll.total, item, targetActor, hitZone)
+                        
+            const effectiveDamage = eval(effectiveDamageFormula)
+
+            extraHits.push({total: effectiveDamage, renderedRoll})
 
             if (CONFIG.UnT.bonusAttackHaveTypeInteractions) {
                 const [extraHitDamageResult, extraHitDamageFormula] = 
-                    calculateTypeInteractions(roll.total, item.system.types, targetActor)
+                    calculateTypeInteractions(effectiveDamage, item.system.types, targetActor)
 
-                newAppliedDamageFormula += " + " + extraHitDamageFormula
+                newAppliedDamageFormula += " + " + effectiveDamageFormula
                 newAppliedDamageResult += extraHitDamageResult
             } else {
-                newAppliedDamageFormula += " + " + roll.total
-                newAppliedDamageResult += roll.total            }
+                newAppliedDamageFormula += " + " + effectiveDamage
+                newAppliedDamageResult += effectiveDamage            
+            }
         }
 
         templateData["extraHits"] = extraHits
@@ -124,7 +141,7 @@ export function calculateTypeInteractions(damageInput, attackTypes, defendingAct
     const damageMultipliers = []
     for (const attackType of attackTypes) {
         for (const defendingType of defendingActor.system.types) {
-            const multiplierContribution = typing[attackType].interactions[defendingType]
+            const multiplierContribution = typing[defendingType].interactions[attackType]
 
             if (multiplierContribution && multiplierContribution !== 1) {
                 damageMultipliers.push(multiplierContribution)
@@ -132,11 +149,12 @@ export function calculateTypeInteractions(damageInput, attackTypes, defendingAct
         }
     }
 
-    let appliedDamageFormula = damageInput.toString()
+    // let appliedDamageFormula = damageInput.toString()
+    let appliedDamageFormula = ""
     let appliedDamageResult = damageInput
 
     for (const multiplier of damageMultipliers) {
-        appliedDamageFormula += " x " + multiplier.toString()
+        appliedDamageFormula += " * " + multiplier.toString()
         appliedDamageResult *= multiplier
     }
 
@@ -177,4 +195,15 @@ function calculateDamageFormula(item) {
     }
 
     return damageFormula
+}
+
+function callculateEffectiveDamage(damageRoll, item, targetActor, hitZone) {
+    const [_, sizeDamageModifier] = getSizeAttackInteractions(item.actor, targetActor)
+
+    const hitZoneDamageModifier = CONFIG.UnT.hitZones.zones[hitZone].damageMod
+
+    const [appliedDamageResult, appliedDamageFormula] = 
+        calculateTypeInteractions(damageRoll, item.system.types, targetActor)
+
+    return "(" + damageRoll.toString() + " + " + sizeDamageModifier.toString() + ")" + " * "  + hitZoneDamageModifier.toString() + appliedDamageFormula
 }

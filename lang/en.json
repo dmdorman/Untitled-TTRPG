@@ -5,7 +5,8 @@
         "HP": "HP",
         "AP": "AP",
         "VS": "VS",
-        "Miss": "Miss!"
+        "Miss": "Miss!",
+        "Hit": "Hit"
     },
     "Group": {
         "Sheet": {

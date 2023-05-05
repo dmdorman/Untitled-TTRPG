@@ -137,3 +137,20 @@ Next decide your charters' perks.
     Accurate (1): character has +1 to hit on their attack roll
     Berserker (2): each time you end a turn next to an enemy +2 temporary defense per adjacent enemy (up to 6)
     
+=========== Combat ===========
+To make an attack a character must use an ability. To hit a target roll 1d10. The roll is modified by a few things such as positioning, relative size, and cover. 
+
+For each 7 in the roll the the attacker gets to roll damage with type interactions only impacting the first damage roll.
+
+Here are some examples:
+    Users rolls a....
+        6 - miss!
+        7 - 1 hit
+        13 - 1 hit
+        14 - 2 hits (1 untyped)
+        20 - 2 hits (1 untyped)
+        21 - 3 hits (2 untyped)
+
+Determine the hit zone! Roll a 1d10. 
+
+Before type interactions subtract the defenders armor, size attribute, hit zone, and other factors that influence damage rolls. These are subtracted from every damage roll.

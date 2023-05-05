@@ -21,6 +21,26 @@ Rules.sizes = [
     "gigantic"
 ]
 
+Rules.hitZones = {
+    "zones": {
+        "weak point": { "damageMod": 2 },
+        "CoM": { "damageMod": 1 },
+        "extremities": { "damageMod": 0.5 }
+    },
+    "roll": {
+        "1": "extremities",
+        "2": "extremities",
+        "3": "extremities",
+        "4": "extremities",
+        "5": "CoM",
+        "6": "CoM",
+        "7": "CoM",
+        "8": "CoM",
+        "9": "weak point",
+        "10": "weak point"
+    }
+}
+
 Rules.abilities = {}
 Rules.abilities.components = {
     "attacks": {

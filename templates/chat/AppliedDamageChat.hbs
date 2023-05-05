@@ -42,6 +42,11 @@
     {{#if (eq @root.totalHits 0)}}
     <div class="flavor-box flexbox-centered" style="margin-top: 5px;">{{localize 'General.Miss'}}</div>
     {{else}}
+        <div class="flavor-box" style="margin-top: 5px;">
+            <div class="flexbox-centered">{{localize 'General.Hit'}} {{@root.hitZone}}!</div>
+            <div>{{{renderedHitZoneRoll}}}</div>
+        </div>
+
         {{#if @root.extraHits}}
             <div class="flavor-box" style="margin-top: 5px;">
                 {{#each @root.extraHits as |hit|}}
