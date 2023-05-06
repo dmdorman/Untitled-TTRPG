@@ -158,9 +158,22 @@ class CombatFactionOrderForm extends FormApplication {
 
         switch(action) {
             case ('startCombat'): {
-                await this.object.activeCombat.startCombat()
-
                 this.close()
+
+                for (const combatant of this.object.activeCombat.combatants) {
+                    const relevantToken = game.scenes.get(combatant.sceneId).tokens.get(combatant.tokenId)
+                    const relevantActor = relevantToken._actor
+                    
+                    const maxAp = combatant.actor.system.ap.max
+
+                    const combatantFaction = getFaction(combatant.actor)
+
+                    const startingAp = Math.ceil(maxAp * ((factions.indexOf(combatantFaction) + 1)/ factions.length))
+
+                    await relevantActor.update({"system.ap.value": startingAp})
+                }
+
+                await this.object.activeCombat.startCombat()
 
                 break;
             }
