@@ -5,9 +5,15 @@ export class UnTCombat extends Combat {
         super(data, context);
     }
 
-    async updateFactions(factions, factionData) {
+    async updateFactions(factions) {
         const update = {}
         update[`flags.${UnT.ID}.factions`] = factions
+
+        this.update(update)
+    }
+
+    async updateFactionData(factionData) {
+        const update = {}
         update[`flags.${UnT.ID}.factionData`] = factionData
 
         this.update(update)

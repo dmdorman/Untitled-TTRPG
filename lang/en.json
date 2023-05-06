@@ -6,7 +6,8 @@
         "AP": "AP",
         "VS": "VS",
         "Miss": "Miss!",
-        "Hit": "Hit"
+        "Hit": "Hit",
+        "Ready": "Ready"
     },
     "Group": {
         "Sheet": {
@@ -141,7 +142,8 @@
         },
         "Damage": {
             "Damage": "Damage",
-            "ApplyTarget": "Apply to Target"
+            "ApplyTarget": "Apply to Target",
+            "ExtraHit": "Extra Hits"
         }
     },
     "Confirm": {
@@ -152,5 +154,10 @@
     },
     "Notifications": {
         "SelectToken": "Select a token!"
+    },
+    "Combat": {
+        "TurnOrderSelector": {
+            "Title": "Turn Order Selector"
+        }
     }
 }

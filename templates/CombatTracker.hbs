@@ -1,4 +1,4 @@
-{{!-- {{ log 'Combat Tracker' this }} --}}
+{{ log 'Combat Tracker' this }}
 <section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}">
     <header class="combat-tracker-header">
         {{#if user.isGM}}
@@ -114,7 +114,8 @@
             <a class="combat-control" data-tooltip="COMBAT.TurnNext" data-action="nextTurn"><i class="fas fa-arrow-right"></i></a>
             <a class="combat-control" data-tooltip="COMBAT.RoundNext" data-control="nextRound"><i class="fas fa-step-forward"></i></a>
             {{else}}
-            <a class="combat-control center" data-control="startCombat">{{localize 'COMBAT.Begin'}}</a>
+            <a class="combat-control center" data-action="startCombat">{{localize 'COMBAT.Begin'}}</a>
+            {{!-- <a class="combat-control center" data-control="startCombat">{{localize 'COMBAT.Begin'}}</a> --}}
             {{/if}}
         {{else if control}}
         <a class="combat-control" data-tooltip="COMBAT.TurnPrev" data-action="previousTurn"><i class="fas fa-arrow-left"></i></a>

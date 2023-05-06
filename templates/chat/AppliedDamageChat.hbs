@@ -49,6 +49,7 @@
 
         {{#if @root.extraHits}}
             <div class="flavor-box" style="margin-top: 5px;">
+                <div class="flexbox-centered">{{localize 'Chat.Damage.ExtraHit'}}</div>
                 {{#each @root.extraHits as |hit|}}
                 <div>{{{hit.renderedRoll}}}</div>
                 {{/each}}

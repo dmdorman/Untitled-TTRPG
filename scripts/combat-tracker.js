@@ -22,17 +22,11 @@ export class UnTCombatTracker extends CombatTracker {
 
         const factionData = {}
 
-        const factions = []
-
         for (const combatant of activeCombat.combatants) {
             const relevantToken = game.scenes.get(combatant.sceneId).tokens.get(combatant.tokenId)
             const relevantActor = relevantToken._actor
 
             const combatantFaction = getFaction(relevantActor)
-
-            if (! factions.includes(combatantFaction)) {
-                factions.push(combatantFaction)
-            }
 
             if (!(combatantFaction in factionData)) {
                 factionData[combatantFaction] = []
@@ -46,8 +40,10 @@ export class UnTCombatTracker extends CombatTracker {
         }
 
         if (game.user.isGM) {
-            await activeCombat.updateFactions(factions, factionData)
+            await activeCombat.updateFactionData(factionData)
         }
+
+        const factions = activeCombat.flags[UnT.ID].factions
 
         return foundry.utils.mergeObject(data, {
             factionData,
@@ -65,6 +61,10 @@ export class UnTCombatTracker extends CombatTracker {
             if (token.combatant) {
                 this.render()
             }
+        })
+
+        Hooks.on('createCombat', (combat, data, id) => {
+            combat.updateFactions(["players", "enemies"])
         })
     }
 
@@ -87,6 +87,14 @@ export class UnTCombatTracker extends CombatTracker {
                 break;
             }
 
+            case ('startCombat'): {
+                const combatOrderForm = new CombatFactionOrderForm({activeCombat})
+
+                combatOrderForm.render(true)
+
+                break;
+            }
+
             default:
                 UnT.log(false, 'Invalid action detected', action)
                 break;
@@ -100,4 +108,96 @@ function getFaction(actor) {
     }
 
     return "enemies"
+}
+
+class CombatFactionOrderForm extends FormApplication {
+    static get defaultOptions() {
+        const defaults = super.defaultOptions;
+
+        const overrides = {
+            height: 'auto',
+            width: 200,
+            id: foundry.utils.randomID(),
+            template: UnT.TEMPLATES.CombatFactionOrder,
+            title: "Combat.TurnOrderSelector.Title",
+            userId: game.userId,
+            closeOnSubmit: false, // do not close when submitted
+            submitOnChange: true, // submit when any input changes
+            resizable: true,
+        }
+
+        const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
+
+        return mergedOptions
+    }
+
+    getData(options) {
+        const factions = this.object.activeCombat.flags[UnT.ID].factions
+
+        return {
+            factions
+        }
+    }
+
+    async _updateObject(event, formData) {
+        // do nothing
+    }
+
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        html.on('click', "[data-action]", this._handleButtonClick.bind(this));
+    }
+
+    async _handleButtonClick(event) {
+        const clickedElement = $(event.currentTarget);
+        const action = clickedElement.data().action;
+        const currentIndex = clickedElement.data().index;
+
+        const factions = this.object.activeCombat.flags[UnT.ID].factions
+
+        switch(action) {
+            case ('startCombat'): {
+                await this.object.activeCombat.startCombat()
+
+                this.close()
+
+                break;
+            }
+
+            case ('order-increase'): {
+                const relevantFaction = factions.splice(currentIndex, 1)[0]//factions[currentIndex]
+
+                factions.splice(currentIndex - 1, 0, relevantFaction)
+
+                const update = {}
+                update[`flags.${UnT.ID}.factions`] = factions
+
+                await this.object.activeCombat.update(update)
+
+                this.render()
+
+                break;
+            }
+
+            case ('order-decrease'): {
+                const relevantFaction = factions.splice(currentIndex, 1)[0]//factions[currentIndex]
+
+                factions.splice(currentIndex + 1, 0, relevantFaction)
+
+                const update = {}
+                update[`flags.${UnT.ID}.factions`] = factions
+
+                await this.object.activeCombat.update(update)
+
+                this.render()
+
+                break;
+            }
+
+            default:
+                UnT.log(false, 'Invalid action detected', action)
+                break;
+        }
+    }
 }

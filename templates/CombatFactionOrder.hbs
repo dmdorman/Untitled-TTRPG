@@ -1,0 +1,23 @@
+{{ log 'Turn Order Selector' this }}
+<form>
+    {{#each factions as |faction|}}
+    <div class="flex-row" style="font-size: 20px; font-weight: bold;">
+        <div>
+            {{#unless @first}}
+            <i class="fas fa-arrow-alt-up" data-action="order-increase" data-index="{{@index}}"></i>
+            {{else}}
+            <i class="fas fa-arrow-alt-up" style="opacity: 0;"></i>
+            {{/unless}}
+
+            {{#unless @last}}
+            <i class="fas fa-arrow-alt-down" data-action="order-decrease" data-index="{{@index}}"></i>
+            {{else}}
+            <i class="fas fa-arrow-alt-down" style="opacity: 0;"></i>
+            {{/unless}}
+        </div>
+        <div style="margin-left: 10px;">{{faction}}</div>
+    </div>
+    {{/each}}
+
+    <button data-action="startCombat", style="margin-top: 20px;">{{localize 'General.Ready'}}</button>
+</form>
