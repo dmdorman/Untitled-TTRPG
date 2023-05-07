@@ -108,14 +108,13 @@
     {{#if hasCombat}}
         {{#if user.isGM}}
             {{#if round}}
-            <a class="combat-control" data-tooltip="COMBAT.RoundPrev" data-control="previousRound"><i class="fas fa-step-backward"></i></a>
+            <a class="combat-control" data-tooltip="COMBAT.RoundPrev" data-control="previousRound" data-action="previousRound"><i class="fas fa-step-backward"></i></a>
             <a class="combat-control" data-tooltip="COMBAT.TurnPrev" data-action="previousTurn"><i class="fas fa-arrow-left"></i></a>
             <a class="combat-control center" data-control="endCombat">{{localize 'COMBAT.End'}}</a>
             <a class="combat-control" data-tooltip="COMBAT.TurnNext" data-action="nextTurn"><i class="fas fa-arrow-right"></i></a>
-            <a class="combat-control" data-tooltip="COMBAT.RoundNext" data-control="nextRound"><i class="fas fa-step-forward"></i></a>
+            <a class="combat-control" data-tooltip="COMBAT.RoundNext" data-control="nextRound" data-action="nextRound"><i class="fas fa-step-forward"></i></a>
             {{else}}
             <a class="combat-control center" data-action="startCombat">{{localize 'COMBAT.Begin'}}</a>
-            {{!-- <a class="combat-control center" data-control="startCombat">{{localize 'COMBAT.Begin'}}</a> --}}
             {{/if}}
         {{else if control}}
         <a class="combat-control" data-tooltip="COMBAT.TurnPrev" data-action="previousTurn"><i class="fas fa-arrow-left"></i></a>

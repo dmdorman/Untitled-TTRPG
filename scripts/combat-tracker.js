@@ -76,12 +76,22 @@ export class UnTCombatTracker extends CombatTracker {
 
         switch(action) {
             case ('nextTurn'): {
+                const maxTurn = game.combats.active.flags[UnT.ID].factions.length - 1
+
+                if (game.combats.active.turn === maxTurn) {
+                    await setCombatantsApToMax()
+                } 
+
                 activeCombat.nextTurn()
 
                 break;
             }
 
             case ('previousTurn'): {
+                if (game.combats.active.turn === 0) {
+                    await setCombatantsApToZero()
+                } 
+
                 activeCombat.previousTurn()
 
                 break;
@@ -95,11 +105,35 @@ export class UnTCombatTracker extends CombatTracker {
                 break;
             }
 
+            case ('previousRound'): {
+                await setCombatantsApToZero()
+
+                break;
+            }
+
+            case ('nextRound'): {
+                await setCombatantsApToMax()
+
+                break;
+            }
+
             default:
                 UnT.log(false, 'Invalid action detected', action)
                 break;
         }
     }
+}
+
+async function setCombatantsApToMax() {
+    for (const combatant of game.combats.active.combatants) {
+        await combatant.actor.update({"system.ap.value": combatant.actor.system.ap.max})
+    }
+}
+
+async function setCombatantsApToZero() {
+    for (const combatant of game.combats.active.combatants) {
+        await combatant.actor.update({"system.ap.value": 0})
+    }    
 }
 
 function getFaction(actor) {
