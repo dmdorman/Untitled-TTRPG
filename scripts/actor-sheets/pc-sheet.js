@@ -1,6 +1,7 @@
 import { UnT } from "../untitled-ttrpg.js"
 import { addType, removeType } from "../typing.js";
 import { abilityChat } from "../chat/ability-chat.js";
+import { inCombat } from "../combat.js"
 
 export class PCActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -108,6 +109,21 @@ export class PCActorSheet extends ActorSheet {
             case ('item-roll'): {
                 const itemId = clickedElement.closest("[data-item-id]").data().itemId
                 const relevantItem = this.actor.items.get(itemId)
+
+                const isCombatant = inCombat(this.actor._id)
+
+                if (isCombatant && (relevantItem.system.apCost > this.actor.system.ap.value)) {
+                    ui.notifications.error("Notifications.NotEnoughAP", { localize: true });
+                    break;
+                }
+
+                if (isCombatant) {
+                    const newAp = this.actor.system.ap.value - relevantItem.system.apCost
+
+                    this.actor.update({"system.ap.value": newAp})
+
+                    ui.notifications.warn("Notifications.SpentAP", { localize: true });
+                }
 
                 await abilityChat(relevantItem)
 

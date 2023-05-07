@@ -34,7 +34,7 @@ export class UnTCombatTracker extends CombatTracker {
 
             const combatantTurnData = data.turns.filter((e) => e.id === combatant._id)[0]
 
-            combatantTurnData['resource'] = relevantToken.actorData.system
+            combatantTurnData['resource'] = relevantToken.actor.system
 
             factionData[combatantFaction].push(combatantTurnData)
         }

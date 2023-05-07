@@ -50,3 +50,13 @@ export class UnTCombat extends Combat {
         }
     }
 }
+
+export function inCombat(actorId) {
+    if (!game.combats.active) { return false; }
+
+    const relevantCombatant = game.combats.active.combatants.find((e) => e.actor._id === actorId)
+
+    if (!relevantCombatant) { return false; }
+
+    return true
+}
