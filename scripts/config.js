@@ -140,3 +140,9 @@ Rules.abilities.components = {
         }
     }
 }
+
+Rules.perks = {
+    "Accurate": { "accuracyBuff": 1},
+    "Berserker": {},
+    "HardToHit": { "accuracyDebuff": -1 }
+}

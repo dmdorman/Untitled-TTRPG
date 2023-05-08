@@ -56,7 +56,23 @@
     <div class="card-container">
         {{#each data.items as |item|}}
             {{#if (eq item.type 'perk')}}
-            <div>{{item.name}}</div>
+                <div data-item-id="{{item._id}}">
+                    {{#if (eq (isEditable @root.data.actor) "enabled")}}
+                    <div style="text-align: center; margin-bottom: 5px;">
+                        <i class="trash-icon fas fa-trash-alt" data-action="item-delete" data-type-id="{{typeIdx}}"></i>
+                    </div>
+                    {{/if}}
+
+                    <div class="card-header" style="background-color: black; color: white;">
+                        {{#if item.system.inEditMode}}
+                        <img src="{{item.img}}" class="card-image" data-edit="img">
+                        {{else}}
+                        <img src="{{item.img}}" class="card-image">
+                        {{/if}}
+
+                        <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
+                    </div>
+                </div>
             {{/if}}
         {{/each}}
     </div>

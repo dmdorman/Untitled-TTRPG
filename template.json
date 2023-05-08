@@ -49,7 +49,10 @@
             "flavor": ""
         },
         "perk": {
-            "templates": []
+            "templates": [],
+            "description": "",
+            "cost": 0,
+            "key": null
         }
     }
 }

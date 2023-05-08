@@ -63,13 +63,25 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
 
     const [sizeAccuracyModifier, _] = getSizeAttackInteractions(item.actor, targetActor)
 
-    const totalHits = calculateHits(hitRollTotal, [sizeAccuracyModifier])
+    const accuracyModifiers = [{modType: "Size", modValue: sizeAccuracyModifier}]
+
+    if (targetActor.items.find((e) => e.system.key === "HardToHit")) {
+        accuracyModifiers.push({modType: "HardToHit", modValue: CONFIG.UnT.perks.HardToHit.accuracyDebuff})
+    }
+
+    if (item.actor.items.find((e) => e.system.key === "Accurate")) {
+        accuracyModifiers.push({modType: "Accurate", modValue: CONFIG.UnT.perks.Accurate.accuracyBuff})
+    }
+
+    const totalHits = calculateHits(hitRollTotal, accuracyModifiers)
 
     // render DamageChat template
     const templateData = {
         item,
         targetActor,
         typing,
+
+        accuracyModifiers,
 
         appliedDamageFormula,
         appliedDamageResult,
@@ -119,6 +131,9 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
     }
 
     const cardContent = await renderTemplate(UnT.TEMPLATES.AppliedDamageChat, templateData);
+
+    const newHp = targetActor.system.hp.value - templateData["appliedDamageResult"]
+    await targetActor.update({"system.hp.value": newHp})
 
     // create ChatMessage
     const speaker = ChatMessage.getSpeaker()
@@ -174,7 +189,7 @@ function getExplodingDice(dice) {
 }
 
 function calculateHits(hitRollTotal, modifiers) {
-    const actualHitRollTotal = hitRollTotal + modifiers.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    const actualHitRollTotal = hitRollTotal + modifiers.reduce((accumulator, currentValue) => accumulator + currentValue.modValue, 0)
 
     if (actualHitRollTotal < CONFIG.UnT.hitsOn) {
         return 0

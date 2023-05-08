@@ -22,7 +22,9 @@ export class UnTItemSheet extends ItemSheet {
         const output = {
             data,
             ID: UnT.ID,
-            typing: JSON.parse(game.settings.get(UnT.ID, 'typing'))
+            typing: JSON.parse(game.settings.get(UnT.ID, 'typing')),
+            user: game.user,
+            CONFIG
         };
 
         return output

@@ -1,20 +1,39 @@
-{{ log 'Perk Sheet' this }}
+{{!-- {{ log 'Perk Sheet' this }} --}}
 <form>
-    {{!-- <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};"> --}}
-        {{#with @root.data.item as |item|}}
-            {{#if item.system.inEditMode}}
-            <img src="{{item.img}}" class="card-image" data-edit="img">
-            {{else}}
-            <img src="{{item.img}}" class="card-image">
-            {{/if}}
+    <div class="card-header" style="background-color: black; color: white;">
+        {{#if @root.data.item.system.inEditMode}}
+        <img src="{{@root.data.item.img}}" class="card-image" data-edit="img">
+        {{else}}
+        <img src="{{@root.data.item.img}}" class="card-image">
+        {{/if}}
 
-            <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
-        {{/with}}
-    {{!-- </div> --}}
+        <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{@root.data.item.name}}</span>
+    </div>
 
-    {{!-- {{#each @root.data.item.system as |value key|}}
-        <div>{{key}}</div>
-    {{/each}} --}}
+    <textarea class="card-textarea" placeholder="{{localize 'Item.Placeholder.Description'}}" 
+        name="system.description" {{isEditable @root.data.item}}
+        style="height: 200px;"
+    >{{@root.data.item.system.description}}</textarea>
+
+    <div class="flex-row">
+        <div>{{localize "Item.General.Cost"}}</div>
+        <input type="Number" name="system.cost" value="{{@root.data.item.system.cost}}" style="margin-left: 20px;" {{isEditable @root.data.item}}>
+    </div>
+
+    {{#if @root.user.isGM}}
+        {{#if @root.data.item.system.inEditMode}}
+        <select style="margin-top: 20px;" name="system.key">
+            <option value="null" {{#if (eq @root.data.item.system.key "null")}}selected{{/if}}>
+                {{localize "Item.General.Key"}}
+            </option>
+            {{#each @root.CONFIG.UnT.perks as |perk key|}}
+            <option value="{{key}}" {{#if (eq @root.data.item.system.key key)}}selected{{/if}}>
+                {{key}}
+            </option>
+            {{/each}}
+        </select>
+        {{/if}}
 
     <div style="text-align: right; margin-left: 10px; margin-bottom: 20px"><i class="fas fa-cog" data-action="set-editable"></i></div>
+    {{/if}}
 </form>

@@ -31,6 +31,10 @@
         }
     },
     "Item": {
+        "General": {
+            "Cost": "Cost",
+            "Key": "Key"
+        },
         "Placeholder": {
             "Name": "Item Name",
             "Description": "Item Description"
@@ -143,7 +147,13 @@
         "Damage": {
             "Damage": "Damage",
             "ApplyTarget": "Apply to Target",
-            "ExtraHit": "Extra Hits"
+            "ExtraHit": "Extra Hits",
+            "Modifiers": {
+                "Modifiers": "Modifiers",
+                "Size": "Size",
+                "HardToHit": "Hard to Hit",
+                "Accurate": "Accurate"
+            }
         }
     },
     "Confirm": {
@@ -155,7 +165,7 @@
     "Notifications": {
         "SelectToken": "Select a token!",
         "NotEnoughAP": "Not enough AP!",
-        "SpentAP": "Spend AP!"
+        "SpentAP": "Spent AP!"
     },
     "Combat": {
         "TurnOrderSelector": {

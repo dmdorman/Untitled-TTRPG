@@ -1,4 +1,4 @@
-{{ log 'Applied Damage Chat' this }}
+{{!-- {{ log 'Applied Damage Chat' this }} --}}
 <div class="" data-message-id="{{message._id}}" {{#if borderColor}}style="border-color:{{borderColor}}"{{/if}} data-item-id="{{item._id}}">        
     <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
         <img src="{{item.img}}" class="card-image">
@@ -37,6 +37,23 @@
                 {{/with}}
             {{/each}}
         </div>
+    </div>
+
+    {{ log 'AppliedDamageChat' this }}
+    <div class="modifiers-list">
+        <div style="margin-right: 10px;">{{localize 'Chat.Damage.Modifiers.Modifiers'}}:</div>
+        
+        {{#each @root.accuracyModifiers as |modifier|}}
+            <div style="margin-right: 10px;">
+                {{localizeVariableKey "Chat.Damage.Modifiers" modifier.modType emptyOptions=true}}
+
+                {{#if (lt modifier.modValue 0)}}
+                    ({{modifier.modValue}})
+                {{else}}
+                    (+{{modifier.modValue}})
+                {{/if}}
+            </div>
+        {{/each}}
     </div>
 
     {{#if (eq @root.totalHits 0)}}
