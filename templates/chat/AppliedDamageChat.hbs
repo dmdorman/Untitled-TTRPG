@@ -5,37 +5,39 @@
         <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
     </div>
     
-    <div class="flavor-box flexbox-centered">
-        {{@root.item.actor.name}} ({{item.name}})
+    <div class="flavor-box flex-row" style="justify-content: space-around;">
+        <div class="flex-col">
+            {{@root.item.actor.name}} ({{item.name}})
 
-        <div class="flex-row">
-            {{#each @root.item.system.types as |targetActorTypeIdx|}}
-                {{#with (lookup @root.typing targetActorTypeIdx) as |type|}}
-                <div class="typing-tags" 
-                    style="background-color: {{type.color}}; color: {{type.textColor}}" 
-                    data-action="edit-tag"
-                    data-type="{{typeIdx}}"
-                >{{type.name}}</div>
-                {{/with}}
-            {{/each}}
+            <div class="flex-row">
+                {{#each @root.item.system.types as |targetActorTypeIdx|}}
+                    {{#with (lookup @root.typing targetActorTypeIdx) as |type|}}
+                    <div class="typing-tags" 
+                        style="background-color: {{type.color}}; color: {{type.textColor}}" 
+                        data-action="edit-tag"
+                        data-type="{{typeIdx}}"
+                    >{{type.name}}</div>
+                    {{/with}}
+                {{/each}}
+            </div>
         </div>
-    </div>
 
-    <div class="flexbox-centered" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-style: italic;">{{localize 'General.VS'}}</div>
+        <div class="flexbox-centered" style="margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-style: italic;">{{localize 'General.VS'}}</div>
 
-    <div class="flavor-box flexbox-centered">
-        {{@root.targetActor.name}}
+        <div class="flex-col">
+            {{@root.targetActor.name}}
 
-        <div class="flex-row">
-            {{#each @root.targetActor.system.types as |targetActorTypeIdx|}}
-                {{#with (lookup @root.typing targetActorTypeIdx) as |type|}}
-                <div class="typing-tags" 
-                    style="background-color: {{type.color}}; color: {{type.textColor}}" 
-                    data-action="edit-tag"
-                    data-type="{{typeIdx}}"
-                >{{type.name}}</div>
-                {{/with}}
-            {{/each}}
+            <div class="flex-row">
+                {{#each @root.targetActor.system.types as |targetActorTypeIdx|}}
+                    {{#with (lookup @root.typing targetActorTypeIdx) as |type|}}
+                    <div class="typing-tags" 
+                        style="background-color: {{type.color}}; color: {{type.textColor}}" 
+                        data-action="edit-tag"
+                        data-type="{{typeIdx}}"
+                    >{{type.name}}</div>
+                    {{/with}}
+                {{/each}}
+            </div>
         </div>
     </div>
 
