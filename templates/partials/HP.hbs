@@ -1,0 +1,19 @@
+<div class="flavor-box">
+    <div class="flexbox-centered">{{localize 'General.HP'}}</div>
+
+    <div class="flex-row">
+        <div style="margin-right: 10px;">
+            <div class="flexbox-centered faded-text">{{localize 'General.Value'}}</div>
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" 
+                value="{{@root.data.actor.system.hp.value}}" name="system.hp.value" class="square-input" 
+            >
+        </div>
+        <div>
+            <div class="flexbox-centered faded-text">{{localize 'General.Max'}}</div>
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.HP"}}" 
+                value="{{@root.data.actor.system.hp.max}}" name="system.hp.max" class="square-input" 
+                {{isEditable @root.data.actor}}
+            >
+        </div>
+    </div>
+</div>

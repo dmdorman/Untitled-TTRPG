@@ -1,0 +1,11 @@
+{{#if (eq (isEditable @root.data.actor) "enabled")}}
+<div class="flexbox-centered">
+    <select name="system.size">
+        {{#each CONFIG.UnT.sizes as |size|}}
+        <option {{#if (eq size @root.data.actor.system.size)}}selected{{/if}}>{{size}}</option>
+        {{/each}}
+    </select>
+</div>
+{{else}}
+<div class="flexbox-centered">{{@root.data.actor.system.size}}</div>
+{{/if}}

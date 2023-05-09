@@ -1,0 +1,19 @@
+<div class="flavor-box">
+    <div class="flexbox-centered">{{localize 'General.AP'}}</div>
+
+    <div class="flex-row">
+        <div style="margin-right: 10px;">
+            <div class="flexbox-centered faded-text">{{localize 'General.Value'}}</div>
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" 
+                value="{{@root.data.actor.system.ap.value}}" name="system.ap.value" class="square-input"     
+            >
+        </div>
+        <div>
+            <div class="flexbox-centered faded-text">{{localize 'General.Max'}}</div>
+            <input type="Number" placeholder="{{localize "PC.Sheet.Placeholder.AP"}}" 
+                value="{{@root.data.actor.system.ap.max}}" name="system.ap.max" class="square-input"     
+                {{isEditable @root.data.actor}}
+            >
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+{{!-- {{ log 'Profile Partial' this }} --}}
+<div class="flavor-box">
+    <table class="defense-table">
+        <thread>
+            <tr>
+                <th></th>
+                <th>{{localize 'General.Temporary'}}</th>
+                <th>{{localize 'General.Value'}}</th>
+                <th>{{localize 'General.Max'}}</th>
+            </tr>
+        </thread>
+        <tbody>
+            {{#each @root.CONFIG.UnT.hitZones.zones as |zone zoneKey|}}
+            <tr>
+                <td>{{zoneKey}}</td>
+                <td>
+                    <input type="Number" class="defense-input"
+                        value="{{lookup (lookup @root.data.actor.flags.UnT zoneKey) 'temp'}}"
+                        name="flags.UnT.{{zoneKey}}.temp"
+                    >    
+                </td>
+                <td>
+                    <input type="Number" class="defense-input"
+                        value="{{lookup (lookup @root.data.actor.flags.UnT zoneKey) 'value'}}"
+                        name="flags.UnT.{{zoneKey}}.value"
+                    >    
+                </td>
+                <td>
+                    <input type="Number" class="defense-input" {{isEditable @root.data.actor}}
+                        value="{{lookup (lookup @root.data.actor.flags.UnT zoneKey) 'max'}}"
+                        name="flags.UnT.{{zoneKey}}.max"
+                    >    
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

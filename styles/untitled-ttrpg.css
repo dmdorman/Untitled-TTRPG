@@ -12,12 +12,17 @@
 }
 
 .square-input {
-    width: 60px !important;
-    height: 60px !important;
+    width: 40px !important;
+    height: 40px !important;
     padding: 0 !important;
     font-size: 14px !important;
     text-align: center !important;
     border: 1px solid #ccc !important;
+}
+
+.defense-input {
+    width: 45px !important;
+    text-align: center !important;
 }
 
 .name-input {
@@ -218,4 +223,14 @@
     align-items: flex-start;
     font-style: italic;
     color: rgba(153, 153, 153, 1.0);
+}
+
+.faded-text {
+    font-style: italic;
+    color: rgba(153, 153, 153, 1.0);
+}
+
+.defense-table {
+    border: none;
+    background-color: none;
 }

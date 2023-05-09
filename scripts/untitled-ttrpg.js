@@ -47,7 +47,11 @@ export class UnT {
 
         loadTemplates([
             `systems/${this.ID}/templates/partials/ItemCard.hbs`,
-            `systems/${this.ID}/templates/partials/TypeRow.hbs`
+            `systems/${this.ID}/templates/partials/TypeRow.hbs`,
+            `systems/${this.ID}/templates/partials/Profile.hbs`,
+            `systems/${this.ID}/templates/partials/SizeSelector.hbs`,
+            `systems/${this.ID}/templates/partials/HP.hbs`,
+            `systems/${this.ID}/templates/partials/AP.hbs`
         ]);
 
         Actors.unregisterSheet("core", ActorSheet);

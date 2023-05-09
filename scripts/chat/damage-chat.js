@@ -53,8 +53,6 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
     // determine hit zone
     const [renderedHitZoneRoll, hitZone] = await getHitzone(targetActor)
 
-    UnT.log(false, hitZone)
-
     // determine effective damage
     const appliedDamageFormula = callculateEffectiveDamage(rollTotal, item, targetActor, hitZone)
     const appliedDamageResult = eval(appliedDamageFormula)
@@ -136,7 +134,12 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
         templateData["extraHits"] = extraHits
 
         templateData["appliedDamageFormula"] = newAppliedDamageFormula
-        templateData["appliedDamageResult"] = newAppliedDamageResult
+
+        if (targetActor.hasPlayerOwner) {
+            templateData["appliedDamageResult"] = Math.floor(newAppliedDamageResult)
+        } else {
+            templateData["appliedDamageResult"] = Math.ceil(newAppliedDamageResult)
+        }
     }
 
     const cardContent = await renderTemplate(UnT.TEMPLATES.AppliedDamageChat, templateData);
@@ -173,7 +176,6 @@ export function calculateTypeInteractions(damageInput, attackTypes, defendingAct
         }
     }
 
-    // let appliedDamageFormula = damageInput.toString()
     let appliedDamageFormula = ""
     let appliedDamageResult = damageInput
 
