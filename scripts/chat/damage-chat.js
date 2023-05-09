@@ -2,6 +2,7 @@ import { UnT } from "../untitled-ttrpg.js"
 import { UnTChatMessage } from "../chat-message.js"
 import { getTyping } from "../typing.js"
 import { getSizeAttackInteractions } from "../size.js"
+import { hasPerk } from "../perks.js"
 
 export async function damageChat(item, hitRollTotal) {
     const damageFormula = calculateDamageFormula(item)
@@ -50,12 +51,9 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
     const borderColor = typing[itemType].color
 
     // determine hit zone
-    const hitZoneRoll = new Roll("1d10")
-    await hitZoneRoll.evaluate({async: true})
+    const [renderedHitZoneRoll, hitZone] = await getHitzone(targetActor)
 
-    const renderedHitZoneRoll = await hitZoneRoll.render()
-
-    const hitZone = CONFIG.UnT.hitZones.roll[hitZoneRoll.total.toString()]
+    UnT.log(false, hitZone)
 
     // determine effective damage
     const appliedDamageFormula = callculateEffectiveDamage(rollTotal, item, targetActor, hitZone)
@@ -65,12 +63,22 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
 
     const accuracyModifiers = [{modType: "Size", modValue: sizeAccuracyModifier}]
 
-    if (targetActor.items.find((e) => e.system.key === "HardToHit")) {
+    if (hasPerk(targetActor, "HardToHit")) {
         accuracyModifiers.push({modType: "HardToHit", modValue: CONFIG.UnT.perks.HardToHit.accuracyDebuff})
     }
 
-    if (item.actor.items.find((e) => e.system.key === "Accurate")) {
+    if (hasPerk(targetActor, "Accurate")) {
         accuracyModifiers.push({modType: "Accurate", modValue: CONFIG.UnT.perks.Accurate.accuracyBuff})
+    }
+
+    const damageModifiers = []
+
+    if (hasPerk(targetActor, "NoWeakPoints")) {
+        damageModifiers.push({modType: "NoWeakPoints"})
+    }
+
+    if (hasPerk(targetActor, "Amorphous")) {
+        damageModifiers.push({modType: "Amorphous"})
     }
 
     const totalHits = calculateHits(hitRollTotal, accuracyModifiers)
@@ -82,6 +90,7 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
         typing,
 
         accuracyModifiers,
+        damageModifiers,
 
         appliedDamageFormula,
         appliedDamageResult,
@@ -217,10 +226,35 @@ function calculateDamageFormula(item) {
 function callculateEffectiveDamage(damageRoll, item, targetActor, hitZone) {
     const [_, sizeDamageModifier] = getSizeAttackInteractions(item.actor, targetActor)
 
-    const hitZoneDamageModifier = CONFIG.UnT.hitZones.zones[hitZone].damageMod
+    const hitZoneDamageModifier = getHitZoneDamageModifier(targetActor, hitZone)
+
+    UnT.log(false, hitZoneDamageModifier)
 
     const [appliedDamageResult, appliedDamageFormula] = 
         calculateTypeInteractions(damageRoll, item.system.types, targetActor)
 
     return "(" + damageRoll.toString() + " + " + sizeDamageModifier.toString() + ")" + " * "  + hitZoneDamageModifier.toString() + appliedDamageFormula
+}
+
+async function getHitzone(targetActor) {
+    const hitZoneRoll = new Roll("1d10")
+    await hitZoneRoll.evaluate({async: true})
+
+    const renderedHitZoneRoll = await hitZoneRoll.render()
+
+    const hitZone = CONFIG.UnT.hitZones.roll[hitZoneRoll.total.toString()]
+
+    return [renderedHitZoneRoll, hitZone]
+}
+
+function getHitZoneDamageModifier(targetActor, hitZone) {
+    if (hasPerk(targetActor, "NoWeakPoints")) {
+        return CONFIG.UnT.perks.NoWeakPoints.zones[hitZone].damageMod
+    }
+
+    if (hasPerk(targetActor, "Amorphous")) {
+        return CONFIG.UnT.perks.Amorphous.zones[hitZone].damageMod
+    }
+
+    return CONFIG.UnT.hitZones.zones[hitZone].damageMod
 }

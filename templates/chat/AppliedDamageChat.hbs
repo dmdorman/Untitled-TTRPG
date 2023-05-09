@@ -39,9 +39,8 @@
         </div>
     </div>
 
-    {{ log 'AppliedDamageChat' this }}
     <div class="modifiers-list">
-        <div style="margin-right: 10px;">{{localize 'Chat.Damage.Modifiers.Modifiers'}}:</div>
+        <div style="margin-right: 10px;">{{localize 'Chat.Damage.Accuracy'}} {{localize 'Chat.Damage.Modifiers.Modifiers'}}:</div>
         
         {{#each @root.accuracyModifiers as |modifier|}}
             <div style="margin-right: 10px;">
@@ -77,5 +76,17 @@
             <div class="flexbox-centered">{{appliedDamageFormula}}</div>
             <div class="flexbox-centered" style="font-size: 24px;">{{appliedDamageResult}}</div>
         </div>
+    {{/if}}
+
+    {{#if (gt @root.damageModifiers.length 0)}}
+    <div class="modifiers-list">
+        <div style="margin-right: 10px;">{{localize 'Chat.Damage.Damage'}} {{localize 'Chat.Damage.Modifiers.Modifiers'}}:</div>
+        
+        {{#each @root.damageModifiers as |modifier|}}
+            <div style="margin-right: 10px;">
+                {{localizeVariableKey "Chat.Damage.Modifiers" modifier.modType emptyOptions=true}}
+            </div>
+        {{/each}}
+    </div>
     {{/if}}
 </div>

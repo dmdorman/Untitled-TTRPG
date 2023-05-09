@@ -146,13 +146,16 @@
         },
         "Damage": {
             "Damage": "Damage",
+            "Accuracy": "Accuracy",
             "ApplyTarget": "Apply to Target",
             "ExtraHit": "Extra Hits",
             "Modifiers": {
                 "Modifiers": "Modifiers",
                 "Size": "Size",
                 "HardToHit": "Hard to Hit",
-                "Accurate": "Accurate"
+                "Accurate": "Accurate",
+                "NoWeakPoints": "No Weak Points",
+                "Amorphous": "Amorphous"
             }
         }
     },

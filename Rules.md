@@ -136,7 +136,9 @@ Next decide your charters' perks.
     Hard to Hit (1): attacking characters have a -1 to their attack roll
     Accurate (1): character has +1 to hit on their attack roll
     Berserker (2): each time you end a turn next to an enemy +2 temporary defense per adjacent enemy (up to 6)
-    
+    Amorphous (1): hit zones do not affect this character
+    No Weak Points (2): character does not have Weak Point hit zone
+
 =========== Combat ===========
 To make an attack a character must use an ability. To hit a target roll 1d10. The roll is modified by a few things such as positioning, relative size, and cover. 
 

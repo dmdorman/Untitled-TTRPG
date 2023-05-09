@@ -144,5 +144,19 @@ Rules.abilities.components = {
 Rules.perks = {
     "Accurate": { "accuracyBuff": 1},
     "Berserker": {},
-    "HardToHit": { "accuracyDebuff": -1 }
+    "HardToHit": { "accuracyDebuff": -1 },
+    "Amorphous": {
+        "zones": {
+            "weak point": { "damageMod": 1 },
+            "CoM": { "damageMod": 1 },
+            "extremities": { "damageMod": 1 }
+        },
+    },
+    "NoWeakPoints": {
+        "zones": {
+            "weak point": { "damageMod": 1 },
+            "CoM": { "damageMod": 1 },
+            "extremities": { "damageMod": 0.5 }
+        },
+    }
 }
