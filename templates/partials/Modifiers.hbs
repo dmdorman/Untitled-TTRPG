@@ -1,0 +1,17 @@
+{{#each modifiers as |modifier|}}
+<div style="margin-right: 10px;">
+    {{modifier.modType}}
+
+    {{#if (eq modifier.type "add")}}
+        {{#if (lt modifier.modValue 0)}}
+            ({{modifier.modValue}})
+        {{else}}
+            (+{{modifier.modValue}})
+        {{/if}}
+    {{/if}}
+
+    {{#if (eq modifier.type "mult")}}
+        (x{{modifier.modValue}})
+    {{/if}}
+</div>
+{{/each}}

@@ -11,7 +11,9 @@
         "Temporary": "Temporary",
         "Temp": "Temp.",
         "Max": "Max",
-        "Value": "Value"
+        "Value": "Value",
+        "ArmorOblation": "Armor Oblated",
+        "Effects": "Effects"
     },
     "Group": {
         "Sheet": {
@@ -154,12 +156,7 @@
             "ApplyTarget": "Apply to Target",
             "ExtraHit": "Extra Hits",
             "Modifiers": {
-                "Modifiers": "Modifiers",
-                "Size": "Size",
-                "HardToHit": "Hard to Hit",
-                "Accurate": "Accurate",
-                "NoWeakPoints": "No Weak Points",
-                "Amorphous": "Amorphous"
+                "Modifiers": "Modifiers"
             }
         }
     },
@@ -180,6 +177,7 @@
         }
     },
     "HitZone": {
+        "HitZone": "Hit Zone",
         "WeakPoint": "Weak Point",
         "CoM": "CoM",
         "Extremities": "Extremities"
@@ -192,5 +190,11 @@
         "large": "Large",
         "huge": "Huge",
         "gigantic": "Gigantic"
+    },
+    "Perks": {
+        "Amorphous": "Amorphous",
+        "HardToHit": "Hard to Hit",
+        "Accurate": "Accurate",
+        "NoWeakPoints": "No Weak Points"
     }
 }

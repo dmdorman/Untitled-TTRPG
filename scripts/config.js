@@ -12,6 +12,8 @@ Rules.hitsOn = 7
 Rules.bonusHitsOn = 7
 Rules.bonusAttackHaveTypeInteractions = false
 
+Rules.defenseOblatesOn = 5
+
 Rules.sizes = [
     "tiny",
     "small",

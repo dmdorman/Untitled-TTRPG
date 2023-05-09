@@ -42,24 +42,14 @@
     <div class="modifiers-list">
         <div style="margin-right: 10px;">{{localize 'Chat.Damage.Accuracy'}} {{localize 'Chat.Damage.Modifiers.Modifiers'}}:</div>
         
-        {{#each @root.accuracyModifiers as |modifier|}}
-            <div style="margin-right: 10px;">
-                {{localizeVariableKey "Chat.Damage.Modifiers" modifier.modType emptyOptions=true}}
-
-                {{#if (lt modifier.modValue 0)}}
-                    ({{modifier.modValue}})
-                {{else}}
-                    (+{{modifier.modValue}})
-                {{/if}}
-            </div>
-        {{/each}}
+        {{> systems/untitled-ttrpg/templates/partials/Modifiers.hbs modifiers=@root.accuracyModifiers}}
     </div>
 
     {{#if (eq @root.totalHits 0)}}
     <div class="flavor-box flexbox-centered" style="margin-top: 5px;">{{localize 'General.Miss'}}</div>
     {{else}}
-        <div class="flavor-box" style="margin-top: 5px;">
-            <class="flexbox-centered">{{localize 'General.Hit'}} {{localizeVariableKey "HitZone" @root.hitZone emptyOptions=true}}!</div>
+        <div class="flavor-box" style="margin-top: 5px; margin-bottom: 5px;">
+            <div class="flexbox-centered">{{localize 'General.Hit'}} {{localizeVariableKey "HitZone" @root.hitZone emptyOptions=true}}!</div>
             <div>{{{renderedHitZoneRoll}}}</div>
         </div>
 
@@ -76,17 +66,21 @@
             <div class="flexbox-centered">{{appliedDamageFormula}}</div>
             <div class="flexbox-centered" style="font-size: 24px;">{{appliedDamageResult}}</div>
         </div>
+
+        {{#if (gt @root.damageModifiers.length 0)}}
+        <div class="modifiers-list">
+            <div style="margin-right: 10px;">{{localize 'Chat.Damage.Damage'}} {{localize 'Chat.Damage.Modifiers.Modifiers'}}:</div>
+            
+            {{> systems/untitled-ttrpg/templates/partials/Modifiers.hbs modifiers=@root.damageModifiers}}
+        </div>
+        {{/if}}
     {{/if}}
 
     {{#if (gt @root.damageModifiers.length 0)}}
-    <div class="modifiers-list">
-        <div style="margin-right: 10px;">{{localize 'Chat.Damage.Damage'}} {{localize 'Chat.Damage.Modifiers.Modifiers'}}:</div>
+    <div class="modifiers-list" style="margin-top: 5px">
+        <div style="margin-right: 10px;">{{localize 'General.Effects'}}:</div>
         
-        {{#each @root.damageModifiers as |modifier|}}
-            <div style="margin-right: 10px;">
-                {{localizeVariableKey "Chat.Damage.Modifiers" modifier.modType emptyOptions=true}}
-            </div>
-        {{/each}}
+        {{> systems/untitled-ttrpg/templates/partials/Modifiers.hbs modifiers=@root.effects}}
     </div>
     {{/if}}
 </div>

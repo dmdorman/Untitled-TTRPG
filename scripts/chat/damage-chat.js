@@ -54,29 +54,20 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
     const [renderedHitZoneRoll, hitZone] = await getHitzone(targetActor)
 
     // determine effective damage
-    const appliedDamageFormula = callculateEffectiveDamage(rollTotal, item, targetActor, hitZone)
-    const appliedDamageResult = eval(appliedDamageFormula)
+    const [damageModifiers, appliedDamageFormula] = calculateEffectiveDamage(rollTotal, item, targetActor, hitZone, false)
+
+    const appliedDamageResult = roundDamage(targetActor, eval(appliedDamageFormula))
 
     const [sizeAccuracyModifier, _] = getSizeAttackInteractions(item.actor, targetActor)
 
-    const accuracyModifiers = [{modType: "Size", modValue: sizeAccuracyModifier}]
+    const accuracyModifiers = [{modType: game.i18n.localize("Sizes.Size"), modValue: sizeAccuracyModifier, type: 'add'}]
 
     if (hasPerk(targetActor, "HardToHit")) {
-        accuracyModifiers.push({modType: "HardToHit", modValue: CONFIG.UnT.perks.HardToHit.accuracyDebuff})
+        accuracyModifiers.push({modType: game.i18n.localize("Perks.HardToHit"), modValue: CONFIG.UnT.perks.HardToHit.accuracyDebuff, type: 'add'})
     }
 
     if (hasPerk(targetActor, "Accurate")) {
-        accuracyModifiers.push({modType: "Accurate", modValue: CONFIG.UnT.perks.Accurate.accuracyBuff})
-    }
-
-    const damageModifiers = []
-
-    if (hasPerk(targetActor, "NoWeakPoints")) {
-        damageModifiers.push({modType: "NoWeakPoints"})
-    }
-
-    if (hasPerk(targetActor, "Amorphous")) {
-        damageModifiers.push({modType: "Amorphous"})
+        accuracyModifiers.push({modType: game.i18n.localize("Perks.Accurate"), modValue: CONFIG.UnT.perks.Accurate.accuracyBuff, type: 'add'})
     }
 
     const totalHits = calculateHits(hitRollTotal, accuracyModifiers)
@@ -113,22 +104,14 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
         
             const renderedRoll = await roll.render()
 
-            const effectiveDamageFormula = callculateEffectiveDamage(roll.total, item, targetActor, hitZone)
+            const [extraHitsModifiers, effectiveDamageFormula] = calculateEffectiveDamage(roll.total, item, targetActor, hitZone, true)
                         
-            const effectiveDamage = eval(effectiveDamageFormula)
+            const effectiveDamage = roundDamage(targetActor, eval(effectiveDamageFormula))
 
-            extraHits.push({total: effectiveDamage, renderedRoll})
+            extraHits.push({total: effectiveDamage, renderedRoll, damageModifiers: extraHitsModifiers})
 
-            if (CONFIG.UnT.bonusAttackHaveTypeInteractions) {
-                const [extraHitDamageResult, extraHitDamageFormula] = 
-                    calculateTypeInteractions(effectiveDamage, item.system.types, targetActor)
-
-                newAppliedDamageFormula += " + " + effectiveDamageFormula
-                newAppliedDamageResult += extraHitDamageResult
-            } else {
-                newAppliedDamageFormula += " + " + effectiveDamage
-                newAppliedDamageResult += effectiveDamage            
-            }
+            newAppliedDamageFormula += " + " + effectiveDamage
+            newAppliedDamageResult += effectiveDamage            
         }
 
         templateData["extraHits"] = extraHits
@@ -141,6 +124,20 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
             templateData["appliedDamageResult"] = Math.ceil(newAppliedDamageResult)
         }
     }
+
+    if (templateData["appliedDamageResult"] < 0) {
+        templateData["appliedDamageResult"] = 0
+    }
+
+    // determine attack effects
+    const effects = []
+
+    if (totalHits > 0) {
+        const oblation = await calculateDefenseOblation(targetActor, templateData["appliedDamageResult"], hitZone)
+        effects.push(oblation)
+    }
+
+    templateData["effects"] = effects
 
     const cardContent = await renderTemplate(UnT.TEMPLATES.AppliedDamageChat, templateData);
 
@@ -170,27 +167,13 @@ export function calculateTypeInteractions(damageInput, attackTypes, defendingAct
         for (const defendingType of defendingActor.system.types) {
             const multiplierContribution = typing[defendingType].interactions[attackType]
 
-            if (multiplierContribution && multiplierContribution !== 1) {
-                damageMultipliers.push(multiplierContribution)
-            }
+
+            damageMultipliers.push({modType: typing[attackType].name + " x " + typing[defendingType].name, 
+                modValue: multiplierContribution, type: 'mult'})
         }
     }
 
-    let appliedDamageFormula = ""
-    let appliedDamageResult = damageInput
-
-    for (const multiplier of damageMultipliers) {
-        appliedDamageFormula += " * " + multiplier.toString()
-        appliedDamageResult *= multiplier
-    }
-
-    if (defendingActor.hasPlayerOwner) {
-        appliedDamageResult = Math.floor(appliedDamageResult)
-    } else {
-        appliedDamageResult = Math.ceil(appliedDamageResult)
-    }
-
-    return [appliedDamageResult, appliedDamageFormula]
+    return damageMultipliers
 }
 
 function getExplodingDice(dice) {
@@ -225,17 +208,58 @@ function calculateDamageFormula(item) {
     return damageFormula
 }
 
-function callculateEffectiveDamage(damageRoll, item, targetActor, hitZone) {
+function calculateEffectiveDamage(damageRoll, item, targetActor, hitZone, isExtraHit) {
+    const damageModifiers = []
+
+    if (hasPerk(targetActor, "NoWeakPoints")) {
+        damageModifiers.push({modType: game.i18n.localize("Perks.NoWeakPoints")})
+    }
+
+    if (hasPerk(targetActor, "Amorphous")) {
+        damageModifiers.push({modType: game.i18n.localize("Perks.Amorphous")})
+    }
+
     const [_, sizeDamageModifier] = getSizeAttackInteractions(item.actor, targetActor)
 
+    damageModifiers.push({modType: game.i18n.localize("Sizes.Size"), modValue: sizeDamageModifier, type: 'add'})
+
     const hitZoneDamageModifier = getHitZoneDamageModifier(targetActor, hitZone)
+    damageModifiers.push({modType: game.i18n.localize("HitZone.HitZone"), modValue: hitZoneDamageModifier.toString(), type: 'mult'})
 
-    UnT.log(false, hitZoneDamageModifier)
+    if (!isExtraHit || CONFIG.UnT.bonusAttackHaveTypeInteractions) {
+        const typeInteractions = calculateTypeInteractions(damageRoll, item.system.types, targetActor)
+        damageModifiers.push(...typeInteractions)
+    }
 
-    const [appliedDamageResult, appliedDamageFormula] = 
-        calculateTypeInteractions(damageRoll, item.system.types, targetActor)
+    const defense = targetActor.flags.UnT[hitZone].value || 0
+    const tempDefense = targetActor.flags.UnT[hitZone].temp || 0
+    const totalDefense = defense + tempDefense
+    damageModifiers.push({modType: game.i18n.localize("General.Defense"), modValue: -totalDefense, type: 'add'})
 
-    return "(" + damageRoll.toString() + " + " + sizeDamageModifier.toString() + ")" + " * "  + hitZoneDamageModifier.toString() + appliedDamageFormula
+    // construct formula
+    let damageFormula = damageRoll.toString()
+
+    const adders = damageModifiers.filter((e) => e.type === "add"  && e.modValue !== 0)
+
+    for (const adder of adders) {
+        if (adder.modValue < 0) {
+            damageFormula += adder.modValue.toString() 
+        } else {
+            damageFormula += " + " + adder.modValue.toString() 
+        }
+    }
+
+    if (adders.length !== 0) {
+        damageFormula = "(" + damageFormula + ")"
+    }
+    
+    const multipliers = damageModifiers.filter((e) => e.type === "mult"  && e.modValue !== 1)
+
+    for (const multiplier of multipliers) {
+        damageFormula += " * " + multiplier.modValue.toString()
+    }
+
+    return [damageModifiers, damageFormula]
 }
 
 async function getHitzone(targetActor) {
@@ -259,4 +283,46 @@ function getHitZoneDamageModifier(targetActor, hitZone) {
     }
 
     return CONFIG.UnT.hitZones.zones[hitZone].damageMod
+}
+
+function roundDamage(target, damage) {
+    if (target.hasPlayerOwner) {
+        return Math.floor(damage)
+    }
+
+    return Math.ceil(damage)
+}
+
+async function calculateDefenseOblation(targetActor, damage, hitZone) {
+    const oblationTotal = Math.floor(damage / CONFIG.UnT.defenseOblatesOn)
+
+    let appliedOblation = oblationTotal
+    let tempArmor = targetActor.flags.UnT[hitZone].temp || 0
+    let armor = targetActor.flags.UnT[hitZone].value || 0
+
+    if (tempArmor > 0) {
+        tempArmor -= appliedOblation
+    }
+
+    if (tempArmor < 0) {
+        armor += appliedOblation
+
+        tempArmor = 0
+    }
+
+    if (armor < 0) {
+        armor = 0
+    }
+
+    const update = []
+    update[`flags.UnT.${hitZone}.temp`] = tempArmor
+    update[`flags.UnT.${hitZone}.value`] = armor
+
+    UnT.log(false, targetActor.flags.UnT[hitZone].temp)
+
+    await targetActor.update(update)
+
+    UnT.log(false, targetActor.flags.UnT[hitZone].temp)
+
+    return {modType: game.i18n.localize("General.ArmorOblation"), modValue: -oblationTotal, type: 'add'}
 }

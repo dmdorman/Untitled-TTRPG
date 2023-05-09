@@ -51,7 +51,8 @@ export class UnT {
             `systems/${this.ID}/templates/partials/Profile.hbs`,
             `systems/${this.ID}/templates/partials/SizeSelector.hbs`,
             `systems/${this.ID}/templates/partials/HP.hbs`,
-            `systems/${this.ID}/templates/partials/AP.hbs`
+            `systems/${this.ID}/templates/partials/AP.hbs`,
+            `systems/${this.ID}/templates/partials/Modifiers.hbs`
         ]);
 
         Actors.unregisterSheet("core", ActorSheet);
