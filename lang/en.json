@@ -9,9 +9,9 @@
         "Hit": "Hit",
         "Ready": "Ready",
         "Temporary": "Temporary",
+        "Temp": "Temp.",
         "Max": "Max",
-        "Value": "Value",
-        "Size": "Size"
+        "Value": "Value"
     },
     "Group": {
         "Sheet": {
@@ -183,5 +183,14 @@
         "WeakPoint": "Weak Point",
         "CoM": "CoM",
         "Extremities": "Extremities"
+    },
+    "Sizes": {
+        "Size": "Size",
+        "tiny": "Tiny",
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
+        "huge": "Huge",
+        "gigantic": "Gigantic"
     }
 }

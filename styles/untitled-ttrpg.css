@@ -20,11 +20,6 @@
     border: 1px solid #ccc !important;
 }
 
-.defense-input {
-    width: 45px !important;
-    text-align: center !important;
-}
-
 .name-input {
     flex-grow: 1;
     height: 60px !important;
@@ -233,4 +228,11 @@
 .defense-table {
     border: none;
     background-color: none;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.defense-input {
+    width: 45px !important;
+    text-align: center !important;
 }

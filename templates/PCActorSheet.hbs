@@ -7,19 +7,32 @@
         <img src="{{data.actor.img}}" class="pc-profile-img">
         {{/if}}
 
-        <input type="text" placeholder="{{localize "PC.Sheet.Placeholder.Name"}}" class="name-input" style="margin-left: 10px;">
+        <div class="flex-col" style="width: 100%;">
+            <input type="text" placeholder="{{localize "PC.Sheet.Placeholder.Name"}}" class="name-input" style="margin-left: 10px;">
+
+            {{#if (eq (isEditable @root.data.actor) "enabled")}}
+                {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.actor}}
+            {{else}}
+                {{#if (gt @root.data.actor.system.types.length 0)}}
+                {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.actor}}
+                {{/if}}
+            {{/if}}
+        </div>
     </div>
     <div class="flex-row" style="justify-content: space-around; margin-top: 10px;">
-        {{> systems/untitled-ttrpg/templates/partials/HP.hbs typing=@root.typing object=@root.data.actor}}
+        <div class="flex-col" style="height: 150px; justify-content: space-between;">
+            <div class="flex-row">
+                {{> systems/untitled-ttrpg/templates/partials/HP.hbs typing=@root.typing object=@root.data.actor}}
 
-        {{> systems/untitled-ttrpg/templates/partials/AP.hbs typing=@root.typing object=@root.data.actor}}
+                <span style="margin-right: 5px;"></span>
+
+                {{> systems/untitled-ttrpg/templates/partials/AP.hbs typing=@root.typing object=@root.data.actor}}
+            </div>
+            {{> systems/untitled-ttrpg/templates/partials/SizeSelector.hbs typing=@root.typing object=@root.data.actor}}
+        </div>
 
         {{> systems/untitled-ttrpg/templates/partials/Profile.hbs }}
     </div>
-
-    {{> systems/untitled-ttrpg/templates/partials/SizeSelector.hbs typing=@root.typing object=@root.data.actor}}
-
-    {{> systems/untitled-ttrpg/templates/partials/TypeRow.hbs typing=@root.typing object=@root.data.actor}}
 
     <div class="card-container">
         {{#each data.items as |item|}}
