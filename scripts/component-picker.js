@@ -77,7 +77,7 @@ export function getAbilityCost(item) {
         cost += component['cost']        
     }
 
-    const apCost = Math.ceil(cost / 5)
+    const apCost = Math.ceil(cost / CONFIG.UnT.abilities.componentsPerOneCost)
 
     item.update({"system.pointBuyCost": cost, "system.apCost": apCost})
 

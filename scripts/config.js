@@ -44,6 +44,7 @@ Rules.hitZones = {
 }
 
 Rules.abilities = {}
+Rules.abilities.componentsPerOneCost = 5
 Rules.abilities.components = {
     "attacks": {
         "dice": {

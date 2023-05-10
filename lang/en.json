@@ -13,7 +13,34 @@
         "Max": "Max",
         "Value": "Value",
         "ArmorOblation": "Armor Oblated",
-        "Effects": "Effects"
+        "Effects": "Effects",
+        "TotalArmor": "Total Armor"
+    },
+    "Settings": {
+        "ArmorBudget": {
+            "Name": "Armor Budget",
+            "Hint": "This sets how much armor a player can distribute between characters."
+        },
+        "AbilityBudget": {
+            "Name": "Ability/Perk Budget",
+            "Hint": "This sets how many abilities/perks a player can distribute between characters."
+        },
+        "inCharacterCreation": {
+            "Name": "Character Creation Active?",
+            "Hint": "This controls whether or not character creation is currently active."
+        },
+        "hpBudget": {
+            "Name": "HP Budget",
+            "Hint": "This sets how much hp a player can distribute between characters."
+        },
+        "apBudget": {
+            "Name": "AP Budget",
+            "Hint": "This sets how much ap a player can distribute between characters."
+        },
+        "SkillsBudget": {
+            "Name": "Skills Budget",
+            "Hint": "This sets how many skills a player can distribute between characters."
+        }
     },
     "Group": {
         "Sheet": {
@@ -196,5 +223,8 @@
         "HardToHit": "Hard to Hit",
         "Accurate": "Accurate",
         "NoWeakPoints": "No Weak Points"
+    },
+    "CharacterCreation": {
+        "Title": "Character Creation"
     }
 }

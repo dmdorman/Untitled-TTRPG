@@ -7,7 +7,7 @@ export class TypingForm extends FormApplication {
         const overrides = {
             height: 'auto',
             width: 'auto',
-            id: foundry.utils.randomID(),
+            id: 'TypingForm',
             template: UnT.TEMPLATES.TypesForm,
             title: "Types.Title",
             userId: game.userId,

@@ -115,6 +115,10 @@
     content: 'Types';
 }
 
+.scene-control-icon-character-creation::before {
+    content: 'CC';
+}
+
 /* typing tags */
 .typing-tags {
     display: inline-flex;

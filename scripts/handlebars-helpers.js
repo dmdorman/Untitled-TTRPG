@@ -69,4 +69,12 @@ export function initializeHandlebarsHelpers() {
 
         return value
     });
+
+    Handlebars.registerHelper('getArmor', function(actor, key) {
+        if (actor?.flags?.UnT === undefined) { return 0; }
+
+        const output = Object.values(actor.flags.UnT).reduce((acc, item) => acc + item[key], 0)
+
+        return output
+    })
 }

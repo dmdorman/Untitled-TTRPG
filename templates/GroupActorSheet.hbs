@@ -1,14 +1,14 @@
-{{!-- {{ log 'Group Actor Sheet' this }} --}}
+{{ log 'Group Actor Sheet' this }}
 <form>
     <div class="content">
         <table>
             <thead>
                 <tr>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Health</th>
-                    <th>Actions</th>
-                    <th>Powers</th>
+                    <th></th>
+                    <th>{{localize "General.Name"}}</th>
+                    <th>{{localize "General.HP"}}</th>
+                    <th>{{localize "General.AP"}}</th>
+                    <th>{{localize "General.TotalArmor"}}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -17,20 +17,23 @@
                 <tr data-actor-id="{{actor._id}}">
                     <td><img src="{{actor.img}}" alt="{{actor.name}}" style="width: 25px; height: 25px;"></td>
                     <td>{{actor.name}}</td>
-                    <td>{{actor.system.health}}</td>
-                    <td>{{actor.system.actions}}</td>
-                    <td>{{actor.system.powers}}</td>
+                    <td>{{actor.system.hp.value}}/{{actor.system.hp.max}}</td>
+                    <td>{{actor.system.ap.value}}/{{actor.system.ap.max}}</td>
+                    <td>{{getArmor actor "value"}}</td>
                     <td data-action="open-actor"><i class="fas fa-arrow-right"></i></td>
+                    {{#if @root.inCharacterCreationMode}}
+                    <td style="margin-left: 10px"><i class="trash-icon fas fa-trash-alt" data-action="delete-actor"></i></td>
+                    {{/if}}
                 </tr>
                 {{/each}}
             </tbody>
         </table>
     </div>
 
+    {{#if @root.inCharacterCreationMode}}
     <div class="header">
         <button class="choose-actor" data-action="add-actor">{{localize "Group.Sheet.AddActor"}}</button>
-        {{#if @root.isGM}}
         <button class="create-actor" data-action="create-actor">{{localize "Group.Sheet.CreateActor"}}</button>
-        {{/if}}
     </div>
+    {{/if}}
 </form>

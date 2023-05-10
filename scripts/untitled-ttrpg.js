@@ -2,7 +2,7 @@
 import { Rules } from "./config.js";
 
 // actor sheets
-import { GroupActorSheet } from "./actor-sheets/group-sheet.js";
+import { GroupActorSheet, createLinkedActor } from "./actor-sheets/group-sheet.js";
 import { PCActorSheet } from "./actor-sheets/pc-sheet.js";
 
 // item sheets
@@ -23,8 +23,31 @@ import { abilityChatListeners } from "./chat/ability-chat.js";
 
 Hooks.on("init", function() {
     UnT.initialize()
-});
 
+    game.socket.on(UnT.SOCKET, (options) => {
+        switch (options.type) {
+            case ('createActor'): {
+                if (game.user.isGM) {
+                    createLinkedActor(options.userId, options.groupActor)
+                }
+                
+                break;
+            }
+
+            case ('deleteActor'): {
+                if (game.user.isGM) {
+                    game.actors.get(options.actorId).delete()
+                }
+
+                break;
+            }
+
+            default: {
+                break;
+            }
+        }
+    });
+});
 
 Hooks.on("renderChatMessage", (message, html, data) => {
     const buttonElements = html.find("[data-action]");

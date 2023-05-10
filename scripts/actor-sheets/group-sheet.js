@@ -26,9 +26,12 @@ export class GroupActorSheet extends ActorSheet {
 
         const actors = GroupActorData.getActorsByIds(this.actor.system.linkedIds)
 
+        const inCharacterCreationMode = game.settings.get(UnT.ID, 'inCharacterCreation')
+
         return {
             data,
-            actors
+            actors,
+            inCharacterCreationMode
         };
     }
 
@@ -36,6 +39,30 @@ export class GroupActorSheet extends ActorSheet {
         super.activateListeners(html);
 
         html.on('click', "[data-action]", this._handleButtonClick.bind(this));
+
+        game.socket.on(UnT.SOCKET, (options) => {
+            switch (options.type) {
+                case ('update'): {
+                    this.render();
+                    break;
+                }
+
+                default: {
+                    break;
+                }
+            }
+        });
+
+        Hooks.on('update', () => this.render())
+
+        Hooks.on('updateActor', (actor, flags, data, id) => {
+            UnT.log(false, this.actor.system.linkedIds)
+            UnT.log(false, actor._id)
+
+            if (!this.actor.system.linkedIds.includes(actor._id)) { return; }
+            
+            this.render();
+        })
     }
 
     async _handleButtonClick(event) {
@@ -44,14 +71,14 @@ export class GroupActorSheet extends ActorSheet {
 
         switch(action) {
             case 'create-actor': {
-                const actor = await Actor.create({ name: 'New Actor', type: 'pc',  permission: { default: 2, [game.userId]: 3 } })
+                // send this to GM client to create actor
+                if (game.user.isGM) {
+                    await createLinkedActor(game.userId, this.actor)
+                    this.render();
+                } else {
+                    game.socket.emit(UnT.SOCKET, { type:'createActor', userId: game.userId, groupActor: this.actor })
+                }
 
-                const linkedIds = this.actor.system.linkedIds
-                linkedIds.push(actor._id)
-
-                await this.actor.update({'system.linkedIds': linkedIds})
-
-                this.render();
                 break;
             }
 
@@ -73,6 +100,25 @@ export class GroupActorSheet extends ActorSheet {
                 const actorPickerForm = new ActorPicker({ actor: this.actor })
 
                 actorPickerForm.render(true)
+
+                break;
+            }
+
+            case 'delete-actor': {
+                const actorId = clickedElement.closest("[data-actor-id]").data().actorId
+
+                const confirmed = await Dialog.confirm({
+                    title: game.i18n.localize("Confirm.Delete.Title"),
+                    content: game.i18n.localize("Confirm.Delete.Content")
+                });
+
+                if (!confirmed) { break; }
+
+                if (game.user.isGM) {
+                    await game.actors.get(actorId).delete()
+                } else {
+                    game.socket.emit(UnT.SOCKET, { type:'deleteActor', actorId })
+                }
 
                 break;
             }
@@ -111,7 +157,7 @@ export class ActorPicker extends FormApplication {
         const overrides = {
             height: 'auto',
             width: 600,
-            id: foundry.utils.randomID(),
+            id: 'ActorPicker',
             template: UnT.TEMPLATES.ActorPicker,
             title: "Group.Sheet.ActorPicker.Title",
             userId: game.userId,
@@ -188,4 +234,13 @@ export class ActorPicker extends FormApplication {
                 break;
         }
     }
+}
+
+export async function createLinkedActor(userId, groupActor) {
+    const actor = await Actor.create({ name: 'New Actor', type: 'pc',  ownership: groupActor.ownership, prototypeToken: { actorLink: true } })
+
+    const linkedIds = groupActor.system.linkedIds
+    linkedIds.push(actor._id)
+
+    await game.actors.get(groupActor._id).update({'system.linkedIds': linkedIds})
 }
