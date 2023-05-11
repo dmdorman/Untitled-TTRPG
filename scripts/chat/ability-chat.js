@@ -14,17 +14,21 @@ async function _handleButtonClick(event) {
 
     switch(action) {
         case ('roll-damage'): {
+            const messageId = clickedElement.closest("[data-message-id]").data().messageId
+
             const itemId = clickedElement.closest("[data-item-id]").data().itemId
             const relevantItem = findItem(itemId)
 
             const hitRollTotal = clickedElement.closest("[data-hit-total]").data().hitTotal
 
-            await damageChat(relevantItem, hitRollTotal)
+            await damageChat(messageId, relevantItem, hitRollTotal)
 
             break;
         }
 
         case ('apply-damage'): {
+            const rootMessageId = clickedElement.closest("[data-root-id]").data().rootId
+
             const itemId = clickedElement.closest("[data-item-id]").data().itemId
             const relevantItem = findItem(itemId)
 
@@ -39,7 +43,7 @@ async function _handleButtonClick(event) {
             }
 
             for (const token of targets) {
-                await appliedDamageChat(relevantItem, token.actor, hitRollTotal, rollTotal)
+                await appliedDamageChat(rootMessageId, relevantItem, token.actor, hitRollTotal, rollTotal)
             }
 
             break;
@@ -75,7 +79,10 @@ export async function abilityChat(item) {
         buttonVisible
     };
 
+    let accuracyModifiers;
     if (hasAttack) {
+        accuracyModifiers = await accuracyForm()
+
         templateData['hitRollTotal'] = roll.total
         templateData['renderedRoll'] = renderedRoll
     }
@@ -94,7 +101,13 @@ export async function abilityChat(item) {
         itemId: item._id
     }
 
-    return UnTChatMessage.create(chatData)
+    const message = await UnTChatMessage.create(chatData)
+
+    if (hasAttack) {
+        const update = {}
+        update[`flags.${UnT.ID}.accuracyModifiers`] = accuracyModifiers
+        message.update(update)
+    }
 }
 
 export function getTargets() {
@@ -116,4 +129,42 @@ function hasComponentType(item, type) {
     }
 
     return false
+}
+
+async function accuracyForm() {
+	const templateData = {
+		CONFIG
+	};
+
+	const content = await renderTemplate(UnT.TEMPLATES.AccuracyForm, templateData);
+
+	const promise = new Promise(resolve => {
+		const data = {
+			title: game.i18n.localize("Attack.AccuracyModifiers"),
+			content: content,
+			buttons: {
+				rollToHit: {
+					label: game.i18n.localize("General.Roll"),
+					callback: html => {
+                        const formData = new FormData(html[0].querySelector("form"));
+
+                        const data = {};
+                        for (const [name, value] of formData.entries()) {
+                            data[name] = value;
+                        }
+
+                        resolve(data);
+                    }
+				},
+			},
+			default: "rollToHit",
+			close: () => resolve({})
+		}
+
+		new Dialog(data, { 'width': 300 }).render(true);;
+	});
+
+    return promise.then(formData => {
+        return formData
+    });
 }

@@ -1,0 +1,16 @@
+{{ log 'Accuracy Form' this }}
+<form>
+    <div class="form-group">
+        <label for="aim">{{localize "Attack.Aim"}}:</label>
+        <select id="aim" name="aim">
+            <option value="None">{{localize "General.None"}}</option>
+            {{#each @root.CONFIG.UnT.hitZones.zones as |zoneData zoneId|}}
+            <option value="{{zoneId}}">{{localizeVariableKey "HitZone" zoneId emptyOptions=true}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="accuracyMod">{{localize "Attack.AccuracyModifiers"}}:</label>
+        <input type="Number" name="accuracyMod" value="0">
+    </div>
+</form>

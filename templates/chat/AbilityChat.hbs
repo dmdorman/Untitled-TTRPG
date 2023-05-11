@@ -1,5 +1,5 @@
 {{!-- {{ log 'Ability Chat' this }} --}}
-<div class="" data-message-id="{{message._id}}" {{#if borderColor}}style="border-color:{{borderColor}}"{{/if}} data-item-id="{{item._id}}">        
+<div class="" {{#if borderColor}}style="border-color:{{borderColor}}"{{/if}} data-item-id="{{item._id}}">        
     <div class="card-header" style="background-color: {{getHeaderBackgroundColor item}}; color: {{getHeaderTextColor item}};">
         <img src="{{item.img}}" class="card-image">
         <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>

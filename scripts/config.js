@@ -25,9 +25,9 @@ Rules.sizes = [
 
 Rules.hitZones = {
     "zones": {
-        "WeakPoint": { "damageMod": 2 },
-        "CoM": { "damageMod": 1 },
-        "Extremities": { "damageMod": 0.5 }
+        "WeakPoint": { "damageMod": 2,  "aimPenalty": -2 },
+        "CoM": { "damageMod": 1, "aimPenalty": 0 },
+        "Extremities": { "damageMod": 0.5, "aimPenalty": -1 }
     },
     "roll": {
         "1": "Extremities",
@@ -150,16 +150,16 @@ Rules.perks = {
     "HardToHit": { "accuracyDebuff": -1 },
     "Amorphous": {
         "zones": {
-            "WeakPoint": { "damageMod": 1 },
-            "CoM": { "damageMod": 1 },
-            "Extremities": { "damageMod": 1 }
+            "WeakPoint": { "damageMod": 1, "aimPenalty": 0 },
+            "CoM": { "damageMod": 1, "aimPenalty": 0 },
+            "Extremities": { "damageMod": 1, "aimPenalty": 0 }
         },
     },
     "NoWeakPoints": {
         "zones": {
-            "WeakPoint": { "damageMod": 1 },
-            "CoM": { "damageMod": 1 },
-            "Extremities": { "damageMod": 0.5 }
+            "WeakPoint": { "damageMod": 1, "aimPenalty": 0 },
+            "CoM": { "damageMod": 1, "aimPenalty": 0 },
+            "Extremities": { "damageMod": 0.5, "aimPenalty": -1 }
         },
     }
 }

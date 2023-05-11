@@ -14,7 +14,10 @@
         "Value": "Value",
         "ArmorOblation": "Armor Oblated",
         "Effects": "Effects",
-        "TotalArmor": "Total Armor"
+        "TotalArmor": "Total Armor",
+        "Roll": "Roll",
+        "None": "None",
+        "Other": "Other"
     },
     "Settings": {
         "ArmorBudget": {
@@ -226,5 +229,9 @@
     },
     "CharacterCreation": {
         "Title": "Character Creation"
+    },
+    "Attack": {
+        "AccuracyModifiers": "Accuracy Modifiers",
+        "Aim": "Aim"
     }
 }

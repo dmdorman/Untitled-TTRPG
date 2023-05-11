@@ -4,7 +4,7 @@ import { getTyping } from "../typing.js"
 import { getSizeAttackInteractions } from "../size.js"
 import { hasPerk } from "../perks.js"
 
-export async function damageChat(item, hitRollTotal) {
+export async function damageChat(rootMessageId, item, hitRollTotal) {
     const damageFormula = calculateDamageFormula(item)
 
     const roll = new Roll(damageFormula)
@@ -25,7 +25,8 @@ export async function damageChat(item, hitRollTotal) {
         item,
         renderedRoll,
         rollTotal,
-        hitRollTotal
+        hitRollTotal,
+        rootMessageId
     };
 
     const cardContent = await renderTemplate(UnT.TEMPLATES.DamageChat, templateData);
@@ -45,13 +46,32 @@ export async function damageChat(item, hitRollTotal) {
     return UnTChatMessage.create(chatData)
 }
 
-export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTotal) {
+export async function appliedDamageChat(rootMessageId, item, targetActor, hitRollTotal, rollTotal) {
+    const rootMessage = game.messages.get(rootMessageId)
+    
     const typing = getTyping()
     const itemType = item.system.types[0]
     const borderColor = typing[itemType].color
 
+    const accuracyModifiers = [];
+
     // determine hit zone
-    const [renderedHitZoneRoll, hitZone] = await getHitzone(targetActor)
+    let renderedHitZoneRoll, hitZone;
+    if (rootMessage.flags[UnT.ID].accuracyModifiers.aim === "None") {
+        [renderedHitZoneRoll, hitZone] = await getHitzone(targetActor)
+    } else {
+        hitZone = rootMessage.flags[UnT.ID].accuracyModifiers.aim
+
+        accuracyModifiers.push({modType: game.i18n.localize("Attack.Aim"), modValue: CONFIG.UnT.hitZones.zones[hitZone].aimPenalty, type: 'add'})
+
+        renderedHitZoneRoll = ""; // don't render a hit zone roll
+    }
+
+    const otherAccuracyMod = parseInt(rootMessage.flags[UnT.ID].accuracyModifiers.accuracyMod)
+
+    if (otherAccuracyMod !== 0) {
+        accuracyModifiers.push({modType: game.i18n.localize("General.Other"), modValue: otherAccuracyMod, type: 'add'})
+    }
 
     // determine effective damage
     const [damageModifiers, appliedDamageFormula] = calculateEffectiveDamage(rollTotal, item, targetActor, hitZone, false)
@@ -60,7 +80,7 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
 
     const [sizeAccuracyModifier, _] = getSizeAttackInteractions(item.actor, targetActor)
 
-    const accuracyModifiers = [{modType: game.i18n.localize("Sizes.Size"), modValue: sizeAccuracyModifier, type: 'add'}]
+    accuracyModifiers.push({modType: game.i18n.localize("Sizes.Size"), modValue: sizeAccuracyModifier, type: 'add'})
 
     if (hasPerk(targetActor, "HardToHit")) {
         accuracyModifiers.push({modType: game.i18n.localize("Perks.HardToHit"), modValue: CONFIG.UnT.perks.HardToHit.accuracyDebuff, type: 'add'})
@@ -70,7 +90,7 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
         accuracyModifiers.push({modType: game.i18n.localize("Perks.Accurate"), modValue: CONFIG.UnT.perks.Accurate.accuracyBuff, type: 'add'})
     }
 
-    const totalHits = calculateHits(hitRollTotal, accuracyModifiers)
+    const [totalHits, actualHitRollTotal] = calculateHits(hitRollTotal, accuracyModifiers)
 
     // render DamageChat template
     const templateData = {
@@ -80,6 +100,8 @@ export async function appliedDamageChat(item, targetActor, hitRollTotal, rollTot
 
         accuracyModifiers,
         damageModifiers,
+
+        actualHitRollTotal,
 
         appliedDamageFormula,
         appliedDamageResult,
@@ -186,11 +208,13 @@ function calculateHits(hitRollTotal, modifiers) {
     const actualHitRollTotal = hitRollTotal + modifiers.reduce((accumulator, currentValue) => accumulator + currentValue.modValue, 0)
 
     if (actualHitRollTotal < CONFIG.UnT.hitsOn) {
-        return 0
+        return [0, actualHitRollTotal]
     }
 
     // calculate how many bonus damage rolls attacker gets
-    return 1 + Math.floor((actualHitRollTotal - CONFIG.UnT.hitsOn) / CONFIG.UnT.bonusHitsOn)
+    const totalHits = 1 + Math.floor((actualHitRollTotal - CONFIG.UnT.hitsOn) / CONFIG.UnT.bonusHitsOn)
+
+    return [totalHits, actualHitRollTotal]
 }
 
 function calculateDamageFormula(item) {
@@ -318,11 +342,7 @@ async function calculateDefenseOblation(targetActor, damage, hitZone) {
     update[`flags.UnT.${hitZone}.temp`] = tempArmor
     update[`flags.UnT.${hitZone}.value`] = armor
 
-    UnT.log(false, targetActor.flags.UnT[hitZone].temp)
-
     await targetActor.update(update)
-
-    UnT.log(false, targetActor.flags.UnT[hitZone].temp)
 
     return {modType: game.i18n.localize("General.ArmorOblation"), modValue: -oblationTotal, type: 'add'}
 }

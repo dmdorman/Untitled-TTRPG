@@ -133,7 +133,8 @@ export class UnT {
         AbilityChat: `systems/${this.ID}/templates/chat/AbilityChat.hbs`,
         DamageChat: `systems/${this.ID}/templates/chat/DamageChat.hbs`,
         AppliedDamageChat: `systems/${this.ID}/templates/chat/AppliedDamageChat.hbs`,
-        CombatFactionOrder: `systems/${this.ID}/templates/CombatFactionOrder.hbs`
+        CombatFactionOrder: `systems/${this.ID}/templates/CombatFactionOrder.hbs`,
+        AccuracyForm: `systems/${this.ID}/templates/AccuracyForm.hbs`
     }
 
     static log(force, ...args) {
