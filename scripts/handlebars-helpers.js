@@ -76,5 +76,13 @@ export function initializeHandlebarsHelpers() {
         const output = Object.values(actor.flags.UnT).reduce((acc, item) => acc + item[key], 0)
 
         return output
-    })
+    });
+
+    Handlebars.registerHelper('getAbilitiesPerks', function(actor) {
+        const actorAbilityPerkCost = actor.items.map((item => item.system.apCost)) || 0
+
+        if (actorAbilityPerkCost.length === 0) { return 0; }
+
+        return actorAbilityPerkCost.reduce((accumulator, currentValue) => accumulator + currentValue)
+    });
 }

@@ -1,33 +1,41 @@
 {{ log 'Group Actor Sheet' this }}
+<style>
+    td {
+        text-align: center;
+    }
+</style>
+
 <form>
     <div class="content">
         <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>{{localize "General.Name"}}</th>
-                    <th>{{localize "General.HP"}}</th>
-                    <th>{{localize "General.AP"}}</th>
-                    <th>{{localize "General.TotalArmor"}}</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each actors as |actor|}}
-                <tr data-actor-id="{{actor._id}}">
-                    <td><img src="{{actor.img}}" alt="{{actor.name}}" style="width: 25px; height: 25px;"></td>
-                    <td>{{actor.name}}</td>
-                    <td>{{actor.system.hp.value}}/{{actor.system.hp.max}}</td>
-                    <td>{{actor.system.ap.value}}/{{actor.system.ap.max}}</td>
-                    <td>{{getArmor actor "value"}}</td>
-                    <td data-action="open-actor"><i class="fas fa-arrow-right"></i></td>
-                    {{#if @root.inCharacterCreationMode}}
-                    <td style="margin-left: 10px"><i class="trash-icon fas fa-trash-alt" data-action="delete-actor"></i></td>
-                    {{/if}}
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+            <tr>
+                <th></th>
+                <th>{{localize "General.Name"}}</th>
+                <th><div {{#if (gt @root.totalHp @root.hpBudget)}}style="color: red;"{{else}}style="color: green;"{{/if}}>
+                    {{localize "General.HP"}} {{@root.totalHp}}/{{@root.hpBudget}}</div></th>
+                <th><div {{#if (gt @root.totalAp @root.apBudget)}}style="color: red;"{{else}}style="color: green;"{{/if}}>
+                    {{localize "General.AP"}} {{@root.totalAp}}/{{@root.apBudget}}</div></th>
+                <th><div {{#if (gt @root.totalArmor @root.armorBudget)}}style="color: red;"{{else}}style="color: green;"{{/if}}>
+                    {{localize "General.TotalArmor"}} {{@root.totalArmor}}/{{@root.armorBudget}}</div></th>
+                <th><div {{#if (gt @root.totalAbilityPerk @root.abilityPerkBudget)}}style="color: red;"{{else}}style="color: green;"{{/if}}>
+                    {{localize "General.AbilitiesPerks"}} {{@root.totalAbilityPerk}}/{{@root.abilityPerkBudget}}</div> </th>    
+                <th></th>
+            </tr>
+            {{#each actors as |actor|}}
+            <tr data-actor-id="{{actor._id}}">
+                <td><img src="{{actor.img}}" alt="{{actor.name}}" style="width: 25px; height: 25px;"></td>
+                <td>{{actor.name}}</td>
+                <td>{{actor.system.hp.value}}/{{actor.system.hp.max}}</td>
+                <td>{{actor.system.ap.value}}/{{actor.system.ap.max}}</td>
+                <td>{{getArmor actor "value"}}</td>
+                <td>{{getAbilitiesPerks actor}}</td>
+                <td data-action="open-actor"><i class="fas fa-arrow-right"></i></td>
+                {{#if @root.inCharacterCreationMode}}
+                <td style="margin-left: 10px"><i class="trash-icon fas fa-trash-alt" data-action="delete-actor"></i></td>
+                {{/if}}
+            </tr>
+            {{/each}}
+        </tbody>
     </div>
 
     {{#if @root.inCharacterCreationMode}}

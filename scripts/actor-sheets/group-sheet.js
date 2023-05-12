@@ -1,4 +1,6 @@
+import { UnTChatMessage } from "../chat-message.js";
 import { UnT } from "../untitled-ttrpg.js"
+import { getTotalMaxArmor } from "../armor.js";
 
 export class GroupActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -26,12 +28,45 @@ export class GroupActorSheet extends ActorSheet {
 
         const actors = GroupActorData.getActorsByIds(this.actor.system.linkedIds)
 
+        const totalHp = actors.map((actor) => actor.system.hp.max)
+            .reduce((accumulator, currentValue) => accumulator + currentValue)
+
+        const totalAp = actors.map((actor) => actor.system.ap.max)
+            .reduce((accumulator, currentValue) => accumulator + currentValue)
+
+        const totalArmor = actors.map((actor) => getTotalMaxArmor(actor))
+            .reduce((accumulator, currentValue) => accumulator + currentValue)
+
         const inCharacterCreationMode = game.settings.get(UnT.ID, 'inCharacterCreation')
+
+        const hpBudget = game.settings.get(UnT.ID, 'hpBudget')
+        const apBudget = game.settings.get(UnT.ID, 'apBudget')
+        const armorBudget = game.settings.get(UnT.ID, 'armorBudget')
+        const abilityPerkBudget = game.settings.get(UnT.ID, 'abilityBudget')
+
+        const totalAbilityPerk = actors.reduce((accumulator, actor) => {
+            if (actor.items.size === 0) { return accumulator; }
+
+            const actorAbilityPerkCost = actor.items.map((item => item.system.apCost))
+
+            return accumulator + actorAbilityPerkCost.reduce((accumulator, currentValue) => accumulator + currentValue)
+        }, 0)
 
         return {
             data,
             actors,
-            inCharacterCreationMode
+
+            totalHp,
+            totalAp,
+            totalArmor,
+            totalAbilityPerk,
+
+            hpBudget,
+            apBudget,
+            armorBudget,
+            abilityPerkBudget,
+
+            inCharacterCreationMode,
         };
     }
 
@@ -56,9 +91,6 @@ export class GroupActorSheet extends ActorSheet {
         Hooks.on('update', () => this.render())
 
         Hooks.on('updateActor', (actor, flags, data, id) => {
-            UnT.log(false, this.actor.system.linkedIds)
-            UnT.log(false, actor._id)
-
             if (!this.actor.system.linkedIds.includes(actor._id)) { return; }
             
             this.render();

@@ -17,7 +17,9 @@
         "TotalArmor": "Total Armor",
         "Roll": "Roll",
         "None": "None",
-        "Other": "Other"
+        "Other": "Other",
+        "Name": "Name",
+        "AbilitiesPerks": "Abilities & Perks"
     },
     "Settings": {
         "ArmorBudget": {

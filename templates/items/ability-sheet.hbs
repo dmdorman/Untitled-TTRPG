@@ -8,5 +8,7 @@
         <div data-action="add-component"><i class="fas fa-plus"></i> {{localize 'Item.Ability.Component.Add'}}</div>
     {{/if}}
 
+    {{#unless @root.inCharacterCreationMode}}
     <div style="text-align: right; margin-left: 10px; margin-bottom: 20px"><i class="fas fa-cog" data-action="set-editable"></i></div>
+    {{/unless}}
 </form>

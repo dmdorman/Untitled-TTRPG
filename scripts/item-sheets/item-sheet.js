@@ -24,7 +24,8 @@ export class UnTItemSheet extends ItemSheet {
             ID: UnT.ID,
             typing: JSON.parse(game.settings.get(UnT.ID, 'typing')),
             user: game.user,
-            CONFIG
+            CONFIG,
+            inCharacterCreationMode : game.settings.get(UnT.ID, 'inCharacterCreation')
         };
 
         return output
