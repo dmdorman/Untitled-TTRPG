@@ -42,7 +42,7 @@ export class GroupActorSheet extends ActorSheet {
         const hpBudget = game.settings.get(UnT.ID, 'hpBudget')
         const apBudget = game.settings.get(UnT.ID, 'apBudget')
         const armorBudget = game.settings.get(UnT.ID, 'armorBudget')
-        const abilityPerkBudget = game.settings.get(UnT.ID, 'abilityBudget')
+        const abilityPerkBudget = game.settings.get(UnT.ID, 'abilityBudget') + actors.length
 
         const totalAbilityPerk = actors.reduce((accumulator, actor) => {
             if (actor.items.size === 0) { return accumulator; }
@@ -50,7 +50,7 @@ export class GroupActorSheet extends ActorSheet {
             const actorAbilityPerkCost = actor.items.map((item => item.system.apCost))
 
             return accumulator + actorAbilityPerkCost.reduce((accumulator, currentValue) => accumulator + currentValue)
-        }, 0)
+        }, 0);
 
         return {
             data,
