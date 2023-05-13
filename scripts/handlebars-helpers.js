@@ -85,4 +85,16 @@ export function initializeHandlebarsHelpers() {
 
         return actorAbilityPerkCost.reduce((accumulator, currentValue) => accumulator + currentValue)
     });
+
+    Handlebars.registerHelper('getComponentDescription', function(typeId, componentId, optionId) {
+        UnT.log(false, CONFIG.UnT.abilities.components[typeId][componentId][optionId])
+        UnT.log(false, CONFIG.UnT.abilities.components[typeId][componentId][optionId].description)
+        UnT.log(false, game.i18n.localize(CONFIG.UnT.abilities.components[typeId][componentId][optionId].description))
+
+        const description = game.i18n.localize(CONFIG.UnT.abilities.components[typeId][componentId][optionId].description)
+
+        if (description === "") { return ""; }
+
+        return " (" + description + ")"
+    });
 }

@@ -48,98 +48,119 @@ Rules.abilities.componentsPerOneCost = 3
 Rules.abilities.components = {
     "attacks": {
         "dice": {
-            "1d4": { "cost": 1, "description": "Abilities.Components.Attacks.Dice.1d4"},
-            "1d6": { "cost": 3, "description": "Abilities.Components.Attacks.Dice.1d6"},
-            // "1d8": { "cost": 3, "description": "Abilities.Components.Attacks.Dice.1d8"},
-            // "1d10": { "cost": 4, "description": "Abilities.Components.Attacks.Dice.1d10"},
-            "1d12": { "cost": 5, "description": "Abilities.Components.Attacks.Dice.1d12"}
+            "root": { "description": "Item.Ability.Component.dice.Root" },
+            "1d4": { "cost": 1, "description": "General.EmptyString"},
+            "1d6": { "cost": 3, "description": "General.EmptyString"},
+            "1d12": { "cost": 5, "description": "General.EmptyString"}
         }
     },
     "defenses": {
         "updefenseself": {
-            "minor": { "cost": 2, "description": "Abilities.Components.Defenses.UpDefensesSelf.Minor" },
-            "major": { "cost": 3, "description": "Abilities.Components.Defenses.UpDefensesSelf.Major" }
+            "root": { "description": "Item.Ability.Component.updefenseself.Root" },
+            "minor": { "cost": 2, "description": "Dice.1d4" },
+            "major": { "cost": 3, "description": "Dice.1d6" }
         },
         "updefenseothers": {
-            "minor": { "cost": 3, "description": "Abilities.Components.Defenses.UpDefensesOthers.Minor" },
-            "major": { "cost": 4, "description": "Abilities.Components.Defenses.UpDefensesOthers.Major" }
+            "root": { "description": "Item.Ability.Component.updefenseothers.Root" },
+            "minor": { "cost": 3, "description": "Dice.1d4" },
+            "major": { "cost": 4, "description": "Dice.1d6" }
         },
         "staticdefense": {
-            "minor": { "cost": 1, "description": "Abilities.Components.Defenses.StaticDefense.Minor" },
-            "major": { "cost": 2, "description": "Abilities.Components.Defenses.StaticDefense.Major" },
-            "extreme": { "cost": 3, "description": "Abilities.Components.Defenses.StaticDefense.Extreme" }
+            "root": { "description": "Item.Ability.Component.staticdefense.Root" },
+            "minor": { "cost": 1, "description": "5" },
+            "major": { "cost": 2, "description": "10" },
+            "extreme": { "cost": 3, "description": "15" }
         }
     },
     "movement": {
         "dash": {
-            "minor": { "cost": 2, "description": "Abilities.Components.Movement.Dash.Minor" },
-            "major": { "cost": 3, "description": "Abilities.Components.Movement.Dash.Major" },
-            "extreme": { "cost": 4, "description": "Abilities.Components.Movement.Dash.Extreme" }
+            "root": { "description": "Item.Ability.Component.dash.Root" },
+            "minor": { "cost": 2, "description": "Movement.1x" },
+            "major": { "cost": 3, "description": "Movement.2x" },
+            "extreme": { "cost": 4, "description": "Movement.4x" }
         },
         "teleport": {
-            "minor": { "cost": 3, "description": "Abilities.Components.Movement.Teleport.Minor" },
-            "major": { "cost": 4, "description": "Abilities.Components.Movement.Teleport.Major" },
-            "extreme": { "cost": 5, "description": "Abilities.Components.Movement.Teleport.Extreme" }
+            "root": { "description": "Item.Ability.Component.teleport.Root" },
+            "minor": { "cost": 3, "description": "Movement.1x" },
+            "major": { "cost": 4, "description": "Movement.2x" },
+            "extreme": { "cost": 5, "description": "Movement.4x" }
+        },
+        "fly": {
+            "root": { "description": "Item.Ability.Component.fly.Root" },
+            "minor": { "cost": 3, "description": "Movement.1x" },
+            "major": { "cost": 4, "description": "Movement.2x" },
+            "extreme": { "cost": 5, "description": "Movement.4x" }
         }
     },
     "control": {
         "pull": {
-            "minor": { "cost": 1, "description": "Abilities.Components.Control.Pull.Minor" },
-            "major": { "cost": 2, "description": "Abilities.Components.Control.Pull.Major" },
-            "extreme": { "cost": 3, "description": "Abilities.Components.Control.Pull.Extreme" }
+            "root": { "description": "Item.Ability.Component.pull.Root" },
+            "minor": { "cost": 1, "description": "1m" },
+            "major": { "cost": 2, "description": "5m" },
+            "extreme": { "cost": 3, "description": "25m" }
         },
         "push": {
-            "minor": { "cost": 1, "description": "Abilities.Components.Control.Push.Minor" },
-            "major": { "cost": 2, "description": "Abilities.Components.Control.Push.Major" },
-            "extreme": { "cost": 3, "description": "Abilities.Components.Control.Push.Extreme" }
+            "root": { "description": "Item.Ability.Component.push.Root" },
+            "minor": { "cost": 1, "description": "1m" },
+            "major": { "cost": 2, "description": "5m" },
+            "extreme": { "cost": 3, "description": "25m" }
         },
         "manipulate": {
-            "minor": { "cost": 3, "description": "Abilities.Components.Control.Manipulate.Minor" },
-            "major": { "cost": 4, "description": "Abilities.Components.Control.Manipulate.Major" }
+            "root": { "description": "Item.Ability.Component.manipulate.Root" },
+            "minor": { "cost": 3, "description": "5m" },
+            "major": { "cost": 4, "description": "25m" }
         }
     },
     "utility": {
         "sizechange": {
-            "minor": { "cost": 1, "description": "Abilities.Components.Utility.SizeChange.Minor" },
-            "major": { "cost": 2, "description": "Abilities.Components.Utility.SizeChange.Major" },
-            "fullcontrol": { "cost": 3, "description": "Abilities.Components.Utility.SizeChange.FullControl" }
+            "root": { "description": "Item.Ability.Component.sizechange.Root" },
+            "minor": { "cost": 1, "description": "Item.Ability.Component.sizechange.Minor" },
+            "major": { "cost": 2, "description": "Item.Ability.Component.sizechange.Major" },
+            "fullcontrol": { "cost": 3, "description": "Item.Ability.Component.sizechange.FullControl" }
         }
     },
     "advantages": {
         "ranged": {
-            "short": { "cost": 1, "description": "Abilities.Components.Advantages.Ranged.Short" },
-            "medium": { "cost": 2, "description": "Abilities.Components.Advantages.Ranged.Medium" },
-            "far": { "cost": 3, "description": "Abilities.Components.Advantages.Ranged.Large" }
+            "root": { "description": "Item.Ability.Component.ranged.Root" },
+            "short": { "cost": 1, "description": "Item.Ability.Component.ranged.Short" },
+            "medium": { "cost": 2, "description": "Item.Ability.Component.ranged.Medium" },
+            "far": { "cost": 3, "description": "Item.Ability.Component.ranged.Far" }
         },
         "areaofeffectcircle": {
-            "small": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Small" },
-            "medium": { "cost": 2, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Medium" },
-            "large": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Large" }
+            "root": { "description": "Item.Ability.Component.areaofeffectcircle.Root" },
+            "small": { "cost": 1, "description": "1m" },
+            "medium": { "cost": 2, "description": "3m" },
+            "large": { "cost": 3, "description": "5m" }
         },
         "areaofeffectcone": {
-            "small": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Small" },
-            "medium": { "cost": 2, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Medium" },
-            "large": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Large" }
+            "root": { "description": "Item.Ability.Component.areaofeffectcone.Root" },
+            "small": { "cost": 1, "description": "5m" },
+            "medium": { "cost": 2, "description": "10m" },
+            "large": { "cost": 3, "description": "15m" }
         },
         "areaofeffectline": {
-            "small": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Small" },
-            "medium": { "cost": 2, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Medium" },
-            "large": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Large" }
+            "root": { "description": "Item.Ability.Component.areaofeffectline.Root" },
+            "small": { "cost": 1, "description": "5m" },
+            "medium": { "cost": 2, "description": "25m" },
+            "large": { "cost": 3, "description": "125m" }
         },
         "areaofeffectadvantages": {
-            "smarttargeting": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Advantages.SmartTargeting" }
+            "root": { "description": "Item.Ability.Component.areaofeffectadvantages.Root" },
+            "smarttargeting": { "cost": 1, "description": "Item.Ability.Component.areaofeffectadvantages.SmartTargeting" }
         },
         "other": {
-            "doesntrequireextremities": { "cost": 2, "description": "Abilities.Components.Advantages.Other.DoesntRequireExtremities" },
-            "physicalitem": { "cost": 0, "description": "Abilities.Components.Advantages.AreaOfEffect.Other.PhysicalItem" }
+            "root": { "description": "Item.Ability.Component.other.Root" },
+            "doesntrequireextremities": { "cost": 2, "description": "Item.Ability.Component.doesntrequireextremities.Description" },
+            "physicalitem": { "cost": 0, "description": "Item.Ability.Component.physicalitem.Description" }
         }
     },
     "disadvantages": {
         "hurtstouse": {
-            "minor": { "cost": -2, "description": "Abilities.Components.Disadvantages.HurtsToUse.Minor" },
-            "major": { "cost": -3, "description": "Abilities.Components.Disadvantages.HurtsToUse.Major" },
-            "massive": { "cost": -4, "description": "Abilities.Components.Disadvantages.HurtsToUse.Massive" },
-            "extreme": { "cost": -5, "description": "Abilities.Components.Disadvantages.HurtsToUse.Extreme" }
+            "root": { "description": "Item.Ability.Component.hurtstouse.Root" },
+            "minor": { "cost": -2, "description": "Item.Ability.Component.hurtstouse.Minor" },
+            "major": { "cost": -3, "description": "Item.Ability.Component.hurtstouse.Major" },
+            "massive": { "cost": -4, "description": "Item.Ability.Component.hurtstouse.Massive" },
+            "extreme": { "cost": -5, "description": "Item.Ability.Component.hurtstouse.Extreme" }
         }
     }
 }

@@ -106,8 +106,8 @@ Advantages
     Area Of Effect (AoE)
         Circle - character ability affects all in cirlce
             Small (1) - 1m
-            Medium (2) - 5m
-            Large (3) - 25m
+            Medium (2) - 3m
+            Large (3) - 5m
 
         Cone - character ability affects all in cone
             Small (1) - 5m

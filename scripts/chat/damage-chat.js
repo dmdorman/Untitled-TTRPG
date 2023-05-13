@@ -40,7 +40,8 @@ export async function damageChat(rootMessageId, item, hitRollTotal) {
         content: cardContent,
         speaker: speaker,
         borderColor: borderColor,
-        itemId: item._id
+        itemId: item._id,
+        sound: CONFIG.sounds.dice
     }
 
     return UnTChatMessage.create(chatData)
@@ -175,7 +176,8 @@ export async function appliedDamageChat(rootMessageId, item, targetActor, hitRol
         content: cardContent,
         speaker: speaker,
         borderColor: borderColor,
-        itemId: item._id
+        itemId: item._id,
+        sound: CONFIG.sounds.dice
     }
 
     return UnTChatMessage.create(chatData)

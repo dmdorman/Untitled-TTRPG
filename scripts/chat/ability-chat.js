@@ -98,7 +98,8 @@ export async function abilityChat(item) {
         content: cardContent,
         speaker: speaker,
         borderColor: borderColor,
-        itemId: item._id
+        itemId: item._id,
+        sound: CONFIG.sounds.dice
     }
 
     const message = await UnTChatMessage.create(chatData)

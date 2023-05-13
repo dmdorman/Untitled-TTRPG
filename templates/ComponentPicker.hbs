@@ -6,15 +6,18 @@
         <div>{{localizeVariableKey "Item.Ability.Component" typeId emptyOptions=true}}</div>
 
         {{#each typeData as |componentData componentId|}}
-            <div class="UnT-tab">{{localizeVariableKey "Item.Ability.Component" componentId "Name" emptyOptions=true}}</div>
+            <div class="UnT-tab">{{localizeVariableKey "Item.Ability.Component" componentId "Name" emptyOptions=true}} {{getComponentDescription typeId componentId "root"}}</div>
             {{#each componentData as |optionData optionId|}}
                 <div class="flex-row UnT-tab2">
+                    {{#if (ne optionId "root")}}
                     <input type="checkbox" name="system.components.{{typeId}}.{{componentId}}.{{optionId}}"
                         {{#if (hasComponent @root.item typeId componentId optionId)}}checked{{/if}}
                     >
                     <div>
                         {{localizeVariableKey "Item.Ability.Component.Options" optionId emptyOptions=true}} ({{optionData.cost}})
+                        {{getComponentDescription typeId componentId optionId}}
                     </div>
+                    {{/if}}
                 </div>
             {{/each}}
         {{/each}}

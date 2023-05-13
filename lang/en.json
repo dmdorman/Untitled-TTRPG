@@ -19,7 +19,15 @@
         "None": "None",
         "Other": "Other",
         "Name": "Name",
-        "AbilitiesPerks": "Abilities & Perks"
+        "AbilitiesPerks": "Abilities & Perks",
+        "EmptyString": ""
+    },
+    "Dice": {
+        "1d4": "1d4",
+        "1d6": "1d6",
+        "1d8": "1d8",
+        "1d10": "1d10",
+        "1d12": "1d12"
     },
     "Settings": {
         "ArmorBudget": {
@@ -91,55 +99,93 @@
                 "advantages": "Advantages",
                 "disadvantages": "Disadvantages",
                 "dice": {
-                    "Name": "Dice"
+                    "Name": "Dice",
+                    "Root": "What dice an attack made using this ability will use"
                 },
                 "updefenseself": {
-                    "Name": "Up Defense - Self"
+                    "Name": "Up Defense - Self",
+                    "Root": "Add defense to user"
                 },
                 "updefenseothers": {
-                    "Name": "Up Defense - Others"
+                    "Name": "Up Defense - Others",
+                    "Root": "Add defense to other characters"
                 },
                 "staticdefense": {
-                    "Name": "Static Defense"
+                    "Name": "Static Defense",
+                    "Root": "Add temporary defense to yourself or other characters"
                 },
                 "dash": {
-                    "Name": "Dash"
+                    "Name": "Dash",
+                    "Root": "Character moves during ability use"
                 },
                 "teleport": {
-                    "Name": "Teleport"
+                    "Name": "Teleport",
+                    "Root": "Character instantly appears a distance away from starting location"
+                },
+                "fly": {
+                    "Name": "Fly",
+                    "Root": "Character can fly during ability use"
                 },
                 "pull": {
-                    "Name": "Pull"
+                    "Name": "Pull",
+                    "Root": "Pull targeted character (Note: it is not necessary to purchase ranged for this ability to work)"
                 },
                 "push": {
-                    "Name": "Push"
+                    "Name": "Push",
+                    "Root": "Push targeted character"
                 },
                 "manipulate": {
-                    "Name": "Manipulate"
+                    "Name": "Manipulate",
+                    "Root": "Move targeted character in any direction"
                 },
                 "sizechange": {
-                    "Name": "Size Change"
+                    "Name": "Size Change",
+                    "Root": "Temporarily change Character size. You must choose at the time of purchase whether or not it shrinks or enlarges the character when used",
+                    "Minor": "Alter character size by 1",
+                    "Major": "Alter character size by 2",
+                    "FullControl": "Alter character size up to Minimum or Maximum"
                 },
                 "ranged": {
-                    "Name": "Ranged"
+                    "Name": "Ranged",
+                    "Root": "Ability can be used on targets some distance from the user",
+                    "Short": "Can target anything within 10m of character current position",
+                    "Medium": "Can target anything within 100m of character current position",
+                    "Far": "Can target anything the character can see"
                 },
                 "areaofeffectcircle": {
-                    "Name": "Area of Effect - Circle"
+                    "Name": "Area of Effect - Circle",
+                    "Root": "Ability affects all in a cirlce"
                 },
                 "areaofeffectcone": {
-                    "Name": "Area of Effect - Cone"
+                    "Name": "Area of Effect - Cone",
+                    "Root": "Ability affects all in a cone"
                 },
                 "areaofeffectline": {
-                    "Name": "Area of Effect - Line"
+                    "Name": "Area of Effect - Line",
+                    "Root": "Ability affects all in a line"
                 },
                 "areaofeffectadvantages": {
-                    "Name": "Area of Effect Advantages"
+                    "Name": "Area of Effect Advantages",
+                    "Root": "",
+                    "SmartTargeting": "AoE abilities only effect desired characters"
                 },
                 "other": {
-                    "Name": "Other"
+                    "Name": "Other",
+                    "Root": ""
                 },
                 "hurtstouse": {
-                    "Name": "Hurts to Use"
+                    "Name": "Hurts to Use",
+                    "Root": "Using this ability causes damage to the user",
+                    "Minor": "1HP of damage",
+                    "Major": "1d4+1 HP of damage",
+                    "Massive": "1d6+2 HP of damage",
+                    "Extreme": "Causes character death"
+                },
+                "doesntrequireextremities": {
+                    "Description": "Ability can be used without extremeties. (Ex: a character can still use ability with their hands tied behind their back)"
+                },
+                "physicalitem": {
+                    "Description": "Ability is attached to something physical that the character has. That means it can be taken away, but can also be given."
                 },
                 "Options": {
                     "1d4": "1d4",
@@ -237,5 +283,10 @@
     "Attack": {
         "AccuracyModifiers": "Accuracy Modifiers",
         "Aim": "Aim"
+    },
+    "Movement": {
+        "1x": "1x Character Movement",
+        "2x": "2x Character Movement",
+        "4x": "4x Character Movement"
     }
 }
