@@ -154,6 +154,8 @@
                     "short": "Short",
                     "medium": "Medium",
                     "far": "Far",
+                    "small": "Small",
+                    "large": "Large",
                     "fullcontrol": "Full Control",
                     "smarttargeting": "Smart Targeting",
                     "doesntrequireextremities": "Doesn't Require Extremities",

@@ -28,13 +28,13 @@ export class GroupActorSheet extends ActorSheet {
 
         const actors = GroupActorData.getActorsByIds(this.actor.system.linkedIds)
 
-        const totalHp = actors.map((actor) => actor.system.hp.max)
+        const totalHp = (actors.length === 0)? 0 : actors.map((actor) => actor.system.hp.max)
             .reduce((accumulator, currentValue) => accumulator + currentValue)
 
-        const totalAp = actors.map((actor) => actor.system.ap.max)
+        const totalAp = (actors.length === 0)? 0 : actors.map((actor) => actor.system.ap.max)
             .reduce((accumulator, currentValue) => accumulator + currentValue)
 
-        const totalArmor = actors.map((actor) => getTotalMaxArmor(actor))
+        const totalArmor = (actors.length === 0)? 0 : actors.map((actor) => getTotalMaxArmor(actor))
             .reduce((accumulator, currentValue) => accumulator + currentValue)
 
         const inCharacterCreationMode = game.settings.get(UnT.ID, 'inCharacterCreation')
@@ -44,7 +44,7 @@ export class GroupActorSheet extends ActorSheet {
         const armorBudget = game.settings.get(UnT.ID, 'armorBudget')
         const abilityPerkBudget = game.settings.get(UnT.ID, 'abilityBudget') + actors.length
 
-        const totalAbilityPerk = actors.reduce((accumulator, actor) => {
+        const totalAbilityPerk = (actors.length === 0)? 0 : actors.reduce((accumulator, actor) => {
             if (actor.items.size === 0) { return accumulator; }
 
             const actorAbilityPerkCost = actor.items.map((item => item.system.apCost))

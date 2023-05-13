@@ -44,7 +44,7 @@ Rules.hitZones = {
 }
 
 Rules.abilities = {}
-Rules.abilities.componentsPerOneCost = 5
+Rules.abilities.componentsPerOneCost = 3
 Rules.abilities.components = {
     "attacks": {
         "dice": {
@@ -109,22 +109,22 @@ Rules.abilities.components = {
         "ranged": {
             "short": { "cost": 1, "description": "Abilities.Components.Advantages.Ranged.Short" },
             "medium": { "cost": 2, "description": "Abilities.Components.Advantages.Ranged.Medium" },
-            "far": { "cost": 3, "description": "Abilities.Components.Advantages.Ranged.Far" }
+            "far": { "cost": 3, "description": "Abilities.Components.Advantages.Ranged.Large" }
         },
         "areaofeffectcircle": {
-            "short": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Short" },
+            "small": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Small" },
             "medium": { "cost": 2, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Medium" },
-            "far": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Far" }
+            "large": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Circle.Large" }
         },
         "areaofeffectcone": {
-            "short": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Short" },
+            "small": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Small" },
             "medium": { "cost": 2, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Medium" },
-            "far": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Far" }
+            "large": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Cone.Large" }
         },
         "areaofeffectline": {
-            "short": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Short" },
+            "small": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Small" },
             "medium": { "cost": 2, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Medium" },
-            "far": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Far" }
+            "large": { "cost": 3, "description": "Abilities.Components.Advantages.AreaOfEffect.Line.Large" }
         },
         "areaofeffectadvantages": {
             "smarttargeting": { "cost": 1, "description": "Abilities.Components.Advantages.AreaOfEffect.Advantages.SmartTargeting" }

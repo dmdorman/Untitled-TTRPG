@@ -78,8 +78,8 @@ Movement (Attributes that impact character movment)
 Control (Attributes that impact positioning)
     Pull - Pull targeted character (Note: it is not necessary to purchase ranged for this ability to work)
         Minor (1) - 1m
-        Middling (2) - 5m
-        Major (3) - 25m
+        Major (2) - 5m
+        Extreme (3) - 25m
 
     Push - Push targeted character
         Minor (1) - 1m

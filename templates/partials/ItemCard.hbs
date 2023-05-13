@@ -14,8 +14,8 @@
         <span class="card-name" placeholder="{{localize 'Item.Placeholder.Name'}}">{{item.name}}</span>
     </div>
 
-    <textarea class="card-textarea" placeholder="{{localize 'Item.Ability.Placeholder'}}" 
-        name="system.flavor" {{#if (eq customClass "small-card")}}disabled{{/if}}
+    <textarea class="card-textarea" placeholder="{{localize 'Item.Ability.Placeholder'}}" name="system.flavor" 
+        {{#if (eq customClass "small-card")}}disabled{{/if}} {{#unless item.system.inEditMode}}disabled{{/unless}}
     >{{item.system.flavor}}</textarea>
 
     {{#unless (eq customClass "small-card")}}
